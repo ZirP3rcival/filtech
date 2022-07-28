@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="#" role="button" aria-expanded="false" class="nav-link" title="Dashboard"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Dashboard</span></a>
+    <a href="?page=dashboard" role="button" aria-expanded="false" class="nav-link" title="Dashboard"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Dashboard</span></a>
 </li>
 <li class="nav-item">
     <a href="#" role="button" aria-expanded="false" class="nav-link" title="User Accounts Module"><i class="fa big-icon fa-users"></i> <span class="mini-dn">User Accounts Module</span></a>

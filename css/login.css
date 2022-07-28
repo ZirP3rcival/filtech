@@ -114,6 +114,10 @@ html, body {
     margin: 5px 0px;
 }
 
+.breadcome-list {
+    padding: 10px 20px!important;
+}
+
 @media (max-width: 767px){
 #dv-1 { flex-direction: column; }
 .div1 {

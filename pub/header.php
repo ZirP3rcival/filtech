@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/logo/favicon.png">
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
@@ -44,6 +44,8 @@
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/newstyles.css">
+    <link rel="stylesheet" href="../css/slidercarousel.css">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="../css/responsive.css">
@@ -54,3 +56,43 @@
 	.usrinfo { color: #000; }
 </style>
 </head>
+<?php
+ob_start();
+include ('connection.php');
+session_start(); 
+error_reporting (E_ALL ^ E_NOTICE); 
+
+$sqlay="SELECT * FROM tblsyr_data WHERE stat='Y'"; 
+$sqler = $con->query($sqlay);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$_SESSION['year']=$r['syr'];
+}
+
+$sqlaf="SELECT COUNT(id) AS fctr, typ, actv FROM `tblsinfo_data` WHERE typ='FACULTY'"; 
+$sqler = $con->query($sqlaf);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$_SESSION['fctr']=$r['fctr'];
+	$uctr=$r['fctr'];
+}
+
+$sqlfc="SELECT COUNT(id) AS fctr, typ, actv FROM `tblsinfo_data` WHERE typ='FACULTY' AND actv='Y'"; 
+$sqler = $con->query($sqlfc);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$fctr=$r['fctr'];
+	$_SESSION['factv']=($fctr/$uctr)*100;
+}
+
+$sqlas="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUDENT'"; 
+$sqler = $con->query($sqlas);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$_SESSION['sctr']=$r['sctr'];
+	$uctr=$r['sctr'];
+}
+
+$sqlsc="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUDENT' AND actv='Y'"; 
+$sqler = $con->query($sqlsc);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$sctr=$r['sctr'];
+	$_SESSION['sactv']=($sctr/$uctr)*100;
+}
+?>

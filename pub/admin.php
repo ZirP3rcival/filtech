@@ -15,7 +15,7 @@ $wp = $page.'.php';
     <div class="wrapper-pro">
     <!-- partial:partials/_navbar.html -->
         <?php include_once('sidebar_a.php');?>  
-        <?php include_once('topbar_a.php');?> 
+        <?php include_once('topbar.php');?> 
         <?php include_once('dashboard.php');?> 
     <!-- partial -->
     </div>
