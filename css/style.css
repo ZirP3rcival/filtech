@@ -1107,13 +1107,13 @@ ul.comment-action-st li a{
 /*  12.  Dashboard v.1.0 income
 /*----------------------------------------*/
 .income-monthly{
-	background:linear-gradient(to bottom, #b52ea4 0%, #f13800 100%);
+	background:linear-gradient(to bottom, #1b83c1 0%, #3acced 100%);
 }
 .orders-monthly{
 	background:linear-gradient(to bottom, #ad6c7c 0%, rgb(216, 0, 255) 100%);
 }
 .visitor-monthly{
-	background:linear-gradient(to bottom, #039477 0%, #2dda7a 100%);
+	background:linear-gradient(to bottom, #096a34 0%, #108f08 100%);
 }
 .user-monthly{
 	background:linear-gradient(to bottom, #b96f77 0%, #ca0e0e 100%);
@@ -3652,7 +3652,7 @@ ul.profile-contact-menu {
 	left:0px;
 	top:0px;
 	opacity:0;
-	width:180px;
+	width:280px;
 	border-radius:0;
 	border:0px solid #fff;
 	box-shadow:none;

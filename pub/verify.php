@@ -38,15 +38,17 @@ if(($rs['usr']==$username) && ($rs['pwd']==$epassword))
 	if($acct!='')
 	{ 
 		
-	$id=$_SESSION['id'];	
+	$id=$rs['id'];	
 	$_SESSION['usr']=$username;
 	$_SESSION['pwd']=$password;
 	$_SESSION['fname']=$rs['alyas']; 
 	$_SESSION['id']=$rs['id'];  
 	$_SESSION['errmsg'] = 'Account Login Successfully...';
 		
+		$sqlup = mysqli_query($con,"UPDATE `tblsinfo_data` SET login='Y' WHERE id='$id'");
+		
 		if($acct=='ADMIN'){
-	$_SESSION['account'] = $acct;	
+			$_SESSION['account'] = $acct;	
 			header("location:admin"); }
 		else if($acct=='FACULTY'){
 			$_SESSION['account'] = $acct;	

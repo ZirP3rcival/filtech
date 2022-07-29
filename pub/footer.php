@@ -11,9 +11,6 @@
         </div>
     </div>
     <!-- Footer End-->
-    <!-- jquery
-		============================================ -->
-        <script src="../js/vendor/jquery-1.11.3.min.js"></script>
         <!-- bootstrap JS
             ============================================ -->
         <script src="../js/bootstrap.min.js"></script>

@@ -3,7 +3,7 @@
                 <?php include_once('loguser.php');?> 
         <div class="left-custom-menu-adp-wrap">
             <ul class="nav navbar-nav left-sidebar-menu-pro">
-                <?php include_once('menulist_a.php');?> 
+                <?php include('menulist_a.php');?> 
             </ul>
         </div>
     </nav>

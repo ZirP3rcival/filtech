@@ -23,7 +23,7 @@ error_reporting (E_ALL ^ E_NOTICE);
                         <a href="#"><img src="../img/logo/banner_ft_large.png" style="margin-left: -50px;"></a>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-3" style="float: right;">
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-3 pdrt" style="float: right;">
                         <div class="header-right-info">
                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                 <li class="nav-item">
@@ -58,7 +58,7 @@ error_reporting (E_ALL ^ E_NOTICE);
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="breadcome-heading">
-                                <h2 class="form-control"><i class="fa fa-slideshare"></i> Welcome Students A.Y. <?=$_SESSION['year']?></h2>
+                                <h2 class="form-control"><i class="fa fa-slideshare"></i> Welcome Students A.Y. <strong><?=$_SESSION['year']?></strong></h2>
 <!--
                                     <form role="search" class="">
                                         <input type="text" placeholder="Search..." class="form-control">
@@ -90,7 +90,7 @@ error_reporting (E_ALL ^ E_NOTICE);
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul class="mobile-menu-nav">
-                                <?php include_once('menulist_a.php');?> 
+                                <?php include('menulist_a.php');?> 
                             </ul>
                         </nav>
                     </div>

@@ -6,9 +6,9 @@
 </li>
 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="System Settings"><i class="fa big-icon fa-leanpub"></i> <span class="mini-dn">System Settings</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-        <a href="inbox.html" class="dropdown-item">Academic Calendar Control</a>
-        <a href="view-mail.html" class="dropdown-item">Grade / Section Records</a>
-        <a href="compose-mail.html" class="dropdown-item">Faculty Scheduler</a>
+        <a href="inbox.html" class="dropdown-item"><i class="fa big-icon fa-calendar"></i> Academic Calendar Control</a>
+        <a href="view-mail.html" class="dropdown-item"><i class="fa big-icon fa-calculator"></i> Grade / Section Records</a>
+        <a href="compose-mail.html" class="dropdown-item"><i class="fa big-icon fa-th-list"></i> Faculty Scheduler</a>
     </div>
 </li>
 <li class="nav-item">
