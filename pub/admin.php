@@ -4,8 +4,15 @@ include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
 
+$id=$_SESSION['id'];
+if ($id=='')
+{
+ $_SESSION['errmsg'] ="Please Login to Gain Access!!!!";
+ header("location:index.php");
+}
+
 $page = $_REQUEST['page'];
-if($page=='') { $page='login'; }
+if($page=='') { $page='dashboard'; }
 $wp = $page.'.php';
 ?>
 <!doctype html>

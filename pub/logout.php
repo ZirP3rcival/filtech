@@ -9,7 +9,6 @@ $id=$_SESSION['id'];
 $sqlup = mysqli_query($con,"UPDATE `tblsinfo_data` SET login='N' WHERE id='$id'");
 //destroy all session
 unset($_SESSION['id']);
-session_destroy();
 $_SESSION['errmsg'] ="Account Logout Successfully!!!";
 header("location:index.php");
 exit;

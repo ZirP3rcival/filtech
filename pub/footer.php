@@ -14,6 +14,9 @@
         <!-- bootstrap JS
             ============================================ -->
         <script src="../js/bootstrap.min.js"></script>
+        <!-- bootsbox JS
+            ============================================ -->
+        <script src="../js/bootbox.min.js"></script>
         <!-- meanmenu JS
             ============================================ -->
         <script src="../js/jquery.meanmenu.js"></script>

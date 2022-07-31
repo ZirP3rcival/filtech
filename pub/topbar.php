@@ -34,9 +34,9 @@ error_reporting (E_ALL ^ E_NOTICE);
                                     </a>
                                     <div class="dropdown-header-top author-log dropdown-menu animated flipInX">
                                     <ul role="menu" >
-                                        <li><a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
+                                        <li><a href="?page=myaccount"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
                                         </li>
-                                        <li><a href="#"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
+                                        <li><a href="logout"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
                                         </li>
                                     </ul>
                                    </div>

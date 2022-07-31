@@ -137,7 +137,7 @@ $(document).ready(function(){
         // resetTimer is used to reset logout (redirect to logout) time 
         function resetTimer(){ 
             clearTimeout(autoLogoutTimer)
-            autoLogoutTimer = setTimeout(idleLogout,(2*60000)); // 1000 = 1 second
+            autoLogoutTimer = setTimeout(idleLogout,(10*60000)); // 1000 = 1 second
         } 
         // idleLogout is used to Actual navigate to logout
         function idleLogout(){

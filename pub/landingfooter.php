@@ -14,6 +14,9 @@
     <!-- jquery
 		============================================ -->
         <script src="../js/vendor/jquery-1.11.3.min.js"></script>
+        <!-- bootsbox JS
+            ============================================ -->
+        <script src="../js/bootbox.min.js"></script>
         <!-- bootstrap JS
             ============================================ -->
         <script src="../js/bootstrap.min.js"></script>

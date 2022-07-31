@@ -174,46 +174,6 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/5.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Holika</span> posted message on <span class="feed-author">Smith</span>.</h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <p class="message-feed-single">If you earn a BS in Justice of the Studies at GCU, you may be on able to pursue a career in an exciting field! Check out some future career options by reading our blog.</p>
-                                    <div class="feed-like-bt">
-                                        <a class="btn btn-xs btn-white-like"><i class="fa fa-thumbs-up"></i> Like </a>
-                                        <a class="btn btn-xs btn-white-like"><i class="fa fa-heart"></i> Love </a>
-                                    </div>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/6.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Monica Smith</span> posted a new blog. </h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="daily-feed-list daily-feed-bbm">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/1.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content daily-feed-cbbm">
-                                    <h4><span class="feed-author">Monica Smith</span> posted a new blog. </h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
