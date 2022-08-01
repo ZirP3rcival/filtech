@@ -181,6 +181,7 @@
                     <div class="sparkline9-list shadow-reset mg-tb-30">
                         <div class="sparkline9-graph dashone-comment">
 							<?php include_once('slider.php');?> 
+                         <div class="clear"></div>
                         </div>
                     </div>
                 </div>

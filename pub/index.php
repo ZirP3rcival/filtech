@@ -35,9 +35,9 @@ $wp = $page.'.php';
         <div class="content-inner-all">
             <!-- login Start-->
             <div class="login-form-area mg-t-40 mg-b-40">
-                <div class="container-fluid" id="dv-1" style="display:flex;">
-                        <div class="col-lg-8 col-xs-12 div1 mg-t-60">
-							<?php include_once('slider.php');?> 	  	
+                <div class="container-fluid" id="dv-1" style="display: flex; align-items: stretch; justify-content: center;">
+                        <div class="col-lg-7 col-xs-12 div1 sparkline9-graph mg-t-60" style="height: 460px;">
+							<?php include_once('dashboardx.php');?> 	  	
                         </div>
                         <div class="col-lg-4 col-xs-12 div2">
 							<?php include_once($wp);?> 

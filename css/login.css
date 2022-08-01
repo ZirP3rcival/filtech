@@ -34,7 +34,7 @@ html, body {
 }
 
 .mg-t-60 {
-    margin-top: 60px;
+    margin-top: 0px;
 }
 
 .login-fm
@@ -118,6 +118,21 @@ html, body {
     padding: 10px 20px!important;
 }
 
+.income-rate-total h3 {
+    color: #fff;
+    font-size: 23px;
+    padding-left: 15px;
+}
+
+.income-title {
+    padding: 15px 20px 5px 20px;
+    border-bottom: 1px solid rgba(233, 157, 128, 0.18);
+}
+
+.income-dashone-pro {
+    padding: 0px 10px 10px;
+}
+
 @media (max-width: 767px){
 #dv-1 { flex-direction: column; }
 .div1 {
@@ -128,6 +143,16 @@ html, body {
 	padding-right: 0px;
     padding-left: 0px;
         }
+	
+.mg-t-60 {
+    margin-top: 30px!important;
+}
+	
+.dashone-comment {
+    text-align: left;
+    height: 750px!important;
+}
+	
 .logo-wrap-pro {
     display: block;
 	}
