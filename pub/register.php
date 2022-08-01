@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="login-input-area register-mg-rt">
-                            <input type="text" name="text" />
+                            <input type="text" id="lnme" name="lnme" maxlength="30" />
                             <i class="fa fa-user login-user"></i>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="login-input-area register-mg-rt">
-                            <input type="text" name="text" />
+                            <input type="text" id="mnme" name="mnme" maxlength="30" />
                             <i class="fa fa-user login-user"></i>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="login-input-area register-mg-rt">
-                            <input type="text" name="text" />
+                            <input type="text" id="fnme" name="fnme" maxlength="30" />
                             <i class="fa fa-user login-user"></i>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="login-input-area register-mg-rt">
-                            <input type="email" name="email" />
+                            <input type="email" id="eadd" name="eadd" maxlength="60" />
                             <i class="fa fa-envelope login-user" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="login-input-area register-mg-rt">
-                            <input type="text" name="text" />
+                            <input type="number" id="cno" name="cno" maxlength="11" />
                             <i class="fa fa-mobile login-user"></i>
                         </div>
                     </div>

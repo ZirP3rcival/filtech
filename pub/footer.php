@@ -1,10 +1,10 @@
     <!-- Footer Start-->
-    <div class="footer-copyright-area">
+    <div class="footer-copyright-area login-fm">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-copy-right">
-                        <p class="copyright">&copy; <script>document.write(new Date().getFullYear())</script>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" target="_self">FILTECH WEB APPS</a>&nbsp;&nbsp;|&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;</p>
+                        <p class="copyright">&copy; <script>document.write(new Date().getFullYear())</script>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" target="_self" style="color: #fff!important; ">FILTECH WEB APPS</a>&nbsp;&nbsp;|&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;</p>
                     </div>
                 </div>
             </div>

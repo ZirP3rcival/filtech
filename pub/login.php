@@ -24,12 +24,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="login-input-head">
-                        <p>Password</p>
+                        <p>Password<span style="float: right; color: #000; font-size: 11px;"><input type="checkbox" onclick="myFunction()">&nbsp;Show Password</span></p>	
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="login-input-area">
-                        <input type="password" name="password" />
+                        <input type="password" id="password" name="password" />
                         <i class="fa fa-lock login-user"></i>
                     </div>
                                             <div class="row">
@@ -62,3 +62,14 @@
         </div>
 </form>
 </div>
+<!--#########################################################################-->  
+<script type="text/javascript">
+    function myFunction() {
+    var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+        } 
+</script> 

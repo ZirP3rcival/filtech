@@ -23,7 +23,7 @@ $wp = $page.'.php';
     <!-- partial:partials/_navbar.html -->
         <?php include_once('sidebar_a.php');?>  
         <?php include_once('topbar.php');?> 
-        <?php include_once('dashboard.php');?> 
+        <?php include_once($wp);?> 
     <!-- partial -->
     </div>
     <!-- Footer Start-->
