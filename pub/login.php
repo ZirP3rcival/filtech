@@ -1,4 +1,4 @@
-<div class="col-lg-12">
+<div class="col-lg-12" style="padding: 0px;">
 <form id="adminpro-form" class="adminpro-form" action="verify.php" method="post">
         <div class="login-bg" style="border-radius: 15px;">
             <div class="row" style="margin-bottom: 25px;">

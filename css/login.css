@@ -29,8 +29,8 @@ html, body {
     transition: all 0.3s;
 }
 
-.mg-t-40 {
-    margin-top: 40px;
+.mg-t-41 {
+    margin-top: 0px;
 }
 
 .mg-t-60 {
@@ -133,16 +133,31 @@ html, body {
     padding: 0px 10px 10px;
 }
 
+.div1 {
+        height: 460px;
+      }
+
+.footer-copyright-area {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+	padding: 10px 0px;
+}
 @media (max-width: 767px){
 #dv-1 { flex-direction: column; }
 .div1 {
-            order:2;
+    order:2;
+	height: 750px;
         }
 .div2 {
             order:1;
 	padding-right: 0px;
     padding-left: 0px;
         }
+
+.mg-t-41 {
+    margin-top: 40px;
+}
 	
 .mg-t-60 {
     margin-top: 30px!important;

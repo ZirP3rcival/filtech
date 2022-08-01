@@ -36,10 +36,10 @@ $wp = $page.'.php';
             <!-- login Start-->
             <div class="login-form-area mg-t-40 mg-b-40">
                 <div class="container-fluid" id="dv-1" style="display: flex; align-items: stretch; justify-content: center;">
-                        <div class="col-lg-7 col-xs-12 div1 sparkline9-graph mg-t-60" style="height: 460px;">
+                        <div class="col-lg-9 col-xs-12 div1 sparkline9-graph mg-t-60">
 							<?php include_once('dashboardx.php');?> 	  	
                         </div>
-                        <div class="col-lg-4 col-xs-12 div2">
+                        <div class="col-lg-3 col-xs-12 div2">
 							<?php include_once($wp);?> 
                         </div>
                 </div>
@@ -47,8 +47,8 @@ $wp = $page.'.php';
             <!-- login End-->    
         </div>
     </div>
+<?php include_once('landingfooter.php');?>      
 </div>    
-<?php include_once('landingfooter.php');?>  
 </body>
 </html>
 <!-- ################################################################################# --> 

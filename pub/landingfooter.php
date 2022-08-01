@@ -1,5 +1,5 @@
     <!-- Footer Start-->
-    <div class="footer-copyright-area">
+    <div class="footer-copyright-area login-fm">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
