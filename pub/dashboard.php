@@ -128,7 +128,7 @@
                         <div class="sparkline11-graph dashone-comment dashtwo-comment comment-scrollbar">
                             <div class="daily-feed-list">
                                 <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/1.jpg" alt="" />
+                                    <a href="#"><img src="../img/notification/1.jpg" alt="" />
                                     </a>
                                 </div>
                                 <div class="daily-feed-content">
@@ -140,7 +140,7 @@
                             <div class="clear"></div>
                             <div class="daily-feed-list">
                                 <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/2.jpg" alt="" />
+                                    <a href="#"><img src="../img/notification/2.jpg" alt="" />
                                     </a>
                                 </div>
                                 <div class="daily-feed-content">
@@ -152,7 +152,7 @@
                             <div class="clear"></div>
                             <div class="daily-feed-list">
                                 <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/3.jpg" alt="" />
+                                    <a href="#"><img src="../img/notification/3.jpg" alt="" />
                                     </a>
                                 </div>
                                 <div class="daily-feed-content">
@@ -164,7 +164,7 @@
                             <div class="clear"></div>
                             <div class="daily-feed-list">
                                 <div class="daily-feed-img">
-                                    <a href="#"><img src="img/notification/4.jpg" alt="" />
+                                    <a href="#"><img src="../img/notification/4.jpg" alt="" />
                                     </a>
                                 </div>
                                 <div class="daily-feed-content">

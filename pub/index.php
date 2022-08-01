@@ -37,7 +37,7 @@ $wp = $page.'.php';
             <div class="login-form-area mg-t-40 mg-b-40">
                 <div class="container-fluid" id="dv-1" style="display: flex; align-items: stretch; justify-content: center;">
                         <div class="col-lg-9 col-xs-12 div1 sparkline9-graph mg-t-60">
-							<?php include_once('dashboardx.php');?> 	  	
+							<?php include_once('loginboard.php');?> 	  	
                         </div>
                         <div class="col-lg-3 col-xs-12 div2">
 							<?php include_once($wp);?> 

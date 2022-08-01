@@ -9,12 +9,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <div class="login-input-head">
                         <p>Username</p>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="login-input-area">
                         <input type="text" name="username" />
                         <i class="fa fa-user login-user" aria-hidden="true"></i>
@@ -22,12 +22,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <div class="login-input-head">
                         <p>Password</p>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="login-input-area">
                         <input type="password" name="password" />
                         <i class="fa fa-lock login-user"></i>

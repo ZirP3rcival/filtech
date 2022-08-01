@@ -43,7 +43,7 @@ html, body {
 }
 
 .login-title {
-    padding: 15px;
+    padding: 5px;
 }
 
 .login-bg {
@@ -143,6 +143,15 @@ html, body {
     width: 100%;
 	padding: 10px 0px;
 }
+
+.login-input-head {
+    padding-left: 0px!important; 
+}
+
+.login-input-area, .login-textarea-area {
+    margin-right: 0px!important;
+}
+
 @media (max-width: 767px){
 #dv-1 { flex-direction: column; }
 .div1 {
