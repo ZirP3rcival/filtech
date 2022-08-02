@@ -64,6 +64,8 @@ ob_start();
 include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
+
+$id=$_SESSION['id'];
 //Select Active School Year
 $sqlay="SELECT * FROM tblsyr_data WHERE stat='Y'"; 
 $sqler = $con->query($sqlay);	
@@ -124,6 +126,22 @@ $sqlmd="SELECT COUNT(id) AS auctr, actv, login FROM tblsinfo_data WHERE actv='Y'
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['auctr']=$r['auctr'];
+}
+
+$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc FROM tblsinfo_data WHERE id='$id'"; 
+$sqler = $con->query($sqlay);	
+while($r = mysqli_fetch_assoc($sqler)) {
+	$photo='data:image/png;base64,'.''.$r['ploc'];
+	$ploc = $r['ploc'];
+	$eadd = $r['eadd'];
+	$sqt = $r['sqt'];
+	$sqa = $r['sqa'];
+	$usr = $r['usr'];
+	$pwd = $_SESSION['pwd'];
+	$lnme = $r['lnme'];
+	$mnme = $r['mnme'];
+	$fnme = $r['fnme'];
+	$cno= $r['cno'];
 }
 ?>
 <script>
