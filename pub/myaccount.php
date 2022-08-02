@@ -8,6 +8,7 @@
     <!-- user account info start -->
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">
+<form action="" method="post" style="width: 100%; margin-bottom:0px;" class="form-horizontal" enctype="multipart/form-data" role="form" id="frmUP">            
             <div class="row rowflx">
 <div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
@@ -96,7 +97,7 @@
 						</script>
 
 						<div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Username : </span></div>
-						<div class="col-xs-12 col-md-8" style="float: right;">
+						<div class="col-xs-12 col-md-8" style="float: right; margin-top:10px;">
 						<input type="text" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Nw_Usrname" name="pusr" placeholder="Username" onkeyup="chcknme();return false;" onBlur="chcknme();return false;" value="<?=$usr?>"/>
 						<div class="col-xs-12 col-md-12" id="nme_status" style="font-size:11px; word-wrap:normal; font-weight:bold; color:#0E04F7;"></div>
 						<input type="hidden" name="nme_status" id="nme_status_hidden" />
@@ -269,7 +270,7 @@
 			</div>
 	</div>
 </div>            
-<div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31">
+<div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -280,24 +281,32 @@
 <div class="row" style="margin: 15px 0px 20px;">
 <div class="col-lg-12 col-xs-12 message-box contact-box"><h5>Current Profle Picture : </h5></div>
 <div class="col-xs-12 col-md-12" style="display:table-cell; vertical-align:middle; text-align:center">
-<img src="<?=$photo?>" style="width:40%; border-left:1px solid #fff; border-top:1px solid #fff; border-right:2px solid #000; border-bottom:2px solid #000;"  onerror="this.src='../img/missing.png'"  />
+<img id="img" src="<?=$photo?>" style="width:50%; border-left:1px solid #fff; border-top:1px solid #fff; border-right:2px solid #000; border-bottom:2px solid #000;"  onerror="this.src='../img/missing.png'"  />
 </div>
 
 <div class="form-group" style="padding:35px 10px 10px 10px; margin: 0px;">
-<input type="hidden" class="form-control" id="picr" name="picr" value="<?=$ploc;?>">
-<label class="col-xs-12 col-md-12" style="padding-left: 15px; float: left; color:#000; margin-top: 15px;">Browse New User Photo : </label> 
+<input type="text" class="form-control" id="picr" name="picr" value="<?=$ploc;?>">
+<!--<label class="col-xs-12 col-md-12" style="padding-left: 15px; float: left; color:#000; margin-top: 15px;">Browse New User Photo : </label> -->
 	<div class="clearfix"></div>
-<div style="float: left;" class="col-xs-12 col-md-12">
-    <!--img id="img" src="#" alt="your image" /-->
-    <label for="files" class="btn btn-info mdi mdi-camera" style="font-size: 16px;"> <span style="font-size: 14px;">&nbsp;&nbsp;Browse Photo</span></label>
-    <input style="visibility: hidden; position: absolute;" id="files" class="form-control" type="file" name="files"  accept="image/*" capture="camera">
-</div>
+
 <!--?php if($did=='') { ?-->
+<!--
 <div class="clearfix"></div>
 <div class="col-xs-12 col-md-12" style="display:table-cell; vertical-align:middle; text-align:center">   
     <img id="img" src="#" alt="your image" style="display: none"/> 
 </div>
+-->
 </div>
+</div>
+<div style="float: left;" class="col-xs-12 col-md-6">
+    <!--img id="img" src="#" alt="your image" /-->
+    <label for="files" class="btn btn-info mdi mdi-camera" style="font-size: 14px;"> <span style="font-size: 14px;">&nbsp;&nbsp;Browse Photo</span></label>
+    <input style="visibility: hidden; position: absolute;" id="files" class="form-control" type="file" name="files"  accept="image/*" capture="camera">
+</div>   
+<div style="float: right;" class="col-xs-12 col-md-6">
+	<button type="submit" class="btn btn-success" id="unwsuba" form="frmUP" onclick="return Validate()"/>Update Account</button>
+</div>                                                                  
+
 <script type="text/javascript">
 function readURL(input) {
 
@@ -308,7 +317,9 @@ function readURL(input) {
 			$('#mbg').show();
 			$('#lbl').show();
             $('#img').show().attr('src', e.target.result);
-			alert(e.target.result);
+			var strToReplace=e.target.result;
+			var strImage = strToReplace.replace(/^data:image\/[a-z]+;base64,/, "");
+			$('#picr').val(strImage);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -318,20 +329,12 @@ function readURL(input) {
 $("#files").change(function(){
     readURL(this);
 });
-</script>
-
-
-</div>
-   
-<div class="card-block card-bottom" style="margin:0px; margin-top:-10px;">
-	<button type="submit" class="btn btn-success" id="unwsuba" form="frmUP" onclick="return Validate()" style="float: right; margin: 15px;"/>Update</button>
-	<div class="clearfix"></div>
-</div>                                                                  
-                             
+</script>                             
 </div>
 	</div>
 </div> 
             </div>
+</form>            
         </div>
     </div>
     <!-- user account info end -->
