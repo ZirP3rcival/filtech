@@ -31,13 +31,13 @@ $sql="UPDATE tblsinfo_data SET lnme='$T0', fnme='$T1', mnme='$T2', cno='$T3', sq
   { $_SESSION['errmsg']='Error Updating User Account!!!<br>Please Check All Entries Properly....'; 
     session_write_close();
 	echo $sql;
-    header("location:admin?page=myaccount");
+    header("location:admin?page=my_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='User Account Record Updated Successfully!'; 
      session_write_close();
      echo $sql.'-'.$cimg.'-'.$target_path ;
-	 header("location:admin?page=myaccount");
+	 header("location:admin?page=my_account");
      exit;
   } 

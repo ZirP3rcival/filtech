@@ -1,6 +1,7 @@
 <?php
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
+$title=str_replace('_',' ',$page);
 ?>
 <!-- Header top area start-->
 <div class="content-inner-all">
@@ -34,7 +35,7 @@ error_reporting (E_ALL ^ E_NOTICE);
                                     </a>
                                     <div class="dropdown-header-top author-log dropdown-menu animated flipInX">
                                     <ul role="menu" >
-                                        <li><a href="?page=myaccount"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
+                                        <li><a href="?page=my_account"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
                                         </li>
                                         <li><a href="logout"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
                                         </li>
@@ -59,19 +60,13 @@ error_reporting (E_ALL ^ E_NOTICE);
                             <div class="col-lg-6">
                                 <div class="breadcome-heading">
                                 <h2 class="form-control"><i class="fa fa-slideshare"></i> Welcome Students A.Y. <strong><?=$_SESSION['year']?></strong></h2>
-<!--
-                                    <form role="search" class="">
-                                        <input type="text" placeholder="Search..." class="form-control">
-                                        <a href=""><i class="fa fa-search"></i></a>
-                                    </form>
--->
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <ul class="breadcome-menu">
                                     <li><a href="?page=dashboard">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod"><?=ucfirst($page)?></span>
+                                    <li><span class="bread-blod"><?=ucwords($title)?></span>
                                     </li>
                                 </ul>
                             </div>
