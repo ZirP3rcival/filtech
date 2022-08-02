@@ -8,7 +8,7 @@
     <!-- user account info start -->
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">
-<form action="" method="post" style="width: 100%; margin-bottom:0px;" class="form-horizontal" enctype="multipart/form-data" role="form" id="frmUP">            
+<form action="myaccountcontroller.php" method="post" style="width: 100%; margin-bottom:0px;" class="form-horizontal" enctype="multipart/form-data" role="form" id="frmUP">            
             <div class="row rowflx">
 <div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
@@ -285,7 +285,7 @@
 </div>
 
 <div class="form-group" style="padding:35px 10px 10px 10px; margin: 0px;">
-<input type="text" class="form-control" id="picr" name="picr" value="<?=$ploc;?>">
+<input type="hidden" class="form-control" id="picr" name="picr" value="<?=$ploc;?>">
 <!--<label class="col-xs-12 col-md-12" style="padding-left: 15px; float: left; color:#000; margin-top: 15px;">Browse New User Photo : </label> -->
 	<div class="clearfix"></div>
 
@@ -298,12 +298,12 @@
 -->
 </div>
 </div>
-<div style="float: left;" class="col-xs-12 col-md-6">
+<div style="float: left;" class="col-xs-6 col-md-6">
     <!--img id="img" src="#" alt="your image" /-->
     <label for="files" class="btn btn-info mdi mdi-camera" style="font-size: 14px;"> <span style="font-size: 14px;">&nbsp;&nbsp;Browse Photo</span></label>
     <input style="visibility: hidden; position: absolute;" id="files" class="form-control" type="file" name="files"  accept="image/*" capture="camera">
 </div>   
-<div style="float: right;" class="col-xs-12 col-md-6">
+<div style="float: right;" class="col-xs-6 col-md-6">
 	<button type="submit" class="btn btn-success" id="unwsuba" form="frmUP" onclick="return Validate()"/>Update Account</button>
 </div>                                                                  
 
