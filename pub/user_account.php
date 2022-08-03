@@ -51,7 +51,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				$cp=$currentPageRV;
 
 				if($sitm!='') {	
-				$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and alyas LIKE '$sitm' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
+				$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
 				else  {	
 				$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
 
@@ -72,8 +72,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				<div class="col-xs-12 col-md-4 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
 
 				<?php if($r['actv']=='N') { ?>
-				<a href="multi-proc?prc=uact&did=<?=$r['id'];?>&mprc=deluacct&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Account')">
-				<i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
+				<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right;font-size: 18px; padding: 0px 6px;"></button>
 				<?php } ?>
 
 				</div>
@@ -109,15 +108,15 @@ error_reporting (E_ALL ^ E_NOTICE);
 				   }
 				  else
 				   { 
-					 echo '<a class="btn btn-default btn-sm" style="background:#162831; margin-left:2px; color:#fff; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageRV='.$x.'"><strong>'.$x.'</strong></a>';    }
+					 echo '<a class="btn btn-default btn-sm" style="background:#162831; margin-left:2px; color:#fff; font-size:11px;" href="?page=user_account&ppageRV='.$x.'"><strong>'.$x.'</strong></a>';    }
 				}
 				 echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesRV .'</strong> pages</span>'; 
 
 				if($currentPageRV < $totalPagesRV) 
-				{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageRV='.($currentPageRV+1).'"></a>'; }
+				{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=user_account&ppageRV='.($currentPageRV+1).'"></a>'; }
 				?>
 							</div>
-							<div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="<?php $pgn;?>?prc=<?php echo $prc;?>&ppageRV=<?php echo ($currentPageRV+1);?>"> next </a></div>
+							<div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="?page=user_account&ppageRV=<?php echo ($currentPageRV+1);?>"> next </a></div>
 				<div class="clearfix"></div>	        
 						  </div>
 				</div>  
