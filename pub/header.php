@@ -84,7 +84,7 @@ $sqlfc="SELECT COUNT(id) AS fctr, typ, actv FROM `tblsinfo_data` WHERE typ='FACU
 $sqler = $con->query($sqlfc);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$fctr=$r['fctr'];
-	$_SESSION['factv']=($fctr/$uctr)*100;
+	$_SESSION['factv']=number_format(($fctr/$uctr)*100,2);
 }
 //Select and count Student Account
 $sqlas="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUDENT'"; 
@@ -98,7 +98,7 @@ $sqlsc="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUD
 $sqler = $con->query($sqlsc);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$sctr=$r['sctr'];
-	$_SESSION['sactv']=($sctr/$uctr)*100;
+	$_SESSION['sactv']=number_format(($sctr/$uctr)*100,2);
 }
 //Select and Count  Uploaded Lessons
 $sqlmd="SELECT COUNT(id) AS lctr FROM tblmodule_data"; 
@@ -112,7 +112,7 @@ $sqlmd="SELECT COUNT(id) AS alctr, syr FROM `tblmodule_data` WHERE syr='$syr'";
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$alctr=$r['alctr'];
-	$_SESSION['alctr']=($lctr/$alctr)*100;
+	$_SESSION['alctr']=number_format(($lctr/$alctr)*100,2);
 }
 //Select and Count All Account
 $sqlmd="SELECT COUNT(id) AS uctr, actv FROM tblsinfo_data WHERE actv='Y'"; 

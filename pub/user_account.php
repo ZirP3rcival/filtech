@@ -17,7 +17,7 @@ error_reporting (E_ALL ^ E_NOTICE);
     <!-- user account info start -->
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">           
-            <div class="row rowflx">
+            <div class="row rowflx" style="margin-bottom: 50px;">
 <div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
@@ -57,24 +57,32 @@ error_reporting (E_ALL ^ E_NOTICE);
 
 				  while($r = mysqli_fetch_assoc($dsql))
 				   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
+					 if($r['actv']=='Y') { $actv='Active Account'; $clr='#0A65D1'; $stat='N'; }
+					 else { $actv='Inactive Account'; $clr='#D9534F'; $stat='Y'; }
 					?>                                   
-				<!-- Message -->
-
 				<div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
-
 				<div class="col-xs-3 col-md-2" style="padding-bottom: 0px;">
 				 <img src="<?=$usrpic?>" style="width: 60%;">
 				 </div>
-				<div class="col-xs-9 col-md-6" style="padding-bottom: 0px;">
+				<div class="col-xs-9 col-md-8" style="padding-bottom: 0px;">
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 12px; font-weight: 700;"><?=strtoupper($r['alyas'])?></span><br>
-				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 11px; "><?= $r['typ'];?></span>
+				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$r['typ'];?></span> | 
+				 <span style="color: <?=$clr;?>; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$actv;?></span>
 				 </div>
-				<div class="col-xs-12 col-md-4 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
+				<div class="col-xs-12 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
 
 				<?php if($r['actv']=='N') { ?>
-				<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right;font-size: 18px; padding: 0px 6px;"></button>
+					<a href="useraccountcontroller.php?prc=D&id=<?=$r['id']?>">
+						<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right; font-size: 18px; padding: 0px 6px;"></button>
+					</a>
 				<?php } ?>
-
+				<?php if($r['actv']=='N')  { ?>
+					<a href="useraccountcontroller.php?prc=A&id=<?=$r['id'];?>&set=<?=$stat?>" onclick="return confirm('Activate  User Account?')">
+						<button class="btn btn-info btn-sm glyphicon glyphicon-ok" title="Activate User Account" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
+				<?php } else if($r['actv']=='Y')  { ?>
+					<a href="useraccountcontroller.php?prc=A&id=<?=$r['id'];?>&set=<?=$stat?>" onclick="return confirm('De-Activate  User Account?')">
+						<button class="btn btn-success btn-sm glyphicon glyphicon-remove" title="De-Activate  User Account" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
+				<?php } ?>
 				</div>
 				 <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
 
@@ -90,9 +98,8 @@ error_reporting (E_ALL ^ E_NOTICE);
 				$row = mysqli_fetch_assoc($sql);
 				$totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);
 
-				//echo $rowsPerPageRV.' '.$totalPagesRV.' '.$currentPageRV;
 				if($currentPageRV > 1) 
-				{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageRV='.($currentPageRV-1).'"></a>'; }
+				{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=user_account&ppageRV='.($currentPageRV-1).'"></a>'; }
 
 				if($totalPagesRV < $rowsPerPageRV) { $d=$totalPagesRV; }
 				else { $d=$currentPageRV + $rowsPerPageRV; }
@@ -116,7 +123,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=user_account&ppageRV='.($currentPageRV+1).'"></a>'; }
 				?>
 							</div>
-							<div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="?page=user_account&ppageRV=<?php echo ($currentPageRV+1);?>"> next </a></div>
+							<div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="?page=user_account&ppageRV=<?=($currentPageRV+1);?>"> next </a></div>
 				<div class="clearfix"></div>	        
 						  </div>
 				</div>  
@@ -124,7 +131,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 			</div>
 	</div>
 </div>  
-<div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31">
+<div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -132,7 +139,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Please Accomplish the following</h6>
 		  </div>
 <div class="card-block box" style="padding: 10px 10px 20px 10px;">
-	<form action="multi-proc?mprc=nuacct&pgn=<?php echo $pgn;?>" method="post" style="margin-bottom:0px;" class="form-horizontal" role="form" id="frmUACT" >
+	<form action="useraccountcontroller.php?prc=S" method="post" style="margin-bottom:0px;" class="form-horizontal" role="form" id="frmUACT" >
 	<div class="row">
 
 	<div class="col-xs-12 col-md-12">
@@ -160,26 +167,14 @@ error_reporting (E_ALL ^ E_NOTICE);
 	</div>
 	 </form>                                                   
 </div>
-<div class="card-block card-bottom">
-  <button type="submit" class="btn btn-success" style="font-size: 14px; float: right;" form="frmUACT">Save</button>  
+<div class="card-block card-bottom" style="text-align: center;">
+  <button type="submit" class="btn btn-success" style="font-size: 14px; margin: auto;" form="frmUACT"> Submit </button>  
   <div class="clearfix">  </div> 
 </div>
 	</div>
 </div>  
-            </div>
-</form>            
+            </div>           
         </div>
     </div>
     <!-- user account info end -->
 </div>
-<!--#########################################################################-->  
-<script type="text/javascript">
-    function myFunction() {
-    var x = document.getElementById("D_Password");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-        } 
-</script> 

@@ -1,5 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
+#sidebar {
+    width: 250px!important;
+}
+
+.content-inner-all {
+    margin-left: 250px!important;
+    transition: all 0.3s;
+}
+
 .logo {
     padding-top: 15px;
     text-align: center;
@@ -89,6 +98,22 @@
 }
 
 @media (max-width: 767px){
+#sidebar {
+    width: 0px!important;
+}
+
+.content-inner-all {
+    margin-left: 0px!important;
+}	
+	
+.sidebar-header {
+    background: linear-gradient(to bottom, #ff9966 0%, #ffffff 100%);
+}	
+	
+.mean-container .mean-nav ul li a {
+    background: rgb(255 255 255 / 50%);
+}
+	
 	.pdrt { padding-right: 0px; }
 	.mg-tb-30 {
      margin: 30px 0px; 
