@@ -13,14 +13,11 @@ $T1 = $_REQUEST['set'];
 $sql="UPDATE tblsinfo_data SET actv='$T1' WHERE id='$T0'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Setting User Account Status!!!'; 
-    session_write_close();
-	echo $sql;
     header("location:admin?page=user_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='User Account Status Set Successfully!!!'; 
-     session_write_close();
      header("location:admin?page=user_account");
      exit;
   }  
@@ -32,14 +29,11 @@ $T0 = $_REQUEST['id'];
 $sql="DELETE FROM tblsinfo_data WHERE id='$T0'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting User Account !!!'; 
-    session_write_close();
-	echo $sql;
     header("location:admin?page=user_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='User Account Deleted Successfully!!!'; 
-     session_write_close();
      header("location:admin?page=user_account");
      exit;
   }  
@@ -54,14 +48,11 @@ $T8 = mysqli_real_escape_string($con,$_POST['atyp']);
 $sql="INSERT INTO tblsinfo_data(eadd,usr,pwd,actv,typ) VALUES ('$T4','$T6',MD5('$T7'),'Y','$T8')";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Saving New User Account!<br>Please Re-type All Entries Properly....'; 
-    session_write_close();
-	echo $sql;
     header("location:admin?page=user_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='New User Account Submitted Successfully!<br>Please advise user to login and finish profiling'; 
-     session_write_close();
      header("location:admin?page=user_account");
      exit;
   }  

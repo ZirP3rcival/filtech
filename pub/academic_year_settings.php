@@ -48,15 +48,15 @@ $dsql = mysqli_query($con,"SELECT * from tblsyr_data ORDER BY syr DESC LIMIT $of
  <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px; font-weight: 700;"><?=$r['syr'];?></span>
  </div>
 <div class="col-xs-12 col-md-5 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
-<a href="academicyearcontroller?prc=D&id=<?=$r['id'];?>&mprc=delsyr&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Record?')">
-<i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete Forum Record" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
+<a href="academicyearcontroller?prc=D&id=<?=$r['id'];?>" onclick="return confirm('Delete this Record?')">
+<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete Forum Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
 <?php if($r['stat']=='N')  { ?>
-<a href="academicyearcontroller?prc=A&id=<?=$r['id'];?>&set=Y&pgn=<?=$pgn;?>" onclick="return confirm('Activate Academic Year?')">
+<a href="academicyearcontroller?prc=A&id=<?=$r['id'];?>&set=Y" onclick="return confirm('Activate Academic Year?')">
 <button class="btn btn-info btn-sm glyphicon glyphicon-ok" title="Activate Academic Year" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
 <?php } ?>
 <?php if($r['stat']=='Y')  { ?>
-<a href="academicyearcontroller?prc=A&id=<?=$r['id'];?>&set=N&pgn=<?=$pgn;?>" onclick="return confirm('De-Activate Academic Year?')">
+<a href="academicyearcontroller?prc=A&id=<?=$r['id'];?>&set=N" onclick="return confirm('De-Activate Academic Year?')">
 <button class="btn btn-success btn-sm glyphicon glyphicon-remove" title="De-Activate Academic Year" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
 <?php } ?>
 </div>
@@ -87,11 +87,11 @@ else { $d=$totalPagesRV; }
 for ($x=1;$x<=$d;$x++)
 {  if ($cp==$x) 
    { 
-     echo '<a class="btn btn-default btn-sm" style="background:#22AF46; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+     echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
    }
   else
    { 
-     echo '<a class="btn btn-default btn-sm" style="background:#22AF46; margin-left:2px; color:#fff; font-size:11px;" href="?page=academic_year_settings&ppageRV='.$x.'"><strong>'.$x.'</strong></a>';    }
+     echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; color:#fff; font-size:11px;" href="?page=academic_year_settings&ppageRV='.$x.'"><strong>'.$x.'</strong></a>';    }
 }
  echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesRV .'</strong> pages</span>'; 
  
@@ -116,9 +116,9 @@ if($currentPageRV < $totalPagesRV)
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
-<form action="academicyearcontroller?mprc=svesyr&pgn=<?=$pgn;?>" method="post" class="form-horizontal" id="frmcsyr" name="frmcsyr" style="margin:0px; padding:0px 12px;" role="form">
+<form action="academicyearcontroller?prc=S" method="post" class="form-horizontal" id="frmcsyr" name="frmcsyr" style="margin:0px; padding:0px 12px;" role="form">
                       <div class="form-group" style="padding: 0px 15px;">
-                        <label for="username">New School Year :</label>
+                        <label for="username">New Academic Year :</label>
                         <input name="nsyr" type="text" class="form-control" id="nsyr" maxlength="11" placeholder="Enter School Year"  required>
                       </div>
 </form>

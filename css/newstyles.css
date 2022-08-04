@@ -97,6 +97,11 @@
     width: 200px;
 }
 
+.sidebar-header img {
+    border-radius: 25%;
+    width: 75%;
+}
+
 @media (max-width: 767px){
 #sidebar {
     width: 0px!important;
