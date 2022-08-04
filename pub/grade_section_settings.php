@@ -51,11 +51,11 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd DESC LIMIT $
  <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px; font-weight: 700;"><?=$r['grd'];?></span>
  </div>
 <div class="col-xs-12 col-md-5 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
-<a href="multi-proc?prc=grsc&did=<?=$r['id'];?>&mprc=delgrd&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Record?')">
-<i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
+<a href="gradesectioncontroller.php?prc=D&id=<?=$r['id'];?>" onclick="return confirm('Delete this Record?')">
+<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
 <a href="<?=$pgn;?>?prc=grsc&did=<?=$r['id'];?>" onclick="return confirm('View Grade Level Sections')">
-<i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Grade Level Sections" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></i>
+<button class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Grade Level Sections" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></button>
 </a>
 
 </div>
@@ -150,7 +150,7 @@ INNER JOIN tblgrade_data ON tblsection_data.grd = tblgrade_data.id ORDER BY tbls
   
 <div class="col-xs-6 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
 <a href="multi-proc?prc=grsc&did=<?=$r['xid'];?>&mprc=delsec&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Record?')">
-<i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
+<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
 </div>
  <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
@@ -216,7 +216,7 @@ if($currentPageSC < $totalPagesSC)
        </h4>
       </div>   
      <div class="modal-body">       
-<form action="multi-proc?mprc=svegrd&pgn=<?=$pgn;?>" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
+<form action="gradesectioncontroller.php?prc=G" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
                       <div class="form-group">
                         <label for="username">New Grade Level :</label>
                         <input name="xgrd" type="text" class="form-control" id="xgrd" maxlength="11" placeholder="Enter Grade Level"  required>
@@ -240,7 +240,7 @@ if($currentPageSC < $totalPagesSC)
        </h4>
       </div>   
      <div class="modal-body">       
-<form action="multi-proc?mprc=svesec&pgn=<?=$pgn;?>" method="post" class="form-horizontal" id="fcsec" name="fcsec" style="margin:0px; padding:0px 12px;" role="form">
+<form action="gradesectioncontroller.php?prc=S" method="post" class="form-horizontal" id="fcsec" name="fcsec" style="margin:0px; padding:0px 12px;" role="form">
 
 <div class="form-group">
    <label for="username">Select Grade Level :</label>
