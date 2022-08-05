@@ -54,7 +54,7 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd DESC LIMIT $
 <a href="gradesectioncontroller.php?prc=D&id=<?=$r['id'];?>" onclick="return confirm('Delete this Record?')">
 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
-<a href="<?=$pgn;?>?prc=grsc&did=<?=$r['id'];?>" onclick="return confirm('View Grade Level Sections')">
+<a href="#" id="viewgs" data-grd="<?=$r['grd'];?>" onclick="return confirm('View Grade Level Sections')">
 <button class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Grade Level Sections" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></button>
 </a>
 
@@ -107,6 +107,7 @@ if($currentPageRV < $totalPagesRV)
 </div>
 	</div>
 </div>  
+
 <div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
@@ -149,7 +150,7 @@ INNER JOIN tblgrade_data ON tblsection_data.grd = tblgrade_data.id ORDER BY tbls
  </div>
   
 <div class="col-xs-6 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
-<a href="multi-proc?prc=grsc&did=<?=$r['xid'];?>&mprc=delsec&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Record?')">
+<a href="gradesectioncontroller.php?prc=R&id=<?=$r['xid'];?>" onclick="return confirm('Delete this Record?')">
 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
 </div>
@@ -200,7 +201,7 @@ if($currentPageSC < $totalPagesSC)
 		<div class="clearfix">  </div>                           
 </div>
 	</div>
-</div>  
+</div>    
             </div>           
         </div>
     </div>
@@ -270,3 +271,33 @@ $csql = mysqli_query($con,"SELECT * FROM tblgrade_data order by grd ASC");
   </div>
 </div>
 <!-- ############################################################################################ -->
+<!-- for modal display -->
+<div id="POPMODAL" class="modal fade">
+  <div class="modal-dialog modwidth">
+    <div class="modal-content">
+      <div class="modal-header login-fm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title modcap" style="color: #fff;"></h4>
+      </div>
+      <div class="modal-body" id="content" style="padding-top: 0px;">
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- ############################################################################################ -->
+<script>
+$(document).ready(function(){
+
+$(document).on("click","#viewgs",function() {
+	var grd=$(this).data('grd');
+	$('#content').empty();
+	$("#content").load('viewgradesection.php?grd='+grd);
+	$('.modwidth').css('width','40%');
+	$('.modcap').empty();
+	$(".modcap").append('Grade Level and Section Record');
+	$('#POPMODAL').modal('show');
+});	
+	
+});
+</script>	
