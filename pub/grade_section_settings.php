@@ -48,13 +48,13 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd DESC LIMIT $
 <div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 
 <div class="col-xs-12 col-md-7" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px; font-weight: 700;"><?=$r['grd'];?></span>
+ <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px; font-weight: 700;"><?=$r['grd'];?></span>
  </div>
 <div class="col-xs-12 col-md-5 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
 <a href="gradesectioncontroller.php?prc=D&id=<?=$r['id'];?>" onclick="return confirm('Delete this Record?')">
 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
-<a href="#" id="viewgs" data-grd="<?=$r['grd'];?>" onclick="return confirm('View Grade Level Sections')">
+<a href="#" id="viewgs" data-id="<?=$r['id'];?>" onclick="return confirm('View Grade Level Sections')">
 <button class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Grade Level Sections" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></button>
 </a>
 
@@ -142,11 +142,11 @@ INNER JOIN tblgrade_data ON tblsection_data.grd = tblgrade_data.id ORDER BY tbls
 <div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 
 <div class="col-xs-12 col-md-4" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px;"><?=$r['grde'];?></span>
+ <span style="color: #4A4646; padding: 4px 10px 4px 0px; font-size: 13px;"><?=$r['grde'];?></span>
  </div>
  
 <div class="col-xs-6 col-md-6" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px; font-weight: 700;"><?=$r['sect'];?></span>
+ <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px; font-weight: 700;"><?=$r['sect'];?></span>
  </div>
   
 <div class="col-xs-6 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
@@ -290,10 +290,10 @@ $csql = mysqli_query($con,"SELECT * FROM tblgrade_data order by grd ASC");
 $(document).ready(function(){
 
 $(document).on("click","#viewgs",function() {
-	var grd=$(this).data('grd');
+	var id=$(this).data('id');
 	$('#content').empty();
-	$("#content").load('viewgradesection.php?grd='+grd);
-	$('.modwidth').css('width','40%');
+	$("#content").load('viewgradesection.php?id='+id);
+	$('.modwidth').css('width','45%');
 	$('.modcap').empty();
 	$(".modcap").append('Grade Level and Section Record');
 	$('#POPMODAL').modal('show');

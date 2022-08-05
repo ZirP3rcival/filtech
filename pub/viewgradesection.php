@@ -5,16 +5,27 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 @$a = $xyz / 0;
 
-$grd=$_REQUEST['grd'];
+$id=$_REQUEST['id'];
 ?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
 		<div class="list-group" style="margin-bottom: 5px;">
+<div class="dvfac" style="padding: 5px 0px; margin: 0px; font-weight: 600;">
+<div class="col-xs-6 col-md-4" style="padding-bottom: 0px;">
+ <span style="color: #2425AB; padding: 4px 10px 4px 0px; font-size: 13px;">Grade Level</span>
+ </div>
+<div class="col-xs-6 col-md-3" style="padding-bottom: 0px;">
+ <span style="color: #2425AB; padding: 4px 10px 4px 0px; font-size: 13px;">Section</span>
+ </div> 
+ <div class="col-xs-12 col-md-5" style="padding-bottom: 0px;">
+ <span style="color: #2425AB; padding: 4px 10px 4px 0px; font-size: 13px;">Teacher</span>
+ </div> 
+ <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
+</div>		
 <?php 
-$dsql = mysqli_query($con,"SELECT tblsection_data.*, tblgrade_data.* FROM tblsection_data
-INNER JOIN tblgrade_data ON tblsection_data.grd = tblgrade_data.id WHERE tblsection_data.grd = '$grd'");
-	
+$dsql = mysqli_query($con,"SELECT tblsection_data.*, tblgrade_data.* FROM tblgrade_data INNER JOIN tblsection_data ON tblsection_data.grd = tblgrade_data.id WHERE tblgrade_data.id = '$id'");
+			
   while($r = mysqli_fetch_assoc($dsql))
    {  
 	   $sfid = $r['fid'];
@@ -24,22 +35,17 @@ INNER JOIN tblgrade_data ON tblsection_data.grd = tblgrade_data.id WHERE tblsect
         { $xalyas=$rx['alyas']; }
     ?>                                   
 <!-- Message -->
-
 <div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
-
-<div class="col-xs-6 col-md-3" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px;"><?php echo $r['grd'];?></span>
+<div class="col-xs-6 col-md-4" style="padding-bottom: 0px;">
+ <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px;"><?php echo $r['grd'];?></span>
  </div>
 <div class="col-xs-6 col-md-3" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px;"><?php echo $r['sect'];?></span>
+ <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px;"><?php echo $r['sect'];?></span>
  </div> 
- 
- <div class="col-xs-12 col-md-6" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 16px;"><?php echo $xalyas;?></span>
+ <div class="col-xs-12 col-md-5" style="padding-bottom: 0px;">
+ <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px;"><?php echo $xalyas;?></span>
  </div> 
- 
- <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
-
+ <div class="clearfix" style="border-bottom:1px #EFEFEF solid; margin-top: 15px;"></div>
 </div>
 
  <?php } ?></div>

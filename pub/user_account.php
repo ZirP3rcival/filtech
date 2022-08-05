@@ -33,7 +33,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 					 <input name="sitem" type="text" class="form-control isearch" placeholder="Search Name Here" value="<?=$sitm;?>">
 					  <span class="input-group-btn">
 						   <button class="btn btn-default" type="submit" style="background: #0A65D1; color:#fff;padding-left: 10px;padding-right: 10px;">
-								<i class="fa fa-search" style="font-size:14px; border: 1px solid #0E4A17"></i>
+								<i class="fa fa-search" style="font-size:14px;"></i>
 						   </button>
 					  </span>
 				  </div>
