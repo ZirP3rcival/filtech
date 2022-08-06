@@ -12,14 +12,12 @@ $id = mysqli_real_escape_string($con,$_REQUEST['id']);
 $sql="DELETE FROM tblsyr_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting Academic Year Record!!!'; 
-    session_write_close();
 	echo $sql;
     header("location:admin?page=academic_year_settings");
     exit;
   }
  else  
    { $_SESSION['errmsg']='Academic Year Record Deleted Successfully!!!'; 
-     session_write_close();
      header("location:admin?page=academic_year_settings");
      exit;
   }  

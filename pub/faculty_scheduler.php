@@ -54,7 +54,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 	if($sitm!='') {	
 	$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and actv='Y' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
 	else  {	
-	$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and actv='Y' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
+	$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and actv='Y' and alyas IS NOT NULL ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
 
 	  while($r = mysqli_fetch_assoc($dsql))
 	   {  $usrpic='data:image/png;base64,'.''.$r['ploc'];
@@ -70,10 +70,10 @@ error_reporting (E_ALL ^ E_NOTICE);
 	 <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px; font-weight: 700;"><?=$r['alyas'];?></span>
 	 </div>
 	<div class="col-xs-12 col-md-4 user-img" style="font-size: 11px; color: #000; float: right; margin-bottom:10px;">
-	<a href="<?=$pgn;?>?prc=fsch&did=<?=$r['id'];?>&mde=fsnew&sfnme=<?=$r['alyas'];?>&pgn=<?=$pgn;?>" onclick="return confirm('Create Faculty Schedule?')">
+	<a href="#" id="cfschd" data-id="<?=$r['id']?>" data-nm="<?=$r['alyas'];?>" onclick="return confirm('Create Faculty Schedule?')">
 	<i class="btn btn-success btn-sm glyphicon glyphicon-edit" title="Create Faculty Schedule" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
 
-	<a href="<?=$pgn;?>?prc=fsch&did=<?=$r['id'];?>&mde=fview" onclick="return confirm('View  Faculty Schedule')">
+	<a href="#" id="viewfs" data-id="<?=$r['id'];?>" onclick="return confirm('View Faculty Schedule')">
 	<i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Faculty Schedule" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></i>
 	</a>
 
@@ -136,11 +136,12 @@ error_reporting (E_ALL ^ E_NOTICE);
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grade / Section Assign Form</h6>
 		  </div>
 <div class="card-block box" style="padding: 10px 10px 20px 10px;">
-<form action="multi-proc?mprc=sveschd&pgn=<?=$pgn;?>&fid=<?=$gsd;?>&syr=<?=$syr;?>"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmFNS" >
+<form action="facultyschedulercontroller.php?prc=S"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmFNS" >
                              
 <div style="background: #FFF;"> 
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Faculty Name: </span></div>
 <div class="col-xs-12 col-md-12">
+<input name="fid" id="fid" type="hidden" value="">
 <input name="sfnme" type="text" class="form-control" id="sfnme" placeholder="" required style="width:100%; float:left; color: #000; font-weight: 700;" readonly value="<?=$sfnme;?>"></div>
 	<div class="clearfix"></div>
 
@@ -174,7 +175,7 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd ASC");
 </form>                                                    
 </div>
 <div class="card-block card-bottom" style="text-align: center">
-  <button type="submit" class="btn btn-success" style="font-size: 14px;" form="frmFNS">Save</button>  
+  <button type="submit" id="sveschd" class="btn btn-success" style="font-size: 14px;" form="frmFNS">Save</button>  
   <div class="clearfix">  </div> 
 </div>
 	</div>
@@ -183,69 +184,6 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd ASC");
         </div>
     </div>
     <!-- user account info end -->
-</div>
-<!-- ######################################################################################## -->
-<!-- ######################################## CREATE GRADE LEVEL RECORD ################################### -->
-<div class="modal fade" id="CGL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" >
-    <div class="modal-content">
-      <div class="modal-header login-fm" style="color:#fff;">
-       <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF; width: 100%; padding: 15px 10px; font-weight: 700;">Create Grade Level Record
-       </h4>
-      </div>   
-     <div class="modal-body">       
-<form action="gradesectioncontroller.php?prc=G" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
-                      <div class="form-group">
-                        <label for="username">New Grade Level :</label>
-                        <input name="xgrd" type="text" class="form-control" id="xgrd" maxlength="11" placeholder="Enter Grade Level"  required>
-                      </div>
-</form>
-</div>
-<div class="modal-footer col-xs-12 col-md-12 login-fm" style="margin-top:0px;  color:#fff;font-size: 12px;">
- <button type="submit" class="btn btn-success" id="submit" name="submit" style="font-size: 12px;" form="frmcgrd"/>Submit</button>
-  <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 12px;">Close</button>
-</div>
-    </div>
-  </div>
-</div>
-<!-- ############################################################################################ -->
-<!-- ######################################## CREATE SECTION GROUP RECORD ################################### -->
-<div class="modal fade" id="CSC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" >
-    <div class="modal-content">
-      <div class="modal-header login-fm" style="color:#fff;">
-       <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF; width: 100%; padding: 15px 10px; font-weight: 700;">Create Section Group Record
-       </h4>
-      </div>   
-     <div class="modal-body">       
-<form action="gradesectioncontroller.php?prc=S" method="post" class="form-horizontal" id="fcsec" name="fcsec" style="margin:0px; padding:0px 12px;" role="form">
-
-<div class="form-group">
-   <label for="username">Select Grade Level :</label>
-   <select class="form-control" name="zgrd" id="zgrd">
- <option value="">-- Select Grade Level --</option>
-<?php 
-$csql = mysqli_query($con,"SELECT * FROM tblgrade_data order by grd ASC");
-  while($rs = mysqli_fetch_assoc($csql))
-   {   ?>        
-      <option value="<?=$rs['id']?>"><?=$rs['grd']?></option>
-<?php } ?>      
-  </select>
-</div>                                          
-                     
-<div class="form-group">
-   <label for="username">New Section Name :</label>
-   <input name="zsec" type="text" class="form-control" id="zsec" maxlength="11" placeholder="Enter Grade Level"  required>
-</div>
-
-</form>
-</div>
-<div class="modal-footer col-xs-12 col-md-12 login-fm" style="margin-top:0px; color:#fff;font-size: 12px;">
- <button type="submit" class="btn btn-success" id="zsbmt" name="zsbmt" style="font-size: 12px;" form="fcsec"/>Submit</button>
-  <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 12px;">Close</button>
-</div>
-    </div>
-  </div>
 </div>
 <!-- ############################################################################################ -->
 <!-- for modal display -->
@@ -265,15 +203,14 @@ $csql = mysqli_query($con,"SELECT * FROM tblgrade_data order by grd ASC");
 <!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
-
-$(document).on("click","#viewgs",function() {
+$('#sveschd, #sfgrd, #sfsec').prop('disabled', true);
+	
+$(document).on("click","#cfschd",function() {
 	var id=$(this).data('id');
-	$('#content').empty();
-	$("#content").load('viewgradesection.php?id='+id);
-	$('.modwidth').css('width','45%');
-	$('.modcap').empty();
-	$(".modcap").append('Grade Level and Section Record');
-	$('#POPMODAL').modal('show');
+	var nm=$(this).data('nm');
+	$('#sveschd, #sfgrd, #sfsec').prop('disabled', false);
+	$('#fid').val(id);
+	$('#sfnme').val(nm);
 });	
 
 $("#sfgrd").change(function(){
@@ -289,11 +226,20 @@ $("#sfgrd").change(function(){
                 for( var i = 0; i<len; i++){
                     var name = response[i]['sect'];
 						$("#sfsec").append("<option value='"+name+"'>"+name+"</option>");
-
                         }
                     }
             });
 });
+	
+$(document).on("click","#viewfs",function() {
+	var id=$(this).data('id');
+	$('#content').empty();
+	$("#content").load('viewfacschedule.php?id='+id);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('Faculty Assignment Schedule');
+	$('#POPMODAL').modal('show');
+});		
 
 });
 </script>
