@@ -24,7 +24,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 					<button class="btn btn-primary btn-sm" style="color: #fff; margin-top:-5px;">Create</button>
 				 </a>			 
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grade Level List </h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Antas </h6>
 		  </div>	  
 			<div class="card-block box" style="padding: 10px;">
 		<div style="background: #FFF;"> 
@@ -117,7 +117,7 @@ if($currentPageRV < $totalPagesRV)
                     <button class="btn btn-primary btn-sm" style="color: #fff; margin-top:-5px;">Create</button>
 				</a>			 
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Section Group List</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Seksyon</h6>
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 		<div style="background: #FFF;"> 

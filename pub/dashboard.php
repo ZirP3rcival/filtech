@@ -126,6 +126,7 @@
                             </div>
                         </div>
                         <div class="sparkline11-graph dashone-comment dashtwo-comment comment-scrollbar">
+                           
                             <div class="daily-feed-list">
                                 <div class="daily-feed-img">
                                     <a href="#"><img src="../img/notification/1.jpg" alt="" />
@@ -138,42 +139,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="../img/notification/2.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Joy Khan</span> posted message on <span class="feed-author">Joli Ray</span>.</h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="../img/notification/3.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Mamun</span> share 1 photo on <span class="feed-author">Sohag</span>. </h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="../img/notification/4.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Saliya</span> started following on <span class="feed-author">Jay</span>.</h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">5m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
+
                         </div>
                     </div>
                 </div>

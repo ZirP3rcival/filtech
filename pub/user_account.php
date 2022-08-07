@@ -23,7 +23,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-users" style="margin-right: 15px; font-size: 2em;"></span>User Account Record</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">User Account List</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng mga Gumagamit</h6>
 		  </div>	  
 			<div class="card-block box" style="padding: 10px;">                           
 				<div style="background: #FFF;"> 
@@ -136,7 +136,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-save" style="margin-right: 15px; font-size: 2em;"></span>Create User Account</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Please Accomplish the following</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Bagong Akawnt</h6>
 		  </div>
 <div class="card-block box" style="padding: 10px 10px 20px 10px;">
 	<form action="useraccountcontroller.php?prc=S" method="post" style="margin-bottom:0px;" class="form-horizontal" role="form" id="frmUACT" >

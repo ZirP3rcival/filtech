@@ -23,7 +23,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-calendar" style="margin-right: 15px; font-size: 2em;"></span>Academic Year Record</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Academic Year List</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Taong Pampaaralan</h6>
 		  </div>	  
 		<div class="card-block box" style="padding: 10px 15px;">
 	<div style="background: #FFF;"> 
@@ -112,7 +112,7 @@ if($currentPageRV < $totalPagesRV)
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-save" style="margin-right: 15px; font-size: 2em;"></span>Create Academic Year Record</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Please Accomplish the following</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Bagong Taong Pampaaralan</h6>
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 

@@ -24,7 +24,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-list" style="margin-right: 15px; font-size: 2em;"></span>Faculty Assignment			 
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Faculty List </h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng mga Guro </h6>
 		  </div>	  
 <div class="card-block box" style="padding: 10px;">                          
 	<div style="background: #FFF;"> 
@@ -133,7 +133,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-list" style="margin-right: 15px; font-size: 2em;"></span>Faculty Scheduling Form			 
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grade / Section Assign Form</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Iskedyul ng mga Guro</h6>
 		  </div>
 <div class="card-block box" style="padding: 10px 10px 20px 10px;">
 <form action="facultyschedulercontroller.php?prc=S"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmFNS" >
