@@ -125,22 +125,97 @@
                                 <h1>Annnouncements</h1>
                             </div>
                         </div>
-                        <div class="sparkline11-graph dashone-comment dashtwo-comment comment-scrollbar">
                            
-                            <div class="daily-feed-list">
-                                <div class="daily-feed-img">
-                                    <a href="#"><img src="../img/notification/1.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="daily-feed-content">
-                                    <h4><span class="feed-author">Monica Smith</span> posted blog on <span class="feed-author">John Smith</span>.</h4>
-                                    <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                    <span class="feed-ago">1m ago</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
+<div class="card-block box" style="padding: 10px; background: #fff;">
+	<div style="background: #FFF;"> 
+		<div class="list-group" style="margin-bottom: 5px;">
+<?php 
+function echoln($x, $length)
+{
+  if(strlen($x)<=$length)
+  {
+    echo $x;
+  }
+  else
+  {
+    $y=substr($x,0,$length) . '...';
+    echo $y;
+  }
+}	
+	$id = $_REQUEST['id'];
+	$rowsPerPageRV = 2;
 
-                        </div>
+	$currentPageRV = ((isset($_GET['ppageRV']) && $_GET['ppageRV'] > 0) ? (int)$_GET['ppageRV'] : 1);
+	$offsetRV = ($currentPageRV-1)*$rowsPerPageRV;
+	$cp=$currentPageRV;
+
+	$dsql = mysqli_query($con,"SELECT * from tblnews_data ORDER BY dtme DESC LIMIT $offsetRV, $rowsPerPageRV");
+	  while($r = mysqli_fetch_assoc($dsql))
+	   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
+?>                                   
+
+<div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
+<div class="col-xs-12 col-md-12" style="padding-bottom: 0px;">
+ <span style="color: #033462; padding: 4px 10px 4px 0px; font-size: 14px; font-weight: 700;"><?=$r['title'];?></span>
+ </div>
+ <div class="col-xs-5 col-md-5 user-img" style="font-size: 10px; color: #042601; float: left; margin-bottom:10px;">
+<em><?=$r['dtme'];?></em>
+ </div>
+	<div class="clearfix"></div>
+<div class="col-xs-12 col-md-4" style="padding-bottom: 0px; float: left">
+<img src="<?=$usrpic?>" style="width: 100%;" onerror="this.src='../img/missing.png'">
+</div>
+<div class="col-xs-12 col-md-8" style="padding-bottom: 0px; float: right">
+ <span style="color: #362E53; padding: 4px 10px 4px 0px; font-size: 12px;"><?=echoln($r['info'],100)?></span>
+  <button class="btn btn-primary btn-sm glyphicon glyphicon-search" id="btnvw" data-id="<?=$r['id'];?>" title="Read More" style="float: right; margin-right: 5px; font-size: 10px; padding: 0px 6px;"></button>
+</div>
+ <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px; padding-bottom: 10px;"></div>
+
+</div>
+
+ <?php } ?></div>
+			<div style="float: left; width: 100%; margin-bottom: 10px;">
+	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="admin?page=dashboard&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
+	        <div style="width:60%; float:left; font-size:11px;">
+	          <?php
+				$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM tblnews_data ORDER BY dtme DESC LIMIT $rowsPerPageRV");  
+
+				$row = mysqli_fetch_assoc($sql);
+				$totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);
+
+				//echo $rowsPerPageRV.' '.$totalPagesRV.' '.$currentPageRV;
+				if($currentPageRV > 1) 
+				{ echo '<a style="margin-left:2px; font-size:11px;" href="admin?page=dashboard&ppageRV='.($currentPageRV-1).'"></a>'; }
+
+				if($totalPagesRV < $rowsPerPageRV) { $d=$totalPagesRV; }
+				else { $d=$currentPageRV + $rowsPerPageRV; }
+
+				if($d > $totalPagesRV) { $d=$totalPagesRV; }
+				else { $d=$totalPagesRV; }
+
+				//echo $d.' '.$totalPagesRV;
+				for ($x=1;$x<=$d;$x++)
+				{  if ($cp==$x) 
+				   { 
+					 echo '<a class="btn btn-default btn-sm" style="background:#FF6AC4; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+				   }
+				  else
+				   { 
+					 echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; color:#fff; font-size:11px;" href="admin?page=dashboard&ppageRV='.$x.'"><strong>'.$x.'</strong></a>';    }
+				}
+				 echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesRV .'</strong> pages</span>'; 
+
+				if($currentPageRV < $totalPagesRV) 
+				{ echo '<a style="margin-left:2px; font-size:11px;" href="admin?page=dashboard&ppageRV='.($currentPageRV+1).'"></a>'; }
+				?>
+            </div>
+	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="admin?page=dashboard&ppageRV=<?=($currentPageRV+1);?>"> next </a></div>
+			<div class="clearfix"></div>	        
+          </div>
+                            </div>  
+	<div class="clearfix">  </div>                           
+</div>
+
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -155,3 +230,20 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function(){
+	
+$(document).on("click","#btnvw",function() {
+	var id=$(this).data('id');
+	$('#content').empty();
+	$("#content").load('viewannouncement.php?id='+id);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('Announcement Details');
+	$('#POPMODAL').modal('show');
+});		
+	
+});
+</script>	
+

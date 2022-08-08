@@ -185,22 +185,7 @@ $dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd ASC");
     </div>
     <!-- user account info end -->
 </div>
-<!-- ############################################################################################ -->
-<!-- for modal display -->
-<div id="POPMODAL" class="modal fade">
-  <div class="modal-dialog modwidth">
-    <div class="modal-content">
-      <div class="modal-header login-fm">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title modcap" style="color: #fff;"></h4>
-      </div>
-      <div class="modal-body" id="content" style="padding-top: 0px;">
 
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
 $('#sveschd, #sfgrd, #sfsec').prop('disabled', true);

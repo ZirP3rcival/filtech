@@ -60,7 +60,7 @@ function echoln($x, $length)
 
 <div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 <div class="col-xs-12 col-md-12" style="padding-bottom: 0px;">
- <span style="color: #0E4A17; padding: 4px 10px 4px 0px; font-size: 14px; font-weight: 700;"><?=$r['title'];?></span>
+ <span style="color: #033462; padding: 4px 10px 4px 0px; font-size: 14px; font-weight: 700;"><?=$r['title'];?></span>
  </div>
  <div class="col-xs-5 col-md-5 user-img" style="font-size: 10px; color: #042601; float: left; margin-bottom:10px;">
 <em><?=$r['dtme'];?></em>
@@ -78,9 +78,9 @@ function echoln($x, $length)
 <img src="<?=$usrpic?>" style="width: 100%;" onerror="this.src='../img/missing.png'">
 </div>
 <div class="col-xs-12 col-md-10" style="padding-bottom: 0px; float: right">
- <span style="color: #057508; padding: 4px 10px 4px 0px; font-size: 12px;"><?=$r['info']?></span>
+ <span style="color: #362E53; padding: 4px 10px 4px 0px; font-size: 12px;"><?=echoln($r['info'],100)?></span>
 </div>
- <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
+ <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px; padding-bottom: 10px;"></div>
 
 </div>
 

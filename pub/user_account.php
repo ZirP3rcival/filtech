@@ -11,7 +11,16 @@ error_reporting (E_ALL ^ E_NOTICE);
 .form-control  {
     color: #0B0237;
 	font-weight: 600;
-}	
+	}
+.chat-icon-link {  
+	font-size: 17px; 
+	float: left; 
+	padding: 5px 7px; 
+	background: #FF69C7; 
+	margin-top: 1px; 
+	margin-right: 8px; 
+	border-color: #FF69C7;
+	}		
 </style>
 <div class="content-inner-all">
     <!-- user account info start -->
@@ -70,9 +79,8 @@ error_reporting (E_ALL ^ E_NOTICE);
 				 <span style="color: <?=$clr;?>; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$actv;?></span>
 				 </div>
 				<div class="col-xs-12 col-md-3 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
-                <div class="btn btn-info chat-button" style="padding: 4px 8px; margin-top: -4px;">
-                   <span data-toggle="collapse" data-target="#chat" class="chat-icon-link" style="font-size: 22px;"><i class="fa big-icon fa-comments"></i></span>
-                </div>
+                  <a href="#" data-toggle="collapse" data-target="#chat">
+                   <button class="btn btn-info fa big-icon fa-comments chat-icon-link"></button></a>
 				<?php if($r['actv']=='N') { ?>
 					<a href="useraccountcontroller.php?prc=D&id=<?=$r['id']?>">
 						<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right; font-size: 18px; padding: 0px 6px;"></button>
