@@ -6,7 +6,7 @@
             <div id="chat" class="collapse chat-box-wrap shadow-reset animated zoomInLeft">
                 <div class="chat-main-list">
                     <div class="chat-heading">
-                        <h2>Messanger</h2>
+                        <h2>FILTECH Chatbox v1</h2>
                     </div>
                     <div class="chat-content chat-scrollbar">
                         <div class="author-chat">
