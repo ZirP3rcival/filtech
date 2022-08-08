@@ -106,7 +106,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 	for ($x=1;$x<=$d;$x++)
 	{  if ($cp==$x) 
 	   { 
-		 echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+		 echo '<a class="btn btn-default btn-sm" style="background:#FF6AC4; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
 	   }
 	  else
 	   { 

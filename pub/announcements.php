@@ -7,6 +7,9 @@ error_reporting (E_ALL ^ E_NOTICE);
  $sitm = $_POST['sitem'];
  if($sitm=='') {  $sitm = $_REQUESTST['sitem']; }	
 
+ $mde=$_REQUEST['mde'];
+if($mde=='') { $mde='S'; }
+
 function echoln($x, $length)
 {
   if(strlen($x)<=$length)
@@ -43,7 +46,7 @@ function echoln($x, $length)
 	<div style="background: #FFF;"> 
 		<div class="list-group" style="margin-bottom: 5px;">
 <?php 
-	$nid = $_REQUEST['nid'];
+	$id = $_REQUEST['id'];
 	$rowsPerPageRV = 2;
 
 	$currentPageRV = ((isset($_GET['ppageRV']) && $_GET['ppageRV'] > 0) ? (int)$_GET['ppageRV'] : 1);
@@ -63,19 +66,16 @@ function echoln($x, $length)
 <em><?=$r['dtme'];?></em>
  </div>
  <div class="col-xs-7 col-md-7 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px;">
-<a href="multi-proc?prc=events&did=<?=$r['id'];?>&mprc=delevnt&pgn=<?=$pgn;?>" onclick="return confirm('Delete this Record?')">
+<a href="announcementscontroller.php?id=<?=$r['id'];?>&prc=D" onclick="return confirm('Delete this Record?')">
 <i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
 
-<a href="<?=$pgn;?>?prc=events&mde=UNEW&nid=<?=$r['id'];?>" onclick="return confirm('Update this Record?')">
+<a href="?page=announcements&id=<?=$r['id'];?>&mde=U&ppageRV=<?=$currentPageRV?>" onclick="return confirm('Update this Record?')">
 <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" title="Update this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 
-<a href="<?=$pgn;?>?prc=events&nid=<?=$r['id'];?>">
-<i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Record Content" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></i>
-</a>
 </div>
 	<div class="clearfix"></div>
 <div class="col-xs-12 col-md-2" style="padding-bottom: 0px; float: left">
-<img src="<?=$usrpic?>" style="width: 100%;">
+<img src="<?=$usrpic?>" style="width: 100%;" onerror="this.src='../img/missing.png'">
 </div>
 <div class="col-xs-12 col-md-10" style="padding-bottom: 0px; float: right">
  <span style="color: #057508; padding: 4px 10px 4px 0px; font-size: 12px;"><?=$r['info']?></span>
@@ -108,7 +108,7 @@ function echoln($x, $length)
 				for ($x=1;$x<=$d;$x++)
 				{  if ($cp==$x) 
 				   { 
-					 echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+					 echo '<a class="btn btn-default btn-sm" style="background:#FF6AC4; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
 				   }
 				  else
 				   { 
@@ -137,9 +137,17 @@ function echoln($x, $length)
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Bagong Anunsyo</h6>
 		  </div>
+<?php		  
+$dsql = mysqli_query($con,"SELECT * from tblnews_data where id='$id'");
+	  while($r = mysqli_fetch_assoc($dsql))
+	   { $epic='data:image/png;base64,'.''.$r['ploc'];
+		 $opic=$r['ploc'];
+		 $utitle=$r['title'];
+		 $uinfo=$r['info']; }
+?>		  
 <div class="card-block">
 <div class="content" style="margin: 15px;"> 
- <form action="announcementscontroller.php?prc=S"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmNE" >  
+ <form action="announcementscontroller.php?prc=<?=$mde?>&id=<?=$id?>"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmNE" >  
 <div class="col-xs-12 col-md-8" style="float: left">                                  
 <div class="form-group" style="padding: 10px; margin-bottom: 0px;">
 	<label class="col-xs-12 col-md-12" style="padding-left: 0px; float: left; color:#000; font-size: 12px;">Paksa ng Anunsyo : </label>
@@ -156,10 +164,10 @@ function echoln($x, $length)
 <div style="float: left; padding: 0px;" class="col-xs-12 col-md-12">
     <label for="files" class="btn btn-info" style="padding: 2px 12px;"> <span style="font-size: 12px;">Browse Photo</span></label>
     <input style="visibility: hidden; position: absolute;" id="files" class="form-control" type="file" name="files"  accept="image/*" capture="camera">
-    <input type="hidden" class="form-control" id="picr" name="picr" value="">
+    <input type="hidden" class="form-control" id="picr" name="picr" value="<?=$opic?>">
 </div>
 <div style="margin-top: 15px;" class="col-xs-12 col-md-12">   
-    <img id="img" src="#" alt="" style="width: 100%" onerror="this.src='../img/missing.png'"> 
+    <img id="img" src="<?=$epic?>" alt="" style="width: 100%" onerror="this.src='../img/missing.png'"> 
 </div>
 </div>
 </div>
@@ -222,43 +230,8 @@ $("#files").change(function(){
 <!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
-$('#sveschd, #sfgrd, #sfsec').prop('disabled', true);
 	
-$(document).on("click","#cfschd",function() {
-	var id=$(this).data('id');
-	var nm=$(this).data('nm');
-	$('#sveschd, #sfgrd, #sfsec').prop('disabled', false);
-	$('#fid').val(id);
-	$('#sfnme').val(nm);
-});	
-
-$("#sfgrd").change(function(){
-   var deptid = $(this).val();
-	$.ajax({
-        url: 'schedsection.php',
-        type: 'post',
-        data: {depart:deptid},
-        dataType: 'json',
-        success:function(response){
-              var len = response.length;
-              $("#sfsec").empty();
-                for( var i = 0; i<len; i++){
-                    var name = response[i]['sect'];
-						$("#sfsec").append("<option value='"+name+"'>"+name+"</option>");
-                        }
-                    }
-            });
-});
 	
-$(document).on("click","#viewfs",function() {
-	var id=$(this).data('id');
-	$('#content').empty();
-	$("#content").load('viewfacschedule.php?id='+id);
-	$('.modwidth').css('width','45%');
-	$('.modcap').empty();
-	$(".modcap").append('Faculty Assignment Schedule');
-	$('#POPMODAL').modal('show');
-});		
-
+	
 });
 </script>

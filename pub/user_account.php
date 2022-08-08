@@ -62,7 +62,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 					?>                                   
 				<div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 				<div class="col-xs-3 col-md-2" style="padding-bottom: 0px;">
-				 <img src="<?=$usrpic?>" style="width: 60%;">
+				 <img src="<?=$usrpic?>" style="width: 60%;" onerror="this.src='../img/missing.png'">
 				 </div>
 				<div class="col-xs-9 col-md-8" style="padding-bottom: 0px;">
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 12px; font-weight: 700;"><?=strtoupper($r['alyas'])?></span><br>
@@ -111,7 +111,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				for ($x=1;$x<=$d;$x++)
 				{  if ($cp==$x) 
 				   { 
-					 echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+					 echo '<a class="btn btn-default btn-sm" style="background:#FF6AC4; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
 				   }
 				  else
 				   { 
