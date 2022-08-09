@@ -3,6 +3,7 @@ ob_start();
 include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
+$uid=$_SESSION['id'];
 
  $sitm = $_POST['sitem'];
  if($sitm=='') {  $sitm = $_REQUESTST['sitem']; }	
@@ -68,7 +69,9 @@ error_reporting (E_ALL ^ E_NOTICE);
 				   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
 					 if($r['actv']=='Y') { $actv='Active Account'; $clr='#0A65D1'; $stat='N'; }
 					 else { $actv='Inactive Account'; $clr='#D9534F'; $stat='Y'; }
-					?>                                   
+					
+					if($r['alyas']!='') {
+					?>            		                       
 				<div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 				<div class="col-xs-3 col-md-2" style="padding-bottom: 0px;">
 				 <img src="<?=$usrpic?>" style="width: 60%;" onerror="this.src='../img/missing.png'">
@@ -79,7 +82,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				 <span style="color: <?=$clr;?>; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$actv;?></span>
 				 </div>
 				<div class="col-xs-12 col-md-3 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
-                  <a href="#" data-toggle="collapse" data-target="#chat">
+                  <a href="#" id="cbox" data-toggle="collapse" data-target="#chat" data-uid="<?=$uid?>" data-cnm="<?=$r['alyas']?>">
                    <button class="btn btn-info fa big-icon fa-comments chat-icon-link"></button></a>
 				<?php if($r['actv']=='N') { ?>
 					<a href="useraccountcontroller.php?prc=D&id=<?=$r['id']?>">
@@ -98,7 +101,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 
 				</div>
 
-				 <?php } ?></div>
+				 <?php } } ?></div>
 				<div style="float: left; width: 100%; margin-bottom: 10px;">
 							<div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="?page=user_account&prc=<?=$prc;?>&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 							<div style="width:60%; float:left; font-size:11px;">

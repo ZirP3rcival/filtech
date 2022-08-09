@@ -1,7 +1,12 @@
+<style>
+.mCustomScrollBox {
+		overflow: auto;
+	}
+</style>	
 <div class="chat-list-wrap">
         <div class="chat-list-adminpro">
             <div class="chat-button">
-                <span data-toggle="collapse" data-target="#chat" class="chat-icon-link"><i class="fa fa-comments"></i></span>
+                <span data-toggle="collapse" data-target="#chat" class="chat-icon-link"><i class="fa fa-comments" style="font-size: 26px;"></i></span>
             </div>
             <div id="chat" class="collapse chat-box-wrap shadow-reset animated zoomInLeft">
                 <div class="chat-main-list">
