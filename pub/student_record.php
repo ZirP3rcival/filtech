@@ -3,6 +3,15 @@ ob_start();
 include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
+
+$fgrd=$_POST['fgrd'];
+$fsec=$_POST['fsec'];
+
+$syr=$_SESSION['year'];
+$fid=$_SESSION['id'];
+
+if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
+if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 ?>
 <style>
 .form-control  {
@@ -16,24 +25,58 @@ error_reporting (E_ALL ^ E_NOTICE);
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">           
             <div class="row rowflx" style="margin-bottom: 50px;">
-<div class="col-lg-5 col-xs-12 my-acct-box mg-tb-31">
+<div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
-			 <span class="fa fa-list" style="margin-right: 15px; font-size: 2em;"></span>Student Record</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Mag-Aaral </h6>
+			 <span class="fa fa-list" style="margin-right: 15px; font-size: 2em;"></span>Grade / Section Selection</h4>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Pagpipilian ng Grado at Seksyon</h6>
 		  </div>	  
 <div class="card-block box" style="padding: 10px;">
 <div style="background: #FFF;"> 
- <form method="post" action="<?php echo $pgn;?>?prc=assset" id="frmleks" name="frmleks"> </form>	
+ <form method="post" action="?page=student_record" id="frmslst" name="frmslst"> </form>	
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+    <div class="col-xs-12 col-md-4" style="margin-top:0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right;">	
+<select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>
+<?php	
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblgrade_data.* FROM tblfaculty_sched 
+INNER JOIN tblgrade_data ON tblfaculty_sched.grde = tblgrade_data.id
+WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY tblgrade_data.grd ASC");
 
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php  } ?>  
+        </select></div>
+	<div class="clearfix"></div>
+  </div>
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+
+ <div class="col-xs-12 col-md-4" style="margin-top:0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right;">
+
+<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" onChange="this.form.submit();" form="frmslst" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>      
+<?php 
+  $ssql = mysqli_query($con,"SELECT * FROM tblfaculty_sched WHERE fid ='$fid' AND grde = '$fgrd' AND syr = '$syr'");	
+  while($rs = mysqli_fetch_assoc($ssql))
+   { ?>   
+    <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sec'];?></option> 
+<?php } ?>                
+        </select>        
+        </div>
+	<div class="clearfix"></div>   
+
+  </div>
  </div>  
 <div class="clearfix">  </div>                           
 </div>
 	</div>
 </div>  
 
-<div class="col-lg-7 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
+<div class="col-lg-8 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -43,7 +86,31 @@ error_reporting (E_ALL ^ E_NOTICE);
 		  </div>
   
 <div class="card-block">
+<div class="list-group" style="margin-bottom: 5px;">
+<li class="list-group-item" style="font-weight: 600; font-size: 12px;"><div class="row">
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Photo</div>
+<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
+<div class="col-xs-2 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Email Address</div>
+<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Contact No.</div>
+<div class="clearfix"></div>
+</div.
+></li>
+<?php 
+if(($fgrd!='') && ($fsec!=''))	{
+$dsql = mysqli_query($con,"SELECT * from tblsinfo_data WHERE grde = '$fgrd' AND sec = '$fsec' AND actv='Y' ORDER BY alyas ASC");
+$rctr = 0;	
+  while($rx = mysqli_fetch_assoc($dsql))
+   { $rctr+=1;
+    ?>                                   
+<li class="list-group-item" style="padding: 2px 15px; font-size: 12px;"><div class="row">
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="../assets/img/<?=$rx['ploc']?>" class="img-responsive logo" style="width: 40px;"></div>
+<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['alyas'];?></div>
+<div class="col-xs-1 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['eadd'];?></div>
+<div class="col-xs-1 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['cno'];?></div>
+ <a href="multi-proc?mprc=delstud&prc=slist&fgrd=<?=$fgrd;?>&fsec=<?=$fsc;?>&ascd=<?=$ascd;?>&did=<?=$rx['id'];?>&pgn=<?=$pgn;?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+ <div class="clearfix"></div></div></li>
 
+ <?php }} ?></div>   
 </div> 
 </div> 
 	</div>
