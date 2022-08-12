@@ -90,7 +90,7 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 <li class="list-group-item" style="font-weight: 600; font-size: 12px;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Photo</div>
 <div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
-<div class="col-xs-2 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Email Address</div>
+<div class="col-xs-2 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Email Address</div>
 <div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Contact No.</div>
 <div class="clearfix"></div>
 </div.
@@ -98,16 +98,17 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 <?php 
 if(($fgrd!='') && ($fsec!=''))	{
 $dsql = mysqli_query($con,"SELECT * from tblsinfo_data WHERE grde = '$fgrd' AND sec = '$fsec' AND actv='Y' ORDER BY alyas ASC");
-$rctr = 0;	
   while($rx = mysqli_fetch_assoc($dsql))
-   { $rctr+=1;
+   { $sphoto='data:image/png;base64,'.''.$rx['ploc'];
     ?>                                   
 <li class="list-group-item" style="padding: 2px 15px; font-size: 12px;"><div class="row">
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="../assets/img/<?=$rx['ploc']?>" class="img-responsive logo" style="width: 40px;"></div>
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="<?=$sphoto?>" class="img-responsive logo" style="padding: 0px; width: 50%;" onerror="this.src='../img/missing.png'"></div>
 <div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['alyas'];?></div>
-<div class="col-xs-1 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['eadd'];?></div>
-<div class="col-xs-1 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['cno'];?></div>
- <a href="multi-proc?mprc=delstud&prc=slist&fgrd=<?=$fgrd;?>&fsec=<?=$fsc;?>&ascd=<?=$ascd;?>&did=<?=$rx['id'];?>&pgn=<?=$pgn;?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['eadd'];?></div>
+<div class="col-xs-8 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['cno'];?></div>
+ <a href="studentrecordcontroller?sid=<?=$rx['id'];?>&prc=D" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><button class="btn btn-danger glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
+ 
+ <button class="btn btn-primary glyphicon glyphicon-search" id="viewgs" data-id="<?=$rx['id'];?>" title="View this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
  <div class="clearfix"></div></div></li>
 
  <?php }} ?></div>   
@@ -121,25 +122,18 @@ $rctr = 0;
     <!-- user account info end -->
 </div>
 <!-- ############################################################################################ -->
-<!-- for modal display -->
-<div id="POPMODAL" class="modal fade">
-  <div class="modal-dialog modwidth">
-    <div class="modal-content">
-      <div class="modal-header login-fm">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title modcap" style="color: #fff;"></h4>
-      </div>
-      <div class="modal-body" id="content" style="padding-top: 0px;">
-
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
-	
-	
+
+$(document).on("click","#viewgs",function() {
+	var id=$(this).data('id');
+	$('#content').empty();
+	$("#content").load('viewstudentrecord.php?id='+id);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('Student Record Details');
+	$('#POPMODAL').modal('show');
+});	
 	
 });
-</script>
+</script>	

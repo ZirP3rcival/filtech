@@ -1,7 +1,7 @@
 <!-- Account Verification Start-->
 <div class="col-lg-12 div2 dvpd" style="padding: 0px;">
     <div class="col-lg-12 dvpd" style="padding: 0px;">
-        <form id="adminpro-form" class="adminpro-form">
+        <form action="studentrecordcontroller.php?prc=S" method="post" id="adminpro-form" class="adminpro-form" enctype="multipart/form-data" role="form">
             <div class="login-bg" style="border-radius: 15px;">
                 <div class="row" style="margin-bottom: 15px;">
                     <div class="col-lg-12 login-fm" style=" border-top-left-radius: 15px; border-top-right-radius: 15px;">

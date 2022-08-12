@@ -23,7 +23,7 @@ if($acct=='ADMIN') {
     <a href="?page=dashboard" role="button" aria-expanded="false" class="nav-link" title="Panimulang Pahina"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Dashboard</span></a>
 </li>
 <li class="nav-item">
-    <a href="#" role="button" aria-expanded="false" class="nav-link" title="Modyul ng mga Aralin"><i class="fa big-icon fa-book"></i> <span class="mini-dn">Lessons Module</span></a>
+    <a href="?page=lessons_module" role="button" aria-expanded="false" class="nav-link" title="Modyul ng mga Aralin"><i class="fa big-icon fa-book"></i> <span class="mini-dn">Lessons Module</span></a>
 </li>
 <li class="nav-item">
     <a href="?page=student_record" role="button" aria-expanded="false" class="nav-link" title="Talaan ng Mag aaral"><i class="fa big-icon fa fa-users"></i> <span class="mini-dn">Student Record</span></a>
