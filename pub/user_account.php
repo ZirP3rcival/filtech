@@ -76,14 +76,16 @@ $uid=$_SESSION['id'];
 				<div class="col-xs-3 col-md-2" style="padding-bottom: 0px;">
 				 <img src="<?=$usrpic?>" style="width: 60%;" onerror="this.src='../img/missing.png'">
 				 </div>
-				<div class="col-xs-9 col-md-7" style="padding-bottom: 0px;">
+				<div class="col-xs-9 col-md-8" style="padding-bottom: 0px;">
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 12px; font-weight: 700;"><?=strtoupper($r['alyas'])?></span><br>
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$r['typ'];?></span> | 
 				 <span style="color: <?=$clr;?>; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$actv;?></span>
 				 </div>
-				<div class="col-xs-12 col-md-3 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
-                  <a href="#" id="cbox" data-toggle="collapse" data-target="#chat" data-uid="<?=$uid?>" data-cnm="<?=$r['alyas']?>">
+				<div class="col-xs-12 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
+<!--
+                  <a href="#" id="cbox" data-toggle="collapse" data-target="#chat" data-uid="<=$uid?>" data-cnm="<=$r['alyas']?>">
                    <button class="btn btn-info fa big-icon fa-comments chat-icon-link"></button></a>
+-->
 				<?php if($r['actv']=='N') { ?>
 					<a href="useraccountcontroller.php?prc=D&id=<?=$r['id']?>">
 						<button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Account" style="float: right; font-size: 18px; padding: 0px 6px;"></button>

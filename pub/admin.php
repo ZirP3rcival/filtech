@@ -30,7 +30,7 @@ $wp = $page.'.php';
 <?php include_once('footer.php');?>  
     <!-- Footer End-->
     <!-- Chat Box Start-->
-    <?php include_once('chatbox.php');?> 
+<!--<php include_once('chatbox.php');?> -->
     <!-- Chat Box End-->
 </body>
 </html>
