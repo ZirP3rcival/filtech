@@ -1,0 +1,17 @@
+student account
+	grading sheet [1st grading.....]
+
+lesson creation
+	section checlist for activation of lesson
+	video tutorial for usage
+	multiple subjects option
+
+my account
+	color coding scheme for theme personalization
+
+assessment
+	Multiple Choice - Auto Checking/Grading
+	True or False - Auto Checking/Grading
+	Enumeration - Manual Checking/Grading
+	Identification - Manual Checking/Grading
+	Essay- Manual Checking/Grading

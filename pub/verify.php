@@ -54,7 +54,9 @@ if(($rs['usr']==$username) && ($rs['pwd']==$epassword))
 			$_SESSION['account'] = $acct;	
 			header("location:faculty"); }
 		else if($acct=='STUDENT'){
-			$_SESSION['account'] = $acct;	
+			$_SESSION['account'] = $acct;		
+			$_SESSION['grde']=$rs['grde'];  	
+			$_SESSION['sec']=$rs['sec'];  
 			header("location:student"); }
 		exit;
 	} 

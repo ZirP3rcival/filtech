@@ -43,12 +43,13 @@ if($acct=='ADMIN') {
     <a href="?page=dashboard" role="button" aria-expanded="false" class="nav-link" title="Panimulang Pahina"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Dashboard</span></a>
 </li>
 <li class="nav-item">
-    <a href="#" role="button" aria-expanded="false" class="nav-link" title="Lessons Module"><i class="fa big-icon fa-book"></i> <span class="mini-dn">Lessons Module</span></a>
+    <a href="?page=my_lessons" role="button" aria-expanded="false" class="nav-link" title="Lessons Module"><i class="fa big-icon fa-book"></i> <span class="mini-dn">Lessons Module</span></a>
 </li>
 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="Assessment Module"><i class="fa big-icon fa-leanpub"></i> <span class="mini-dn">Assessment Module</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-header" style="text-align: justify; padding: 10px 0px;">
         <a href="inbox.html" class="dropdown-item">Assessment Activity</a>
-        <a href="view-mail.html" class="dropdown-item">Assessment Results</a>
+        <a href="view-mail.html" class="dropdown-item">Assessment Results</a>        
+        <a href="view-mail.html" class="dropdown-item">Grade Sheet</a>
     </div>
 </li>
 <?php } ?>

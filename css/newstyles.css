@@ -52,8 +52,11 @@
     border-bottom: 1px solid rgb(6 6 6 / 18%);
 }
 
+.fixed-header-top {
+    z-index: 9;
+}
 #sidebar {
-    z-index: 9999;
+    z-index: 99;
 }
 
 .mg-tb-30 {
