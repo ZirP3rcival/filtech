@@ -7,10 +7,11 @@
     
     <title>Chat</title>
     
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="chat/style.css" type="text/css" />
     
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="chat.js"></script>
+<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->>  
+    <script src="../../js/vendor/jquery-1.11.3.min.js"></script>  
+    <script type="text/javascript" src="chat/chat.js"></script>
     <script type="text/javascript">
     
         // ask user for name with popup prompt    

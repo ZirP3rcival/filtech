@@ -1,22 +1,31 @@
 <?php
+$timezone = "Asia/Manila";	# My time zone
+date_default_timezone_set($timezone);	# PHP 5
+$curdte = date("Y-m-d");	//echo gmdate("l, F d, Y - h:i a",$local); 
+
 
     $function = $_POST['function'];
     
     $log = array();
-    
+	$cfile='chat-'.$curdte.'.txt';
+
+if(!is_file($cfile)){
+    $fcreate = fopen($cfile, 'w') or die("Can't create file");
+}
+
     switch($function) {
     
     	 case('getState'):
-        	 if(file_exists('chat.txt')){
-               $lines = file('chat.txt');
+        	 if(file_exists($cfile)){
+               $lines = file($cfile);
         	 }
              $log['state'] = count($lines); 
         	 break;	
     	
     	 case('update'):
         	$state = $_POST['state'];
-        	if(file_exists('chat.txt')){
-        	   $lines = file('chat.txt');
+        	if(file_exists($cfile)){
+        	   $lines = file($cfile);
         	 }
         	 $count =  count($lines);
         	 if($state == $count){
@@ -50,7 +59,7 @@
 				} 
 			 
         	
-        	 fwrite(fopen('chat.txt', 'a'), "<span>". $nickname . "</span>" . $message = str_replace("\n", " ", $message) . "\n"); 
+        	 fwrite(fopen($cfile, 'a'), "<span>". $nickname . "</span>" . $message = str_replace("\n", " ", $message) . "\n"); 
 		 }
         	 break;
     	

@@ -174,11 +174,11 @@ CREATE TABLE `tblmodule_data` (
   `grde` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mid` (`fid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tblmodule_data` */
 
-insert  into `tblmodule_data`(`id`,`fid`,`title`,`flink`,`syr`,`grde`) values (1,2,'SQL Commands','<iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vR1ZyyU1WlzQLK-cL6x8-UOzohkWZyxakzemb1EI9k8JFqGma1t9sjzhjVn1p1h3Q/embed?start=true&loop=true&delayms=30000\" frameborder=\"0\" width=\"1280\" height=\"749\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>','2022-2023','1'),(2,2,'Philippine History','<iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vQ6CMug9aFZe-FioeIiZl8Ly78hzBJB9mmgX-OdjPIyFLRbkKJ7ahQwZZnbt1urHAMT-uMut4VRIoQC/embed?start=true&loop=true&delayms=30000\" frameborder=\"0\" width=\"960\" height=\"749\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>','2022-2023','1');
+insert  into `tblmodule_data`(`id`,`fid`,`title`,`flink`,`syr`,`grde`) values (1,2,'SQL Commands','<iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vR1ZyyU1WlzQLK-cL6x8-UOzohkWZyxakzemb1EI9k8JFqGma1t9sjzhjVn1p1h3Q/embed?start=true&loop=true&delayms=30000\" frameborder=\"0\" width=\"1280\" height=\"749\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>','2022-2023','1'),(2,2,'Philippine History','<iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vQ6CMug9aFZe-FioeIiZl8Ly78hzBJB9mmgX-OdjPIyFLRbkKJ7ahQwZZnbt1urHAMT-uMut4VRIoQC/embed?start=true&loop=true&delayms=30000\" frameborder=\"0\" width=\"960\" height=\"749\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>','2022-2023','1'),(3,2,'Media Piracy','<iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vRnJHYhGaBq8aUVrtegbxdhZq3eT1yREbG2DKWHFd9vHUKS8vvNXIC82OfB7-dZ4Q/embed?start=true&loop=true&delayms=30000\" frameborder=\"0\" width=\"1280\" height=\"749\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>','2022-2023','2');
 
 /*Table structure for table `tblmodule_stud` */
 
