@@ -23,7 +23,7 @@ if(!is_file($cfile)){
         	 break;	
     	
     	 case('update'):
-        	$state = $_POST['state'];
+        	$state = $_POST['state']; 
         	if(file_exists($cfile)){
         	   $lines = file($cfile);
         	 }

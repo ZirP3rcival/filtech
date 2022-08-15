@@ -1,4 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php 
+session_start(); 
+error_reporting (E_ALL ^ E_NOTICE); 
+
+$fname=$_SESSION['fname'];
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -9,14 +14,14 @@
     
     <link rel="stylesheet" href="chat/style.css" type="text/css" />
     
-<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->>  
-    <script src="../../js/vendor/jquery-1.11.3.min.js"></script>  
+<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+    <script src="../js/vendor/jquery-1.11.3.min.js"></script>  
     <script type="text/javascript" src="chat/chat.js"></script>
     <script type="text/javascript">
     
         // ask user for name with popup prompt    
-        var name = prompt("Enter your chat name:", "Guest");
-        
+        //var name = prompt("Enter your chat name:", "Guest");
+        var name='<?=$fname?>';
         // default name is 'Guest'
     	if (!name || name === ' ') {
     	   name = "Guest";	
@@ -81,19 +86,15 @@
 
 </head>
 
-<body onload="setInterval('chat.update()', 1000)">
+<body onload="setInterval('chat.update()', 2000)">
 
     <div id="page-wrap">
-    
-        <h2>jQuery/PHP Chat</h2>
-        
-        <p id="name-area"></p>
-        
+		<p id="name-area"></p>
         <div id="chat-wrap"><div id="chat-area"></div></div>
         
         <form id="send-message-area">
-            <p>Your message: </p>
-            <textarea id="sendie" maxlength = '100' ></textarea>
+            <p style="color: #06023A;">Your message: </p>
+            <textarea id="sendie" maxlength = '200' ></textarea>
         </form>
     
     </div>

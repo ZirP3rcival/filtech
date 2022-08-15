@@ -1,4 +1,26 @@
-<div class="chat-list-wrap">
+<style>
+.chat-box-wrap.collapse.in {
+    position: fixed;
+    height: 440px!important;
+    width: 530px!important;
+	border-radius: 15px;
+	}
+.chat-content {
+		height: 400px!important;
+	}
+.border-rad {
+	border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+	}	
+	
+#page-wrap {
+    margin-top: 15px!important;
+	}
+#send-message-area p {
+    padding-top: 0px!important;
+	}
+</style>	
+       <div class="chat-list-wrap">
         <div class="chat-list-adminpro">
             <div class="chat-button">
                 <span data-toggle="collapse" data-target="#chat" class="chat-icon-link"><i class="fa fa-comments" style="font-size: 26px;"></i></span>
@@ -6,7 +28,7 @@
             <div id="chat" class="collapse chat-box-wrap shadow-reset animated zoomInLeft">
                 <div class="chat-main-list">
                     <div class="chat-heading">
-                        <h2>FILTECH Chatbox v1</h2>
+                        <h2 class="login-fm border-rad">FILTECH Chatbox v1</h2>
                     </div>
                     <div class="chat-content chat-scrollbar">
      <?php include('chat/index.php');?>                 
