@@ -52,9 +52,9 @@ error_reporting (E_ALL ^ E_NOTICE);
 	$cp=$currentPageRV;
 
 	if($sitm!='') {	
-	$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and actv='Y' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
+	$dsql = mysqli_query($con,"SELECT * from ft2_users_account where typ='FACULTY' and actv='Y' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
 	else  {	
-	$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and actv='Y' and alyas IS NOT NULL ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
+	$dsql = mysqli_query($con,"SELECT * from ft2_users_account where typ='FACULTY' and actv='Y' and alyas IS NOT NULL ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
 
 	  while($r = mysqli_fetch_assoc($dsql))
 	   {  $usrpic='data:image/png;base64,'.''.$r['ploc'];
@@ -87,7 +87,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 				<div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="?page=faculty_scheduler&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 				<div style="width:60%; float:left; font-size:11px;">
 				  <?php
-	$sql = mysqli_query($con,"SELECT COUNT(*) AS crt from tblsinfo_data where typ='FACULTY' and actv='Y' LIMIT $rowsPerPageRV");  
+	$sql = mysqli_query($con,"SELECT COUNT(*) AS crt from ft2_users_account where typ='FACULTY' and actv='Y' LIMIT $rowsPerPageRV");  
 
 	$row = mysqli_fetch_assoc($sql);
 	$totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);
@@ -150,7 +150,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 <select name="sfgrd" required class="form-control" id="sfgrd" style="display: inline-block; position:inherit; width:100%;">
           <option value="" >- Select Grade -</option>
 <?php
-$dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd ASC");
+$dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
 	
   while($rg = mysqli_fetch_assoc($dsql))
    { if($grd==$rg['id']) {	?>    

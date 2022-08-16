@@ -41,9 +41,9 @@ if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php	
-$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblgrade_data.* FROM tblfaculty_sched 
-INNER JOIN tblgrade_data ON tblfaculty_sched.grde = tblgrade_data.id
-WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY tblgrade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
    {  ?>   
@@ -60,7 +60,7 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 <select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" onChange="this.form.submit();" form="frmslst" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>      
 <?php 
-  $ssql = mysqli_query($con,"SELECT * FROM tblfaculty_sched WHERE fid ='$fid' AND grde = '$fgrd' AND syr = '$syr'");	
+  $ssql = mysqli_query($con,"SELECT * FROM ft2_faculty_schedule WHERE fid ='$fid' AND grde = '$fgrd' AND syr = '$syr'");	
   while($rs = mysqli_fetch_assoc($ssql))
    { ?>   
     <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sec'];?></option> 
@@ -97,7 +97,7 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 ></li>
 <?php 
 if(($fgrd!='') && ($fsec!=''))	{
-$dsql = mysqli_query($con,"SELECT * from tblsinfo_data WHERE grde = '$fgrd' AND sec = '$fsec' AND actv='Y' ORDER BY alyas ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_users_account WHERE grde = '$fgrd' AND sec = '$fsec' AND actv='Y' ORDER BY alyas ASC");
   while($rx = mysqli_fetch_assoc($dsql))
    { $sphoto='data:image/png;base64,'.''.$rx['ploc'];
     ?>                                   

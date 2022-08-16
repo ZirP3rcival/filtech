@@ -12,7 +12,7 @@ $id=$_REQUEST['id'];
 	<div style="background: #FFF;"> 
 <div class="list-group" style="margin-bottom: 5px;">
 <?php	
-	$dsql = mysqli_query($con,"SELECT * from tblnews_data WHERE id='$id'");
+	$dsql = mysqli_query($con,"SELECT * from ft2_announcements_data WHERE id='$id'");
 	  while($r = mysqli_fetch_assoc($dsql))
 	   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
 ?>                                   

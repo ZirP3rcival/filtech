@@ -12,7 +12,7 @@ $T2 = mysqli_real_escape_string($con,$_POST['picr']);
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);
 
 if ($prc=='S') {			
-$sql="INSERT INTO tblnews_data(title, info, ploc) VALUES ('$T0','$T1','$T2')";  
+$sql="INSERT INTO ft2_announcements_data(title, info, ploc) VALUES ('$T0','$T1','$T2')";  
  if (!mysqli_query($con,$sql))
   {  
 	$_SESSION['errmsg']='Error Saving New Announcement Record!!!'; 
@@ -28,7 +28,7 @@ $sql="INSERT INTO tblnews_data(title, info, ploc) VALUES ('$T0','$T1','$T2')";
 }
 
 if ($prc=='U') {			
-$sql="UPDATE tblnews_data SET title='$T0', info='$T1', ploc='$T2' WHERE id='$id'";  
+$sql="UPDATE ft2_announcements_data SET title='$T0', info='$T1', ploc='$T2' WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   {  
 	$_SESSION['errmsg']='Error Updating Announcement Record!!!'; 
@@ -44,7 +44,7 @@ $sql="UPDATE tblnews_data SET title='$T0', info='$T1', ploc='$T2' WHERE id='$id'
 }
 
 if ($prc=='D') {			
-$sql="DELETE FROM tblnews_data WHERE id='$id'";  
+$sql="DELETE FROM ft2_announcements_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   {  
 	$_SESSION['errmsg']='Error Deleting Announcement Record!!!'; 

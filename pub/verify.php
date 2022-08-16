@@ -11,7 +11,7 @@ $password=$_POST['password'];
 // encrypt password 
 $epassword=MD5($password);
 // AND mac='$wmac'
-$result=mysqli_query($con,"SELECT * FROM tblsinfo_data WHERE usr ='$username' AND pwd='$epassword'");
+$result=mysqli_query($con,"SELECT * FROM ft2_users_account WHERE usr ='$username' AND pwd='$epassword'");
 $count=mysqli_num_rows($result);
 
 if($count==0)
@@ -45,7 +45,7 @@ if(($rs['usr']==$username) && ($rs['pwd']==$epassword))
 	$_SESSION['id']=$rs['id'];  
 	$_SESSION['errmsg'] = 'Account Login Successfully...';
 		
-		$sqlup = mysqli_query($con,"UPDATE `tblsinfo_data` SET login='Y' WHERE id='$id'");
+		$sqlup = mysqli_query($con,"UPDATE `ft2_users_account` SET login='Y' WHERE id='$id'");
 		
 		if($acct=='ADMIN'){
 			$_SESSION['account'] = $acct;	

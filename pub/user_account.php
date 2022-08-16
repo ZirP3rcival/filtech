@@ -61,9 +61,9 @@ $uid=$_SESSION['id'];
 				$cp=$currentPageRV;
 
 				if($sitm!='') {	
-				$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
+				$dsql = mysqli_query($con,"SELECT * from ft2_users_account where typ='FACULTY' and alyas LIKE '%$sitm%' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }
 				else  {	
-				$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
+				$dsql = mysqli_query($con,"SELECT * from ft2_users_account where typ='FACULTY' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); }	
 
 				  while($r = mysqli_fetch_assoc($dsql))
 				   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
@@ -108,7 +108,7 @@ $uid=$_SESSION['id'];
 							<div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="?page=user_account&prc=<?=$prc;?>&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 							<div style="width:60%; float:left; font-size:11px;">
 							  <?php
-				$sql = mysqli_query($con,"SELECT COUNT(*) AS crt from tblsinfo_data where typ='FACULTY' LIMIT $rowsPerPageRV");  
+				$sql = mysqli_query($con,"SELECT COUNT(*) AS crt from ft2_users_account where typ='FACULTY' LIMIT $rowsPerPageRV");  
 
 				$row = mysqli_fetch_assoc($sql);
 				$totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);

@@ -67,68 +67,68 @@ error_reporting (E_ALL ^ E_NOTICE);
 
 $id=$_SESSION['id'];
 //Select Active School Year
-$sqlay="SELECT * FROM tblsyr_data WHERE stat='Y'"; 
+$sqlay="SELECT * FROM ft2_active_year WHERE stat='Y'"; 
 $sqler = $con->query($sqlay);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['year']=$r['syr']; $syr=$r['syr'];
 }
 //Select and count Faculty Account
-$sqlaf="SELECT COUNT(id) AS fctr, typ, actv FROM `tblsinfo_data` WHERE typ='FACULTY'"; 
+$sqlaf="SELECT COUNT(id) AS fctr, typ, actv FROM `ft2_users_account` WHERE typ='FACULTY'"; 
 $sqler = $con->query($sqlaf);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['fctr']=$r['fctr'];
 	$uctr=$r['fctr'];
 }
 //Count Active Faculty Account
-$sqlfc="SELECT COUNT(id) AS fctr, typ, actv FROM `tblsinfo_data` WHERE typ='FACULTY' AND actv='Y'"; 
+$sqlfc="SELECT COUNT(id) AS fctr, typ, actv FROM `ft2_users_account` WHERE typ='FACULTY' AND actv='Y'"; 
 $sqler = $con->query($sqlfc);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$fctr=$r['fctr'];
 	$_SESSION['factv']=number_format(($fctr/$uctr)*100,2);
 }
 //Select and count Student Account
-$sqlas="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUDENT'"; 
+$sqlas="SELECT COUNT(id) AS sctr, typ, actv FROM `ft2_users_account` WHERE typ='STUDENT'"; 
 $sqler = $con->query($sqlas);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['sctr']=$r['sctr'];
 	$uctr=$r['sctr'];
 }
 //Select and count Active Student Account
-$sqlsc="SELECT COUNT(id) AS sctr, typ, actv FROM `tblsinfo_data` WHERE typ='STUDENT' AND actv='Y'"; 
+$sqlsc="SELECT COUNT(id) AS sctr, typ, actv FROM `ft2_users_account` WHERE typ='STUDENT' AND actv='Y'"; 
 $sqler = $con->query($sqlsc);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$sctr=$r['sctr'];
 	$_SESSION['sactv']=number_format(($sctr/$uctr)*100,2);
 }
 //Select and Count  Uploaded Lessons
-$sqlmd="SELECT COUNT(id) AS lctr FROM tblmodule_data"; 
+$sqlmd="SELECT COUNT(id) AS lctr FROM ft2_module_records"; 
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['lctr']=$r['lctr'];
 	$lctr=$r['lctr'];
 }
 //Select and Count  Uploaded Lessons
-$sqlmd="SELECT COUNT(id) AS alctr, syr FROM `tblmodule_data` WHERE syr='$syr'"; 
+$sqlmd="SELECT COUNT(id) AS alctr, syr FROM `ft2_module_records` WHERE syr='$syr'"; 
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$alctr=$r['alctr'];
 	$_SESSION['alctr']=number_format(($lctr/$alctr)*100,2);
 }
 //Select and Count All Account
-$sqlmd="SELECT COUNT(id) AS uctr, actv FROM tblsinfo_data WHERE actv='Y'"; 
+$sqlmd="SELECT COUNT(id) AS uctr, actv FROM ft2_users_account WHERE actv='Y'"; 
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['uctr']=$r['uctr'];
 	$lctr=$r['uctr'];
 }
 //Select and Count Account Reset Request
-$sqlmd="SELECT COUNT(id) AS auctr, actv, login FROM tblsinfo_data WHERE actv='Y' and login='Y'"; 
+$sqlmd="SELECT COUNT(id) AS auctr, actv, login FROM ft2_users_account WHERE actv='Y' and login='Y'"; 
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['auctr']=$r['auctr'];
 }
 
-$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc FROM tblsinfo_data WHERE id='$id'"; 
+$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc FROM ft2_users_account WHERE id='$id'"; 
 $sqler = $con->query($sqlay);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$photo='data:image/png;base64,'.''.$r['ploc'];

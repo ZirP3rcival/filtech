@@ -40,7 +40,7 @@ $syr=$_SESSION['year'];
 <!--
 <?php	
 $i=0;		  
-$sqlmd="SELECT * FROM `tblmodule_data` WHERE syr='$syr' ORDER BY RAND() LIMIT 5"; 
+$sqlmd="SELECT * FROM `ft2_module_records` WHERE syr='$syr' ORDER BY RAND() LIMIT 5"; 
 $sqler = $con->query($sqlmd);	
 while($r = mysqli_fetch_assoc($sqler)) { $i++;
 ?>	  

@@ -41,7 +41,7 @@ $fsec=$_SESSION['sec'];
 ></li>
 <?php 
 if($fgrd!='')	{
-$dsql = mysqli_query($con,"SELECT * from tblmodule_data WHERE grde = '$fgrd' AND syr = '$syr' ORDER BY title ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd' AND syr = '$syr' ORDER BY title ASC");
   while($rx = mysqli_fetch_assoc($dsql))
    { 
     ?>                                   

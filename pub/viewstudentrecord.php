@@ -6,7 +6,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 @$a = $xyz / 0;
 
 $id=$_REQUEST['id'];
-$sqlay="SELECT id, eadd, lnme, mnme, fnme, cno, ploc FROM tblsinfo_data WHERE id='$id'"; 
+$sqlay="SELECT id, eadd, lnme, mnme, fnme, cno, ploc FROM ft2_users_account WHERE id='$id'"; 
 $sqler = $con->query($sqlay);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$photo='data:image/png;base64,'.''.$r['ploc'];

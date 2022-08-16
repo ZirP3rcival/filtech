@@ -39,9 +39,9 @@ if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php	
-$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblgrade_data.* FROM tblfaculty_sched 
-INNER JOIN tblgrade_data ON tblfaculty_sched.grde = tblgrade_data.id
-WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY tblgrade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
    {  ?>   
@@ -49,6 +49,21 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 <?php  } ?>  
         </select></div>
 	<div class="clearfix"></div>
+    <div class="col-xs-12 col-md-4" style="margin-top:0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right;">	
+<select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>
+<?php	
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
+
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php  } ?>  
+        </select></div>
+	<div class="clearfix"></div>	
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
   <button class="btn btn-info btn-block" data-toggle="modal" data-target="#CLM" > Create New Lesson </button>
@@ -77,7 +92,7 @@ WHERE tblfaculty_sched.fid = '$fid' AND tblfaculty_sched.syr = '$syr' ORDER BY t
 ></li>
 <?php 
 if($fgrd!='')	{
-$dsql = mysqli_query($con,"SELECT * from tblmodule_data WHERE grde = '$fgrd' AND syr = '$syr' AND fid='$fid' ORDER BY title ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd' AND syr = '$syr' AND fid='$fid' AND subj='$sbj' ORDER BY title ASC");
   while($rx = mysqli_fetch_assoc($dsql))
    { $sphoto='data:image/png;base64,'.''.$rx['ploc'];
     ?>                                   

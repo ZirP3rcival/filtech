@@ -10,7 +10,7 @@ if ($prc=='A') {
 $T0 = $_REQUEST['id'];	
 $T1 = $_REQUEST['set'];	
 	
-$sql="UPDATE tblsinfo_data SET actv='$T1' WHERE id='$T0'";  
+$sql="UPDATE ft2_users_account SET actv='$T1' WHERE id='$T0'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Setting User Account Status!!!'; 
     header("location:admin?page=user_account");
@@ -26,7 +26,7 @@ $sql="UPDATE tblsinfo_data SET actv='$T1' WHERE id='$T0'";
 if ($prc=='D') {		
 $T0 = $_REQUEST['id'];	
 	
-$sql="DELETE FROM tblsinfo_data WHERE id='$T0'";  
+$sql="DELETE FROM ft2_users_account WHERE id='$T0'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting User Account !!!'; 
     header("location:admin?page=user_account");
@@ -45,7 +45,7 @@ $T6 = mysqli_real_escape_string($con,$_POST['ausr']);
 $T7 = mysqli_real_escape_string($con,$_POST['apwd']);
 $T8 = mysqli_real_escape_string($con,$_POST['atyp']);	
   
-$sql="INSERT INTO tblsinfo_data(eadd,usr,pwd,actv,typ) VALUES ('$T4','$T6',MD5('$T7'),'Y','$T8')";  
+$sql="INSERT INTO ft2_users_account(eadd,usr,pwd,actv,typ) VALUES ('$T4','$T6',MD5('$T7'),'Y','$T8')";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Saving New User Account!<br>Please Re-type All Entries Properly....'; 
     header("location:admin?page=user_account");

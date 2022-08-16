@@ -15,7 +15,7 @@
                     </div>
                     <div class="chat-content chat-scrollbar">
 <?php
-$dsql = mysqli_query($con,"SELECT * from tblsinfo_data where typ='FACULTY' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); 
+$dsql = mysqli_query($con,"SELECT * from ft2_users_account where typ='FACULTY' ORDER BY alyas ASC LIMIT $offsetRV, $rowsPerPageRV"); 
 
 				  while($r = mysqli_fetch_assoc($dsql))
 				   {  

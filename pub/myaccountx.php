@@ -67,7 +67,7 @@ $(document).ready(function() {
 		</nav>
 		<!-- END NAVBAR -->
 <?php
-$sql=mysqli_query($con,"SELECT * FROM tblsyr_data WHERE stat='Y'");
+$sql=mysqli_query($con,"SELECT * FROM ft2_active_year WHERE stat='Y'");
 while($rs = mysqli_fetch_assoc($sql))
  {	$syr=$rs['syr']; }
 ?>	
@@ -84,7 +84,7 @@ while($rs = mysqli_fetch_assoc($sql))
 <?php
 $sid=$_SESSION['uid'];
 $ppwd = $_SESSION['pwd'];	
- $msql = mysqli_query($con,"SELECT * from tblsinfo_data where id = '$sid'");
+ $msql = mysqli_query($con,"SELECT * from ft2_users_account where id = '$sid'");
 
   while($rs = mysqli_fetch_assoc($msql))
    {  $sno=$rs['sno'];
@@ -456,7 +456,7 @@ if (input.length < 13) {
 <select name="pugrd" required class="form-control" id="pugrd" style="display: inline-block; position:inherit; width:100%;">
           <option value="" >- Pumili ng Antas -</option>
 <php
-$dsql = mysqli_query($con,"SELECT * from tblgrade_data ORDER BY grd ASC");
+$dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
 	
   while($rg = mysqli_fetch_assoc($dsql))
    { if($grd==$rg['id']) {	?>    

@@ -24,13 +24,13 @@ $id=$_REQUEST['id'];
  <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
 </div>		
 <?php 
-$dsql = mysqli_query($con,"SELECT tblsection_data.*, tblgrade_data.* FROM tblgrade_data INNER JOIN tblsection_data ON tblsection_data.grd = tblgrade_data.id WHERE tblgrade_data.id = '$id'");
+$dsql = mysqli_query($con,"SELECT ft2_section_data.*, tblft2_grade_data.* FROM tblft2_grade_data INNER JOIN ft2_section_data ON ft2_section_data.grd = tblft2_grade_data.id WHERE tblft2_grade_data.id = '$id'");
 			
   while($r = mysqli_fetch_assoc($dsql))
    {  
 	   $sfid = $r['fid'];
 	   
-	   $xsql = mysqli_query($con,"SELECT id, alyas FROM tblsinfo_data WHERE id = '$sfid'");
+	   $xsql = mysqli_query($con,"SELECT id, alyas FROM ft2_users_account WHERE id = '$sfid'");
 	   while($rx = mysqli_fetch_assoc($xsql))
         { $xalyas=$rx['alyas']; }
     ?>                                   

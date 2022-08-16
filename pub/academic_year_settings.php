@@ -37,7 +37,7 @@ $currentPageRV = ((isset($_GET['ppageRV']) && $_GET['ppageRV'] > 0) ? (int)$_GET
 $offsetRV = ($currentPageRV-1)*$rowsPerPageRV;
 $cp=$currentPageRV;
 
-$dsql = mysqli_query($con,"SELECT * from tblsyr_data ORDER BY syr DESC LIMIT $offsetRV, $rowsPerPageRV");
+$dsql = mysqli_query($con,"SELECT * from ft2_active_year ORDER BY syr DESC LIMIT $offsetRV, $rowsPerPageRV");
 	
   while($r = mysqli_fetch_assoc($dsql))
    {
@@ -69,7 +69,7 @@ $dsql = mysqli_query($con,"SELECT * from tblsyr_data ORDER BY syr DESC LIMIT $of
 	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="?page=academic_year_settings&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 	        <div style="width:60%; float:left; font-size:11px;">
 	          <?php
-$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM tblsyr_data ORDER BY syr DESC LIMIT $rowsPerPageRV");  
+$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM ft2_active_year ORDER BY syr DESC LIMIT $rowsPerPageRV");  
   
 $row = mysqli_fetch_assoc($sql);
 $totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);

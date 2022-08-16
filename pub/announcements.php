@@ -53,7 +53,7 @@ function echoln($x, $length)
 	$offsetRV = ($currentPageRV-1)*$rowsPerPageRV;
 	$cp=$currentPageRV;
 
-	$dsql = mysqli_query($con,"SELECT * from tblnews_data ORDER BY dtme DESC LIMIT $offsetRV, $rowsPerPageRV");
+	$dsql = mysqli_query($con,"SELECT * from ft2_announcements_data ORDER BY dtme DESC LIMIT $offsetRV, $rowsPerPageRV");
 	  while($r = mysqli_fetch_assoc($dsql))
 	   { $usrpic='data:image/png;base64,'.''.$r['ploc'];
 ?>                                   
@@ -89,7 +89,7 @@ function echoln($x, $length)
 	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="admin?page=announcements&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 	        <div style="width:60%; float:left; font-size:11px;">
 	          <?php
-				$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM tblnews_data ORDER BY dtme DESC LIMIT $rowsPerPageRV");  
+				$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM ft2_announcements_data ORDER BY dtme DESC LIMIT $rowsPerPageRV");  
 
 				$row = mysqli_fetch_assoc($sql);
 				$totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);
@@ -138,7 +138,7 @@ function echoln($x, $length)
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Bagong Anunsyo</h6>
 		  </div>
 <?php		  
-$dsql = mysqli_query($con,"SELECT * from tblnews_data where id='$id'");
+$dsql = mysqli_query($con,"SELECT * from ft2_announcements_data where id='$id'");
 	  while($r = mysqli_fetch_assoc($dsql))
 	   { $epic='data:image/png;base64,'.''.$r['ploc'];
 		 $opic=$r['ploc'];

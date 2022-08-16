@@ -25,7 +25,7 @@ $T12 = mysqli_real_escape_string($con,$_POST['pusr']);
 $T13 = mysqli_real_escape_string($con,$_POST['ppwd']);	
 $picr = mysqli_real_escape_string($con,$_POST['picr']);
 
-$sql="UPDATE tblsinfo_data SET lnme='$T0', fnme='$T1', mnme='$T2', cno='$T3', sqt='$T7',sqa='$T8', actv='Y', alyas='$T9',eadd='$T11',usr='$T12',pwd=MD5('$T13'), ploc='$picr' where id='$id'";  
+$sql="UPDATE ft2_users_account SET lnme='$T0', fnme='$T1', mnme='$T2', cno='$T3', sqt='$T7',sqa='$T8', actv='Y', alyas='$T9',eadd='$T11',usr='$T12',pwd=MD5('$T13'), ploc='$picr' where id='$id'";  
 
  if ($con->query($sql) === FALSE) //oop approach //(!mysqli_query($con,$sql)) =procedural approach
   { $_SESSION['errmsg']='Error Updating User Account!!!<br>Please Check All Entries Properly....'; 

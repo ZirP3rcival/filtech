@@ -12,8 +12,8 @@ $sfgrd = mysqli_real_escape_string($con,$_POST['sfgrd']);
 $sfsec = mysqli_real_escape_string($con,$_POST['sfsec']);	
 $syr=$_SESSION['year'];	
 
-$sqlu=mysqli_query($con,"UPDATE tblsection_data SET fid='$fid', stat='Y' WHERE grd='$sfgrd' AND sect='$sfsec'");  
-$sqls=mysqli_query($con,"INSERT INTO tblfaculty_sched(fid, grde, sec, syr) VALUES('$fid','$sfgrd','$sfsec','$syr')");  
+$sqlu=mysqli_query($con,"UPDATE ft2_section_data SET fid='$fid', stat='Y' WHERE grd='$sfgrd' AND sect='$sfsec'");  
+$sqls=mysqli_query($con,"INSERT INTO ft2_faculty_schedule(fid, grde, sec, syr) VALUES('$fid','$sfgrd','$sfsec','$syr')");  
 	 $_SESSION['errmsg']='Faculty Schedule Saved Successfully!!!'; 
      header("location:admin?page=faculty_scheduler");
      exit;
@@ -22,7 +22,7 @@ $sqls=mysqli_query($con,"INSERT INTO tblfaculty_sched(fid, grde, sec, syr) VALUE
 if ($prc=='D') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);	
 	
-$sql="DELETE FROM tblgrade_data WHERE id='$id'";  
+$sql="DELETE FROM tblft2_grade_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting Grade Level Record!!!'; 
     session_write_close();
