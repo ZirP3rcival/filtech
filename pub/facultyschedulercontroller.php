@@ -22,7 +22,7 @@ $sqls=mysqli_query($con,"INSERT INTO ft2_faculty_schedule(fid, grde, sec, syr) V
 if ($prc=='D') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);	
 	
-$sql="DELETE FROM tblft2_grade_data WHERE id='$id'";  
+$sql="DELETE FROM ft2_grade_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting Grade Level Record!!!'; 
     session_write_close();

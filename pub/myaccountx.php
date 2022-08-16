@@ -77,7 +77,7 @@ while($rs = mysqli_fetch_assoc($sql))
 				<!-- WEBSITE ANALYTICS -->
 				<div class="dashboard-section" style="margin-bottom: -30px;">
 					<div class="section-heading clearfix bdrme">
-						<h2 class="section-title"><i class="fa fa-user-circle"></i> Welcome Students S.Y. <?php echo $syr;?></h2>
+						<h2 class="section-title"><i class="fa fa-user-circle"></i> Welcome Students S.Y. <?=$syr;?></h2>
 						<a href="#" class="right" style="color: #fff;">Kagamitang Panturo para sa mga Mag-aaral ng Lungsod ng Pasig</a>
 					</div>
 					<div class="panel-content">
@@ -118,7 +118,7 @@ $ppwd = $_SESSION['pwd'];
 ?>					
 <div class="row">
                     <!-- Column -->
-<form action="updadmin?pgn=<?php echo $pgn;?>&did=<?php echo $sid;?>" method="post" style="width: 100%; margin-bottom:0px;" class="form-horizontal" enctype="multipart/form-data" role="form" id="frmUP"> 
+<form action="updadmin?pgn=<?=$pgn;?>&did=<?=$sid;?>" method="post" style="width: 100%; margin-bottom:0px;" class="form-horizontal" enctype="multipart/form-data" role="form" id="frmUP"> 
  <!-- ============================================================== --> <!-- ============================================================== -->
  <div class="col-xs-12 col-md-4" style="float: left;">
                         <!-- Column -->
@@ -135,7 +135,7 @@ $ppwd = $_SESSION['pwd'];
 
 <!--div class="col-xs-12 col-md-5"><span class="mf" style="float:left; margin-right:10px;">Student No. : </span></div>
 <div class="col-xs-12 col-md-7" style="float: right;">
-<input name="psno" type="text" class="form-control" id="psno" placeholder="Input Student Number" readonly required style="width:100%; float:left;" maxlength="30" onKeyPress="return maskKeyPress(event)" value="<php echo $sno;?>"></div-->
+<input name="psno" type="text" class="form-control" id="psno" placeholder="Input Student Number" readonly required style="width:100%; float:left;" maxlength="30" onKeyPress="return maskKeyPress(event)" value="<=$sno;?>"></div-->
    <div class="clearfix"></div>
 <script type="text/javascript">
 function checkPEmail(str)
@@ -163,7 +163,7 @@ function checkPEmail(str)
 </script>
 
 <div class="col-xs-12 col-md-12"><span class="mf" style="float:left; margin-right:10px;">Email Address : </span></div>
-<div class="col-xs-12 col-md-12"><input type="text" maxlength="100" class="form-control" style="width:100%; float:left;" id="peadd" name="peadd" required placeholder="Input Email Address" value="<?php echo $eadd;?>" onblur="checkPEmail(this.value)"></div>
+<div class="col-xs-12 col-md-12"><input type="text" maxlength="100" class="form-control" style="width:100%; float:left;" id="peadd" name="peadd" required placeholder="Input Email Address" value="<?=$eadd;?>" onblur="checkPEmail(this.value)"></div>
      <div class="clearfix"></div>
      
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Security Question : </span></div>
@@ -182,7 +182,7 @@ function checkPEmail(str)
 	<div class="clearfix"></div>
 <div class="col-xs-12 col-md-5" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Answer : </span></div>
 <div class="col-xs-12 col-md-7" style="margin-top:10px; float: right;">
-<input name="pusqa" type="text" required class="form-control" id="pusqa" placeholder="Question Answer" value="<?php echo $sqa;?>"/></div>
+<input name="pusqa" type="text" required class="form-control" id="pusqa" placeholder="Question Answer" value="<?=$sqa;?>"/></div>
     <div class="clearfix"></div>
 <!-- ################################################################################################-->
 <script type="text/javascript">
@@ -272,7 +272,7 @@ function chcknme()
 }
 </script><?php } ?>
 <div class="col-xs-12 col-md-5" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Username : </span></div>
-<div class="col-xs-12 col-md-7" style="margin-top:10px; float: right;"><input type="text" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Nw_Usrname" name="pusr" placeholder="Username" onkeyup="chcknme();return false;" onBlur="chcknme();return false;" value="<?php echo $usr;?>"/>
+<div class="col-xs-12 col-md-7" style="margin-top:10px; float: right;"><input type="text" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Nw_Usrname" name="pusr" placeholder="Username" onkeyup="chcknme();return false;" onBlur="chcknme();return false;" value="<?=$usr;?>"/>
 <div class="col-xs-12 col-md-12" id="nme_status" style="font-size:11px; word-wrap:normal; font-weight:bold; color:#0E04F7;"></div>
 
 <input type="hidden" name="nme_status" id="nme_status_hidden" />
@@ -286,19 +286,19 @@ setInterval(function () {
 
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Password :<em style="font-size:9px;">&nbsp;(min. 8 characters)</em></span></div>
 <div class="col-xs-12 col-md-12">
-<input type="password" required maxlength="25" class="form-control" style="width:100%; float:left;" id="D_Password" name="ppwd" placeholder="Password" value="<?php echo $ppwd;?>"/>
+<input type="password" required maxlength="25" class="form-control" style="width:100%; float:left;" id="D_Password" name="ppwd" placeholder="Password" value="<?=$ppwd;?>"/>
 	</div><div class="clearfix"></div><div class="col-xs-12 col-md-12" id="Ppass-info" style="padding-left: 20px; font-size:11px; word-wrap:normal;"></div>
 
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Confirm Password :<em style="font-size:9px;">&nbsp;(min. 8 characters)</em></span></div>
 <div class="col-xs-12 col-md-12">
-<input type="password" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Cn_Paswrd" name="ppwd" placeholder="Confirm Password" value="<?php echo $ppwd;?>"/>
+<input type="password" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Cn_Paswrd" name="ppwd" placeholder="Confirm Password" value="<?=$ppwd;?>"/>
 </div>
 <script type="text/javascript">
     function Validate() {
         var password = document.getElementById("D_Password").value;
         var confirmPassword = document.getElementById("Cn_Paswrd").value;
         if (password != confirmPassword) {
-       var bb = bootbox.alert({ message: "<?php echo $errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
+       var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
        size: 'small'});
 	   bb.find('.modal-dialog').css({'border': '#E8E8E8 5px solid','border-radius':'4px'});
 	   bb.find('.modal-header').css({'background-color': '#014A05','padding': '5px 10px','color': '#FFF','font-size': '20px'});
@@ -340,17 +340,17 @@ setInterval(function () {
 
 <div class="col-xs-12 col-md-12"><span class="mf" style="float:left; margin-right:10px;">Lastname : </span></div>
 <div class="col-xs-12 col-md-12" style="float: right;">
-<input name="pulnme" type="text" class="form-control" id="pulnme" placeholder="Input Lastname" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?php echo $lnme;?>"></div>
+<input name="pulnme" type="text" class="form-control" id="pulnme" placeholder="Input Lastname" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?=$lnme;?>"></div>
 	<div class="clearfix"></div>
 	
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Firstname : </span></div>
 <div class="col-xs-12 col-md-12" style="float: right;">
-<input name="pufnme" type="text" class="form-control" id="pufnme" placeholder="Input Firstname" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?php echo $fnme;?>"></div>
+<input name="pufnme" type="text" class="form-control" id="pufnme" placeholder="Input Firstname" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?=$fnme;?>"></div>
 	<div class="clearfix"></div>
 	
 <div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Middlename : </span></div>
 <div class="col-xs-12 col-md-12" style="float: right;">
-<input name="pumnme" type="text" class="form-control" id="pumnme" placeholder="Input Middlename" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?php echo $mnme;?>"></div>
+<input name="pumnme" type="text" class="form-control" id="pumnme" placeholder="Input Middlename" required style="width:100%; float:left;" maxlength="30" onKeyPress="return letteronly(event)" value="<?=$mnme;?>"></div>
 	<div class="clearfix"></div>
 <script type="text/javascript">
  
@@ -448,7 +448,7 @@ if (input.length < 13) {
 </script>
 <div class="col-xs-12 col-md-5" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Contact No. : </span></div>
 <div class="col-xs-12 col-md-7" style="float: right;margin-top:10px;">
-<input name="pucno" type="text" class="form-control" id="pucno" placeholder="0000-000-0000" required style="width:100%; float:left;" maxlength="13" onBlur="return cnolength(this.value,this,event)" onKeyPress="return masking(this.value,this,event);" value="<?php echo $cno;?>"></div>
+<input name="pucno" type="text" class="form-control" id="pucno" placeholder="0000-000-0000" required style="width:100%; float:left;" maxlength="13" onBlur="return cnolength(this.value,this,event)" onKeyPress="return masking(this.value,this,event);" value="<?=$cno;?>"></div>
 	<div class="clearfix"></div>
 
 <!--div class="col-xs-12 col-md-5" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
@@ -456,13 +456,13 @@ if (input.length < 13) {
 <select name="pugrd" required class="form-control" id="pugrd" style="display: inline-block; position:inherit; width:100%;">
           <option value="" >- Pumili ng Antas -</option>
 <php
-$dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_grade_data ORDER BY grd ASC");
 	
   while($rg = mysqli_fetch_assoc($dsql))
    { if($grd==$rg['id']) {	?>    
-    <option value="<php echo $rg['id'];?>" selected><php echo $rg['grd'];?></option> 
+    <option value="<=$rg['id'];?>" selected><=$rg['grd'];?></option> 
 <php } else { ?>          
-    <option value="<php echo $rg['id'];?>" ><php echo $rg['grd'];?></option>
+    <option value="<=$rg['id'];?>" ><=$rg['grd'];?></option>
 <php } } ?>  
         </select></div>
 	<div class="clearfix"></div>
@@ -472,7 +472,7 @@ $dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
 <select name="pusec" required class="form-control" id="pusec" style="display: inline-block; position:inherit; width:100%;">
           <option value="" >- Pumili ng Seksyon-</option>
 <php if($sec!='') { ?> 
-          <option value="<php echo $sec;?>" selected ><php echo $sec;?></option> 
+          <option value="<=$sec;?>" selected ><=$sec;?></option> 
 <php } ?>          
         </select></div>
 	<div class="clearfix"></div-->
@@ -484,7 +484,7 @@ $dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
         var confirmPassword = document.getElementById("C_Password").value;
         if (password != confirmPassword) {
 	   
-		var bb = bootbox.alert({ message: "<?php echo $errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
+		var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
        size: 'small'});
 	   bb.find('.modal-title').css({'float': 'left','margin-top':'10px'});
 	   bb.find('.close').css({'display': 'none'});
@@ -524,11 +524,11 @@ $dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
                                 <div class="message-box contact-box"><h5>Current Profle Picture : </h5>
 <div class="row">
 <div class="col-xs-12 col-md-12" style="display:table-cell; vertical-align:middle; text-align:center">
-<img src="../assets/img/<?php echo $ploc;?>" style="width:40%; border-left:1px solid #fff; border-top:1px solid #fff; border-right:2px solid #000; border-bottom:2px solid #000;"  />
+<img src="../assets/img/<?=$ploc;?>" style="width:40%; border-left:1px solid #fff; border-top:1px solid #fff; border-right:2px solid #000; border-bottom:2px solid #000;"  />
 </div>
 
 <div class="form-group" style="padding:35px 10px 10px 10px; margin: 0px;">
-<input type="text" class="form-control" id="picr" name="picr" value="<?php echo $ploc;?>">
+<input type="text" class="form-control" id="picr" name="picr" value="<?=$ploc;?>">
 <label class="col-xs-12 col-md-12" style="padding-left: 0px; float: left; color:#000;">Browse New User Photo : </label> 
 	<div class="clearfix"></div>
 <div style="float: left;" class="col-xs-12 col-md-12">
@@ -543,7 +543,7 @@ $dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
 </div>
 <!--?php } elseif($did!='') { ?>
 <div style="float: right; margin-left: 0px;" class="col-xs-12 col-md-8">   
-    <img id="vimg" src="../../img/<php echo $ploc;?>" alt="your image" style="Width:180px;"/> 
+    <img id="vimg" src="../../img/<=$ploc;?>" alt="your image" style="Width:180px;"/> 
 </div>
 <php } ?-->
 </div>
@@ -619,7 +619,7 @@ $errmsg = $_REQUEST['errmsg'];
 //if(isset($_SESSION['errors']['error5301']) && $_SESSION['errors']['error5301'] == 1){ 
   if($errmsg!=""){ ?>
 <script type="text/javascript">
-   var bb = bootbox.alert({ message: "<?php echo $errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
+   var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
        size: 'small'});
 	   bb.find('.modal-title').css({'float': 'left','margin-top':'10px'});
 	   bb.find('.close').css({'display': 'none'});

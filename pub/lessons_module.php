@@ -5,11 +5,13 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 
 $fgrd=$_POST['fgrd'];
+$fsbj=$_POST['fsbj'];
 
 $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
 
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
+if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 ?>
 <style>
 .form-control  {
@@ -39,9 +41,9 @@ if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php	
-$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
-INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), ft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
    {  ?>   
@@ -49,18 +51,19 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 <?php  } ?>  
         </select></div>
 	<div class="clearfix"></div>
-    <div class="col-xs-12 col-md-4" style="margin-top:0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right;">	
+    <div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:10px; float: right;">	
 <select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php	
-$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
-INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_module_subjects.subj FROM ft2_faculty_schedule 
+INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
+ORDER BY ft2_faculty_schedule.sjid ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
    {  ?>   
-    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+    <option value="<?=$rg['sjid'];?>" <?=($fsbj == $rg['sjid'] ? 'selected' : '');?>><?=$rg['subj'];?></option> 
 <?php  } ?>  
         </select></div>
 	<div class="clearfix"></div>	
@@ -92,7 +95,7 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 ></li>
 <?php 
 if($fgrd!='')	{
-$dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd' AND syr = '$syr' AND fid='$fid' AND subj='$sbj' ORDER BY title ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd' AND syr = '$syr' AND fid='$fid' AND asid='$fsbj' ORDER BY title ASC");
   while($rx = mysqli_fetch_assoc($dsql))
    { $sphoto='data:image/png;base64,'.''.$rx['ploc'];
     ?>                                   
@@ -124,7 +127,7 @@ $dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd'
        </h4>
       </div>   
      <div class="modal-body">       
-<form action="gradesectioncontroller.php?prc=G" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
+<form action="lessonscontroller.php?prc=S&grd=<?=$fgrd?>&sbj=<?=$fsbj?>" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
                       <div class="form-group">
                         <label for="username">Lesson Title :</label>
                         <input name="title" type="text" class="form-control" id="title" maxlength="100" required>

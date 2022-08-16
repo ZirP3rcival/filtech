@@ -38,7 +38,7 @@ $currentPageRV = ((isset($_GET['ppageRV']) && $_GET['ppageRV'] > 0) ? (int)$_GET
 $offsetRV = ($currentPageRV-1)*$rowsPerPageRV;
 $cp=$currentPageRV;
 
-$dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd DESC LIMIT $offsetRV, $rowsPerPageRV");
+$dsql = mysqli_query($con,"SELECT * from ft2_grade_data ORDER BY grd DESC LIMIT $offsetRV, $rowsPerPageRV");
 	
   while($r = mysqli_fetch_assoc($dsql))
    {
@@ -68,7 +68,7 @@ $dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd DESC LIM
 	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px; background:#EFEFEF;" href="?page=grade_section_settings&ppageRV=<?=($currentPageRV-1)?>"> prev </a></div>
 	        <div style="width:60%; float:left; font-size:11px;">
 	          <?php
-$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM tblft2_grade_data ORDER BY grd DESC LIMIT $rowsPerPageRV");  
+$sql = mysqli_query($con,"SELECT COUNT(*) AS crt FROM ft2_grade_data ORDER BY grd DESC LIMIT $rowsPerPageRV");  
   
 $row = mysqli_fetch_assoc($sql);
 $totalPagesRV = ceil($row['crt'] / $rowsPerPageRV);
@@ -131,8 +131,8 @@ $currentPageSC = ((isset($_GET['ppageSC']) && $_GET['ppageSC'] > 0) ? (int)$_GET
 $offsetSC = ($currentPageSC-1)*$rowsPerPageSC;
 $cp=$currentPageSC;
 
-$dsql = mysqli_query($con,"SELECT ft2_section_data.*, ft2_section_data.id AS xid, tblft2_grade_data.id, tblft2_grade_data.grd AS grde FROM ft2_section_data
-INNER JOIN tblft2_grade_data ON ft2_section_data.grd = tblft2_grade_data.id ORDER BY ft2_section_data.sect ASC LIMIT $offsetSC, $rowsPerPageSC");
+$dsql = mysqli_query($con,"SELECT ft2_section_data.*, ft2_section_data.id AS xid, ft2_grade_data.id, ft2_grade_data.grd AS grde FROM ft2_section_data
+INNER JOIN ft2_grade_data ON ft2_section_data.grd = ft2_grade_data.id ORDER BY ft2_section_data.sect ASC LIMIT $offsetSC, $rowsPerPageSC");
 	
   while($r = mysqli_fetch_assoc($dsql))
    {
@@ -170,7 +170,7 @@ $totalPagesSC = ceil($row['crt'] / $rowsPerPageSC);
 
 //echo $rowsPerPageSC.' '.$totalPagesSC.' '.$currentPageSC;
 if($currentPageSC > 1) 
-{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageSC='.($currentPageSC-1).'"></a>'; }
+{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=grade_section_settings&ppageSC='.($currentPageSC-1).'"></a>'; }
 
 if($totalPagesSC < $rowsPerPageSC) { $d=$totalPagesSC; }
 else { $d=$currentPageSC + $rowsPerPageSC; }
@@ -186,15 +186,15 @@ for ($x=1;$x<=$d;$x++)
    }
   else
    { 
-     echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; color:#fff; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageSC='.$x.'"><strong>'.$x.'</strong></a>';    }
+     echo '<a class="btn btn-default btn-sm" style="background:#FF976A; margin-left:2px; color:#fff; font-size:11px;" href="?page=grade_section_settings&ppageSC='.$x.'"><strong>'.$x.'</strong></a>';    }
 }
  echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesSC .'</strong> pages</span>'; 
  
 if($currentPageSC < $totalPagesSC) 
-{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&ppageSC='.($currentPageSC+1).'"></a>'; }
+{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=grade_section_settings&ppageSC='.($currentPageSC+1).'"></a>'; }
 ?>
             </div>
-	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="<?php $pgn;?>?prc=<?=$prc;?>&ppageSC=<?=($currentPageSC+1);?>"> next </a></div>
+	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000; background:#EFEFEF;" href="?page=grade_section_settings&ppageSC=<?=($currentPageSC+1);?>"> next </a></div>
 <div class="clearfix"></div>	        
           </div>
                             </div>  
@@ -248,7 +248,7 @@ if($currentPageSC < $totalPagesSC)
    <select class="form-control" name="zgrd" id="zgrd">
  <option value="">-- Select Grade Level --</option>
 <?php 
-$csql = mysqli_query($con,"SELECT * FROM tblft2_grade_data order by grd ASC");
+$csql = mysqli_query($con,"SELECT * FROM ft2_grade_data order by grd ASC");
   while($rs = mysqli_fetch_assoc($csql))
    {   ?>        
       <option value="<?=$rs['id']?>"><?=$rs['grd']?></option>
@@ -278,7 +278,7 @@ $(document).on("click","#viewgs",function() {
 	var id=$(this).data('id');
 	$('#content').empty();
 	$("#content").load('viewgradesection.php?id='+id);
-	$('.modwidth').css('width','45%');
+	$('.modwidth').css('width','35%');
 	$('.modcap').empty();
 	$(".modcap").append('Grade Level and Section Record');
 	$('#POPMODAL').modal('show');

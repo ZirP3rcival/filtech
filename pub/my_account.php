@@ -243,7 +243,7 @@
 									var confirmPassword = document.getElementById("C_Password").value;
 									if (password != confirmPassword) {
 
-									var bb = bootbox.alert({ message: "<?php echo $errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
+									var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#fff;'>Notification :</span>",
 								   size: 'small'});
 								   bb.find('.modal-title').css({'float': 'left','margin-top':'10px'});
 								   bb.find('.close').css({'display': 'none'});

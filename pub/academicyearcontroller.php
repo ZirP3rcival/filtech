@@ -49,13 +49,13 @@ $nsyr = mysqli_real_escape_string($con,$_POST['nsyr']);
 $sql="INSERT INTO ft2_active_year(syr,stat) VALUES ('$nsyr','N')";  
  if (!mysqli_query($con,$sql))
   { 
-	$errmsg='Error Saving Academic Year Record!!!'; 
+	$_SESSION['errmsg']='Error Saving Academic Year Record!!!'; 
     header("location:admin?page=academic_year_settings");
     exit;
   }
  else  
    { 
-	 $errmsg='Academic Year Record Saved Successfully!!!'; 
+	 $_SESSION['errmsg']='Academic Year Record Saved Successfully!!!'; 
      header("location:admin?page=academic_year_settings");
      exit;
   }  

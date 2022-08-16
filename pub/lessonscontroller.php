@@ -5,6 +5,8 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 @$a = $xyz / 0; // no error 
 $prc=$_REQUEST['prc'];
+$syr=$_SESSION['year'];
+$fid=$_SESSION['id'];
 
 if ($prc=='D') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);	
@@ -44,19 +46,22 @@ $sql="UPDATE ft2_active_year SET stat='$set' WHERE id='$id'";
 }
 
 if ($prc=='S') {		
-$nsyr = mysqli_real_escape_string($con,$_POST['nsyr']);
+$title = mysqli_real_escape_string($con,$_POST['title']);
+$flink = mysqli_real_escape_string($con,$_POST['flink']);
+$grd = mysqli_real_escape_string($con,$_REQUEST['grd']);
+$sbj = mysqli_real_escape_string($con,$_REQUEST['sbj']);	
 	
-$sql="INSERT INTO ft2_active_year(syr,stat) VALUES ('$nsyr','N')";  
+$sql="INSERT INTO ft2_module_records(fid, title, flink, syr, grde, asid) VALUES ('$fid','$title','$flink','$syr','$grd','$sbj')";  
  if (!mysqli_query($con,$sql))
   { 
-	$errmsg='Error Saving Academic Year Record!!!'; 
-    header("location:admin?page=academic_year_settings");
+	$_SESSION['errmsg']='Error Saving Lesson Record!!!'; 
+    header("location:admin?page=lessons_module");
     exit;
   }
  else  
    { 
-	 $errmsg='Academic Year Record Saved Successfully!!!'; 
-     header("location:admin?page=academic_year_settings");
+	 $_SESSION['errmsg']='Lesson Record Saved Successfully!!!'; 
+     header("location:admin?page=lessons_module");
      exit;
   }  
 }

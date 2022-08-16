@@ -150,7 +150,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 <select name="sfgrd" required class="form-control" id="sfgrd" style="display: inline-block; position:inherit; width:100%;">
           <option value="" >- Select Grade -</option>
 <?php
-$dsql = mysqli_query($con,"SELECT * from tblft2_grade_data ORDER BY grd ASC");
+$dsql = mysqli_query($con,"SELECT * from ft2_grade_data ORDER BY grd ASC");
 	
   while($rg = mysqli_fetch_assoc($dsql))
    { if($grd==$rg['id']) {	?>    

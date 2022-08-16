@@ -31,7 +31,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 <?php 
 $nid = $_REQUEST['nid'];
 	
-$rowsPerPageRV = 10;
+$rowsPerPageRV = 5;
 // Get the search variable from URL
 $currentPageRV = ((isset($_GET['ppageRV']) && $_GET['ppageRV'] > 0) ? (int)$_GET['ppageRV'] : 1);
 $offsetRV = ($currentPageRV-1)*$rowsPerPageRV;

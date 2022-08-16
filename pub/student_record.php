@@ -41,9 +41,9 @@ if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmslst" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php	
-$dsql = mysqli_query($con,"SELECT DISTINCT(grde), tblft2_grade_data.* FROM ft2_faculty_schedule 
-INNER JOIN tblft2_grade_data ON ft2_faculty_schedule.grde = tblft2_grade_data.id
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY tblft2_grade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT DISTINCT(grde), ft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
    {  ?>   

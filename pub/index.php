@@ -56,7 +56,7 @@ $wp = $page.'.php';
   $errmsg = $_SESSION['errmsg'];
     if($errmsg!=""){ ?>
   <script type="text/javascript">
-    var bb = bootbox.alert({ message: "<?php echo $errmsg ?>",title: "<span style='color:#FF878B;'>Notification :</span>",
+    var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#FF878B;'>Notification :</span>",
         size: 'medium'});
       bb.find('.modal-dialog').css({'width': '35%'});
 	  bb.find('.modal-title').css({'float': 'left','margin-top':'10px'});

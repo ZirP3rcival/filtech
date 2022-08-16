@@ -4,7 +4,7 @@ student account
 lesson creation
 	section checlist for activation of lesson
 	video tutorial for usage
-	multiple subjects option
+	* multiple subjects option
 
 my account
 	color coding scheme for theme personalization

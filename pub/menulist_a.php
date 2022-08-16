@@ -12,6 +12,7 @@ if($acct=='ADMIN') {
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-header" style="text-align: justify; padding: 10px 0px;">
         <a href="?page=academic_year_settings" class="dropdown-item" title="Talaan ng Taong Pampaaralan"><i class="fa big-icon fa-calendar"></i> Academic Year Settings</a>
         <a href="?page=grade_section_settings" class="dropdown-item" title="Talaan ng Antas at Seksyon"><i class="fa big-icon fa-calculator"></i> Grade / Section Settings</a>
+        <a href="?page=subject_records" class="dropdown-item" title="Talaan ng Asignatura"><i class="fa big-icon fa-book"></i> Subject Records</a>
         <a href="?page=faculty_scheduler" class="dropdown-item" title="Modyul sa Iskedyul ng mga Guro"><i class="fa big-icon fa-th-list"></i> Faculty Scheduler</a>
     </div>
 </li>

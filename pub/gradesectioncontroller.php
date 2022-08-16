@@ -9,7 +9,7 @@ $prc=$_REQUEST['prc'];
 if ($prc=='D') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);	
 	
-$sql="DELETE FROM tblft2_grade_data WHERE id='$id'";  
+$sql="DELETE FROM ft2_grade_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { $_SESSION['errmsg']='Error Deleting Grade Level Record!!!'; 
     session_write_close();
@@ -28,7 +28,7 @@ $sql="DELETE FROM tblft2_grade_data WHERE id='$id'";
 if ($prc=='G') {		
 $xgrd = mysqli_real_escape_string($con,$_POST['xgrd']);
 	
-$sql="INSERT INTO tblft2_grade_data(grd) VALUES ('$xgrd')";  
+$sql="INSERT INTO ft2_grade_data(grd) VALUES ('$xgrd')";  
  if (!mysqli_query($con,$sql))
   { 
 	$_SESSION['errmsg']='Error Saving Grade Level Record!!!'; 
@@ -55,7 +55,7 @@ $sql="INSERT INTO ft2_section_data(grd,sect,stat) VALUES ('$ngrd','$nsec','N')";
     exit;
   }
  else  
-   { $sql=mysqli_query($con,"UPDATE tblft2_grade_data SET stat='Y' WHERE id='$ngrd'"); 
+   { $sql=mysqli_query($con,"UPDATE ft2_grade_data SET stat='Y' WHERE id='$ngrd'"); 
 	 $_SESSION['errmsg']='Section Record Saved Successfully!!!'; 
      header("location:admin?page=grade_section_settings");
      exit;
