@@ -69,7 +69,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 	<div class="clearfix"></div>	
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
-  <button class="btn btn-info btn-block" data-toggle="modal" data-target="#CLM" > Create New Lesson </button>
+  <button class="btn btn-info btn-block" id="cnew" name="cnew" data-toggle="modal" data-target="#CLM" > Create New Lesson </button>
   </div>
  </div>  
 <div class="clearfix">  </div>                           
@@ -150,7 +150,13 @@ $dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd'
 <!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
+var fgrd= document.getElementById("fgrd").value;
+var fsbj= document.getElementById("fsbj").value;	
+	
+if((fgrd=='')||(fsbj=='')) { $('#cnew').prop('disabled',true); }	
+else { $('#cnew').prop('disabled',false); }	
 
+	
 $(document).on("click","#viewls",function() {
 	var id=$(this).data('id');
 	$('#content').empty();

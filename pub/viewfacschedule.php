@@ -30,12 +30,12 @@ $xsql = mysqli_query($con,"SELECT id, alyas FROM ft2_users_account WHERE id = '$
  <div class="clearfix" style="border-bottom:1px #3E3A3A solid; margin-top: 15px;"></div>
 </div>		
 <?php 
-$dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_assigned_subjects.*,ft2_module_subjects.*, ft2_grade_data.id, ft2_grade_data.grd as grade, ft2_section_data.*
+$dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_module_subjects.*, ft2_grade_data.id, ft2_grade_data.grd AS grade, ft2_section_data.*
 FROM ft2_faculty_schedule 
-INNER JOIN ft2_assigned_subjects ON ft2_assigned_subjects.id=ft2_faculty_schedule.asid
-INNER JOIN ft2_module_subjects ON ft2_module_subjects.id=ft2_assigned_subjects.sjid
-INNER JOIN ft2_grade_data ON ft2_grade_data.id=ft2_assigned_subjects.grde
-INNER JOIN ft2_section_data ON ft2_section_data.id=ft2_assigned_subjects.sec
+INNER JOIN ft2_users_account ON ft2_users_account.id=ft2_faculty_schedule.fid
+INNER JOIN ft2_module_subjects ON ft2_module_subjects.id=ft2_faculty_schedule.sjid
+INNER JOIN ft2_grade_data ON ft2_grade_data.id=ft2_faculty_schedule.grde
+INNER JOIN ft2_section_data ON ft2_section_data.id=ft2_faculty_schedule.sec
 WHERE ft2_faculty_schedule.fid = '$id'");
 
   while($r = mysqli_fetch_assoc($dsql))

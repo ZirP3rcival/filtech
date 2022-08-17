@@ -58,4 +58,17 @@ $sql="INSERT INTO ft2_users_account(eadd,usr,pwd,actv,typ) VALUES ('$T4','$T6',M
   }  
 }
 
+if ($prc=='C') {
+$id=$_POST['id'];
+	
+$rows = array();
+$sql = "SELECT * FROM ft2_section_data WHERE grd='$id'";
+	
+$sqler = $con->query($sql);	
+
+while($r = mysqli_fetch_assoc($sqler)) {
+    $rows[] = $r;
+}
+	echo json_encode($rows,JSON_INVALID_UTF8_IGNORE);		
+}
 ?>

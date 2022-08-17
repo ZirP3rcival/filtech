@@ -128,7 +128,7 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['auctr']=$r['auctr'];
 }
 
-$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc FROM ft2_users_account WHERE id='$id'"; 
+$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc, grde, sec FROM ft2_users_account WHERE id='$id'"; 
 $sqler = $con->query($sqlay);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$photo='data:image/png;base64,'.''.$r['ploc'];
@@ -142,6 +142,9 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	$mnme = $r['mnme'];
 	$fnme = $r['fnme'];
 	$cno= $r['cno'];
+	
+	$grde = $r['grde'];
+	$sec= $r['sec'];
 }
 ?>
 <script>

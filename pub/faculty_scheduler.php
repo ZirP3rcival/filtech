@@ -6,6 +6,23 @@ error_reporting (E_ALL ^ E_NOTICE);
 
  $sitm = $_POST['sitem'];
  if($sitm=='') {  $sitm = $_REQUESTST['sitem']; }	
+
+$zgrd=$_POST['zgrd'];
+//if($zgrd!='') { $_SESSION['zgrd']=$zgrd; }
+if($zgrd=='') { $zgrd=$_REQUEST['zgrd']; }
+
+$zsec=$_POST['zsec'];
+//if($zsec!='') { $_SESSION['zsec']=$zsec; }
+if($zsec=='') { $zsec=$_REQUEST['zsec']; }
+
+$zsbj=$_POST['zsbj'];
+//f($zsbj!='') { $_SESSION['zsbj']=$zsbj; }
+if($zsbj=='') { $zsbj=$_REQUEST['zsbj']; }
+
+$zfac=$_POST['zfac'];
+//if($zfac!='') { $_SESSION['zfac']=$zfac; }
+if($zfac=='') { $zfac=$_REQUEST['zfac']; }
+
 ?>
 <style>
 .form-control  {
@@ -135,48 +152,73 @@ error_reporting (E_ALL ^ E_NOTICE);
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Gumawa ng Iskedyul ng mga Guro</h6>
 		  </div>
-<div class="card-block box" style="padding: 10px 10px 20px 10px;">
-<form action="facultyschedulercontroller.php?prc=S"  enctype="multipart/form-data"  method="post" style="margin-bottom:0px; width: 100%;" class="form-horizontal" role="form" id="frmFNS" >
-                             
-<div style="background: #FFF;"> 
-<div class="col-xs-12 col-md-12" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Faculty Name: </span></div>
-<div class="col-xs-12 col-md-12">
-<input name="fid" id="fid" type="hidden" value="">
-<input name="sfnme" type="text" class="form-control" id="sfnme" placeholder="" required style="width:100%; float:left; color: #000; font-weight: 700;" readonly value="<?=$sfnme;?>"></div>
-	<div class="clearfix"></div>
+		<div class="card-block box" style="padding: 15px 20px;">
+		<div style="background: #FFF;"> 
+<form action="?page=faculty_scheduler&zgrd=<?=$zgrd?>&zsec=<?=$zsec?>&zfac=<?=$zfac?>&zsbj=<?=$zsbj?>" method="post" class="form-horizontal" id="fcsec" name="fcsec" style="margin:0px; padding:0px 12px;" role="form">
 
-<div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:10px; float: right;">	
-<select name="sfgrd" required class="form-control" id="sfgrd" style="display: inline-block; position:inherit; width:100%;">
-          <option value="" >- Select Grade -</option>
-<?php
-$dsql = mysqli_query($con,"SELECT * from ft2_grade_data ORDER BY grd ASC");
-	
-  while($rg = mysqli_fetch_assoc($dsql))
-   { if($grd==$rg['id']) {	?>    
-    <option value="<?=$rg['id'];?>" selected><?=$rg['grd'];?></option> 
-<?php } else { ?>          
-    <option value="<?=$rg['id'];?>" ><?=$rg['grd'];?></option>
-<?php } } ?>  
-        </select></div>
-	<div class="clearfix"></div>
-	
-<div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:10px; float: right;">
-<select name="sfsec" required class="form-control" id="sfsec" style="display: inline-block; position:inherit; width:100%;">
-          <option value="" >- Select Section -</option>
-<?php if($sec!='') { ?> 
-          <option value="<?=$sec;?>" selected ><?=$sec;?></option> 
-<?php } ?>          
-        </select></div>
-	<div class="clearfix"></div>
-</div>  
-<div class="clearfix">  </div>  
-</form>                                                    
+<div class="form-group">
+   <div class="col-xs-12 col-md-5">Select Grade Level :</div>
+   <div class="col-xs-12 col-md-7">
+   <select class="form-control" name="zgrd" id="zgrd" onChange="this.form.submit();">
+ <option value="">-- Select Grade Level --</option>
+<?php 
+$gsql = mysqli_query($con,"SELECT * FROM `ft2_grade_data` order by grd ASC");
+  while($rg = mysqli_fetch_assoc($gsql))
+   {   ?>        
+      <option value="<?=$rg['id'];?>" <?=($zgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php } ?>      
+  </select>
+  </div>
+</div>                                          
+                     
+<div class="form-group">
+   <div class="col-xs-12 col-md-5">Select Section Name :</div>
+   <div class="col-xs-12 col-md-7">
+   <select class="form-control" name="zsec" id="zsec" onChange="this.form.submit();">
+ <option value="">-- Select Section Name --</option>
+<?php 
+$ssql = mysqli_query($con,"SELECT * FROM `ft2_section_data` WHERE grd='$zgrd' order by sect ASC");
+  while($rs = mysqli_fetch_assoc($ssql))
+   {   ?>        
+      <option value="<?=$rs['id'];?>" <?=($zsec == $rs['id'] ? 'selected' : '');?>><?=$rs['sect'];?></option> 
+<?php } ?>      
+  </select>
+  </div>
+</div>                                          
+                     
+<div class="form-group">
+   <div class="col-xs-12 col-md-5">Select Subject Name :</div>
+   <div class="col-xs-12 col-md-7">
+   <select class="form-control" name="zsbj" id="zsbj" onChange="this.form.submit();">
+ <option value="">-- Select Subject Name --</option>
+<?php 
+$jsql = mysqli_query($con,"SELECT * FROM `ft2_module_subjects` order by subj ASC");
+  while($rj = mysqli_fetch_assoc($jsql))
+   {   ?>        
+      <option value="<?=$rj['id'];?>" <?=($zsbj == $rj['id'] ? 'selected' : '');?>><?=$rj['subj'];?></option> 
+<?php } ?>      
+  </select>
+  </div>
 </div>
-<div class="card-block card-bottom" style="text-align: center">
-  <button type="submit" id="sveschd" class="btn btn-success" style="font-size: 14px;" form="frmFNS">Save</button>  
-  <div class="clearfix">  </div> 
+                     
+<div class="form-group">
+   <div class="col-xs-12 col-md-12">Select Teacher Name :</div>
+   <div class="col-xs-12 col-md-12">
+   <select class="form-control" name="zfac" id="zfac" onChange="this.form.submit();">
+ <option value="">-- Select Teacher Name --</option>
+<?php 
+$fsql = mysqli_query($con,"SELECT id, alyas FROM `ft2_users_account` WHERE typ='FACULTY' AND alyas IS NOT NULL order by alyas ASC");
+  while($rf = mysqli_fetch_assoc($fsql))
+   {   ?>        
+      <option value="<?=$rf['id'];?>" <?=($zfac == $rf['id'] ? 'selected' : '');?>><?=$rf['alyas'];?></option> 
+<?php } ?>      
+  </select>
+  </div>
+</div>
+</form>
+         </div>  
+ <button type="button" class="btn btn-success" id="sverec" name="sverec" style="font-size: 12px; float: right;" form="fcsec"/>Submit</button>         
+		<div class="clearfix">  </div>                           
 </div>
 	</div>
 </div>    
@@ -188,6 +230,13 @@ $dsql = mysqli_query($con,"SELECT * from ft2_grade_data ORDER BY grd ASC");
 
 <script>
 $(document).ready(function(){
+var zgrd= document.getElementById("zgrd").value;
+var zsec= document.getElementById("zsec").value;
+var zsbj= document.getElementById("zsbj").value;
+var zfac= document.getElementById("zfac").value;	
+	
+if((zgrd=='')||(zsec=='')||(zsbj=='')||(zfac=='')) { $('#sverec').prop('disabled',true); }	
+else { $('#sverec').prop('disabled',false); }	
 $('#sveschd, #sfgrd, #sfsec').prop('disabled', true);
 	
 $(document).on("click","#cfschd",function() {
@@ -226,5 +275,25 @@ $(document).on("click","#viewfs",function() {
 	$('#POPMODAL').modal('show');
 });		
 
+	
+$("#sverec").unbind().click(function() {
+var values = $("#fcsec").serializeArray();
+
+	$.ajax({
+       data: values,
+       type: "post",
+       url: "subjectcontroller.php?prc=A",
+	   cache: false,	
+       success: function(data){
+	       $('#zgrd').val('');
+		   $('#zsec').val('');
+		   $('#zfac').val('');
+		   $('#zsbj').val('');
+		   location.reload();
+		   window.location.href = "?page=subject_records";
+         	}
+		});				
+});
+	
 });
 </script>

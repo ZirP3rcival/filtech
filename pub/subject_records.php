@@ -3,23 +3,6 @@ ob_start();
 include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
-
-$zgrd=$_POST['zgrd'];
-//if($zgrd!='') { $_SESSION['zgrd']=$zgrd; }
-if($zgrd=='') { $zgrd=$_REQUEST['zgrd']; }
-
-$zsec=$_POST['zsec'];
-//if($zsec!='') { $_SESSION['zsec']=$zsec; }
-if($zsec=='') { $zsec=$_REQUEST['zsec']; }
-
-$zsbj=$_POST['zsbj'];
-//f($zsbj!='') { $_SESSION['zsbj']=$zsbj; }
-if($zsbj=='') { $zsbj=$_REQUEST['zsbj']; }
-
-$zfac=$_POST['zfac'];
-//if($zfac!='') { $_SESSION['zfac']=$zfac; }
-if($zfac=='') { $zfac=$_REQUEST['zfac']; }
-
 ?>
 <style>
 .form-control  {
@@ -32,7 +15,7 @@ if($zfac=='') { $zfac=$_REQUEST['zfac']; }
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">           
             <div class="row rowflx" style="margin-bottom: 50px;">
-<div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31">
+<div class="col-lg-5 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -71,7 +54,7 @@ $dsql = mysqli_query($con,"SELECT * from ft2_module_subjects ORDER BY subj ASC L
 <a href="subjectcontroller.php?prc=D&id=<?=$r['id'];?>" onclick="return confirm('Delete Subject Record?')">
 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete Subject Record" style="float: right;font-size: 18px; padding: 0px 6px;"></button></a>
 
-<a href="#" id="viewgs" data-id="<?=$r['id'];?>" onclick="return confirm('View Subject Record')">
+<a href="?page=subject_records&id=<?=$r['id'];?>" id="viewgs" data-id="<?=$r['id'];?>" onclick="return confirm('View Subject Record')">
 <button class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Subject Record" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></button>
 </a>
 
@@ -125,7 +108,7 @@ if($currentPageRV < $totalPagesRV)
 	</div>
 </div>  
 
-<div class="col-lg-6 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
+<div class="col-lg-7 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -136,76 +119,14 @@ if($currentPageRV < $totalPagesRV)
 				</a>			 
 -->
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Magtakda ng Asignatura</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Nakatakdang Talaan sa Asignatura</h6>
 		  </div>
-		<div class="card-block box" style="padding: 15px 20px;">
-		<div style="background: #FFF;"> 
-<form action="?page=subject_records&zgrd=<?=$zgrd?>&zsec=<?=$zsec?>&zfac=<?=$zfac?>&zsbj=<?=$zsbj?>" method="post" class="form-horizontal" id="fcsec" name="fcsec" style="margin:0px; padding:0px 12px;" role="form">
-
-<div class="form-group">
-   <div class="col-xs-12 col-md-5">Select Grade Level :</div>
-   <div class="col-xs-12 col-md-7">
-   <select class="form-control" name="zgrd" id="zgrd" onChange="this.form.submit();">
- <option value="">-- Select Grade Level --</option>
-<?php 
-$gsql = mysqli_query($con,"SELECT * FROM `ft2_grade_data` order by grd ASC");
-  while($rg = mysqli_fetch_assoc($gsql))
-   {   ?>        
-      <option value="<?=$rg['id'];?>" <?=($zgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
-<?php } ?>      
-  </select>
-  </div>
-</div>                                          
-                     
-<div class="form-group">
-   <div class="col-xs-12 col-md-5">Select Section Name :</div>
-   <div class="col-xs-12 col-md-7">
-   <select class="form-control" name="zsec" id="zsec" onChange="this.form.submit();">
- <option value="">-- Select Section Name --</option>
-<?php 
-$ssql = mysqli_query($con,"SELECT * FROM `ft2_section_data` WHERE grd='$zgrd' order by sect ASC");
-  while($rs = mysqli_fetch_assoc($ssql))
-   {   ?>        
-      <option value="<?=$rs['id'];?>" <?=($zsec == $rs['id'] ? 'selected' : '');?>><?=$rs['sect'];?></option> 
-<?php } ?>      
-  </select>
-  </div>
-</div>                                          
-                     
-<div class="form-group">
-   <div class="col-xs-12 col-md-5">Select Subject Name :</div>
-   <div class="col-xs-12 col-md-7">
-   <select class="form-control" name="zsbj" id="zsbj" onChange="this.form.submit();">
- <option value="">-- Select Subject Name --</option>
-<?php 
-$jsql = mysqli_query($con,"SELECT * FROM `ft2_module_subjects` order by subj ASC");
-  while($rj = mysqli_fetch_assoc($jsql))
-   {   ?>        
-      <option value="<?=$rj['id'];?>" <?=($zsbj == $rj['id'] ? 'selected' : '');?>><?=$rj['subj'];?></option> 
-<?php } ?>      
-  </select>
-  </div>
-</div>
-                     
-<div class="form-group">
-   <div class="col-xs-12 col-md-12">Select Teacher Name :</div>
-   <div class="col-xs-12 col-md-12">
-   <select class="form-control" name="zfac" id="zfac" onChange="this.form.submit();">
- <option value="">-- Select Teacher Name --</option>
-<?php 
-$fsql = mysqli_query($con,"SELECT id, alyas FROM `ft2_users_account` WHERE typ='FACULTY' AND alyas IS NOT NULL order by alyas ASC");
-  while($rf = mysqli_fetch_assoc($fsql))
-   {   ?>        
-      <option value="<?=$rf['id'];?>" <?=($zfac == $rf['id'] ? 'selected' : '');?>><?=$rf['alyas'];?></option> 
-<?php } ?>      
-  </select>
-  </div>
-</div>
-</form>
-         </div>  
- <button type="button" class="btn btn-success" id="sverec" name="sverec" style="font-size: 12px; float: right;" form="fcsec"/>Submit</button>         
-		<div class="clearfix">  </div>                           
-</div>
+			<div class="card-block box" style="padding: 15px 20px;">
+					<div style="background: #FFF;"> 
+			<?php include_once('viewgradesection.php'); ?>
+					 </div>      
+					<div class="clearfix">  </div>                           
+			</div>
 	</div>
 </div>    
             </div>           
@@ -238,45 +159,3 @@ $fsql = mysqli_query($con,"SELECT id, alyas FROM `ft2_users_account` WHERE typ='
   </div>
 </div>
 <!-- ############################################################################################ -->
-
-<script>
-$(document).ready(function(){
-var zgrd= document.getElementById("zgrd").value;
-var zsec= document.getElementById("zsec").value;
-var zsbj= document.getElementById("zsbj").value;
-var zfac= document.getElementById("zfac").value;	
-	
-if((zgrd=='')||(zsec=='')||(zsbj=='')||(zfac=='')) { $('#sverec').prop('disabled',true); }	
-else { $('#sverec').prop('disabled',false); }	
-		
-$(document).on("click","#viewgs",function() {
-	var id=$(this).data('id');
-	$('#content').empty();
-	$("#content").load('viewgradesection.php?id='+id);
-	$('.modwidth').css('width','35%');
-	$('.modcap').empty();
-	$(".modcap").append('Grade Level and Section Record');
-	$('#POPMODAL').modal('show');
-});	
-	
-$("#sverec").unbind().click(function() {
-var values = $("#fcsec").serializeArray();
-
-	$.ajax({
-       data: values,
-       type: "post",
-       url: "subjectcontroller.php?prc=A",
-	   cache: false,	
-       success: function(data){
-	       $('#zgrd').val('');
-		   $('#zsec').val('');
-		   $('#zfac').val('');
-		   $('#zsbj').val('');
-		   location.reload();
-		   window.location.href = "?page=subject_records";
-         	}
-		});				
-});			
-	
-});
-</script>	

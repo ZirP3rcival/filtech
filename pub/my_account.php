@@ -264,7 +264,45 @@
 									return true;
 								}
 							</script>
+						</div>
+<?php
+$acct=$_SESSION['account'];
+if($acct=='STUDENT') {	
+?>						
+						<div class="col-xs-12 col-md-12" style="padding: 20px 20px 0px;">
+							<div class="form-group">
+							   <div class="col-xs-12 col-md-5">Grade Level : </div>
+							   <div class="col-xs-12 col-md-7">
+							   <select class="form-control" name="zgrd" id="zgrd">
+							 <option value="">- Select Grade -</option>
+							<?php 
+							$gsql = mysqli_query($con,"SELECT * FROM `ft2_grade_data` order by grd ASC");
+							  while($rg = mysqli_fetch_assoc($gsql))
+							   {   ?>        
+								  <option value="<?=$rg['id'];?>" <?=($grde == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+							<?php } ?>      
+							  </select>
+							  </div>
+							</div>                                          
+
+							<div class="form-group">
+							   <div class="col-xs-12 col-md-5">Section Name :</div>
+							   <div class="col-xs-12 col-md-7">
+							   <select class="form-control" name="zsec" id="zsec">
+<!--
+							 <option value="">- Select Section -</option>
+							<php 
+							$ssql = mysqli_query($con,"SELECT * FROM `ft2_section_data` WHERE grd='$zgrd' order by sect ASC");
+							  while($rs = mysqli_fetch_assoc($ssql))
+							   {   ?>        
+								  <option value="<=$rs['id'];?>" <=($zsec == $rs['id'] ? 'selected' : '');?>><=$rs['sect'];?></option> 
+							<php } ?>      
+-->
+							  </select>
+							  </div>
 							</div>
+						</div>
+<?php  }  ?>						
 					</div>            
 				</div>
 			</div>
@@ -341,3 +379,30 @@ $("#files").change(function(){
         }
         } 
 </script> 
+
+<script> 	  
+$(document).ready( function() { 
+	
+$('#zsec').append('<option value="'<?=$zsec?>' selected"><?=$zsec?></option>'); 	
+	
+$(document).on("change","#zgrd",function() {	
+  var id = document.getElementById("zgrd").value;  	
+  $.ajax({
+    type: 'POST',
+    url: 'useraccountcontroller.php?prc=C',
+    dataType: 'JSON',
+    data: { id:id }, 
+    success: function (data) {
+	     $('#zsec').empty();	
+	     $('#zsec').append('<option value="" >- Select Section-</option> '); 
+	     $.each(data, function(i,trk){
+         $('#zsec').append('<option value="' + trk.sect + '">' + trk.sect + '</option>');  
+//		 var cors='<=$sec?>';	
+//         if(cors==trk.sect) { $('#Course-Track option[value="'+cors+'"').attr('selected','selected'); }	 	 
+	});		 
+  }   
+  });		
+});
+	
+});
+</script>	
