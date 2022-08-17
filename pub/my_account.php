@@ -98,7 +98,7 @@
 
 						<div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Username : </span></div>
 						<div class="col-xs-12 col-md-8" style="float: right; margin-top:10px;">
-						<input type="text" required maxlength="25" class="form-control" style="width:100%; float:left;" id="Nw_Usrname" name="pusr" placeholder="Username" onkeyup="chcknme();return false;" onBlur="chcknme();return false;" value="<?=$usr?>"/>
+						<input type="text" required maxlength="100" class="form-control" style="width:100%; float:left;" id="Nw_Usrname" name="pusr" placeholder="Username" onkeyup="chcknme();return false;" onBlur="chcknme();return false;" value="<?=$usr?>"/>
 						<div class="col-xs-12 col-md-12" id="nme_status" style="font-size:11px; word-wrap:normal; font-weight:bold; color:#0E04F7;"></div>
 						<input type="hidden" name="nme_status" id="nme_status_hidden" />
 						</div>
