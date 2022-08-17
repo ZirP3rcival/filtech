@@ -103,7 +103,7 @@ $dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd'
 <div class="col-xs-10 col-md-9" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['title'];?></div>
  <a href="lessonscontroller?id=<?=$rx['id'];?>&prc=D" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><button class="btn btn-danger glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button></a>
   
- <button class="btn btn-warning glyphicon glyphicon-edit" id="editls" data-id="<?=$rx['id'];?>" title="Update this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
+ <button class="btn btn-warning glyphicon glyphicon-edit" id="editls" data-id="<?=$rx['id'];?>" data-tle="<?=$rx['title'];?>" title="Update this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
  
  <button class="btn btn-primary glyphicon glyphicon-search" id="viewls" data-id="<?=$rx['id'];?>" title="View this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
  <div class="clearfix"></div></div></li>
@@ -155,21 +155,12 @@ $dsql = mysqli_query($con,"SELECT * from ft2_module_records WHERE grde = '$fgrd'
        <h4 class="modal-title" id="myModalLabel" style="color: #FFFFFF; width: 100%; padding: 0px; font-weight: 700;">Update Lesson Record
        </h4>
       </div>   
-     <div class="modal-body">       
-<form action="lessonscontroller.php?prc=U&grd=<?=$fgrd?>&sbj=<?=$fsbj?>" method="post" class="form-horizontal" id="frmcgrd" name="frmcgrd" style="margin:0px; padding:0px 12px;" role="form">
-                      <div class="form-group">
-                        <label for="username">Lesson Title :</label>
-                        <input name="title" type="text" class="form-control" id="title" maxlength="100" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="username">Lesson Link :</label>
-                        <textarea name="flink" type="text" class="form-control" id="flink" rows="5"  required></textarea>
-                      </div>                      
-</form>
+<div class="modal-body" id="contentx">        
+
 </div>
 <div class="modal-footer col-xs-12 col-md-12 login-fm" style="margin-top:0px;  color:#fff;font-size: 12px; padding: 10px 15px;">
- <button type="button" class="btn btn-info" id="editor" name="editor" style="font-size: 12px;" form="frmcgrd"/>Create Lesson</button>
- <button type="submit" class="btn btn-success" id="submit" name="submit" style="font-size: 12px;" form="frmcgrd"/>Submit</button>
+ <button type="button" class="btn btn-info" id="editor" name="editor" style="font-size: 12px;" form="frmuml"/>Create Lesson</button>
+ <button type="submit" class="btn btn-success" id="submit" name="submit" style="font-size: 12px;" form="frmuml"/>Update</button>
  <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 12px;">Close</button>
 </div>
     </div>
@@ -198,11 +189,11 @@ $(document).on("click","#viewls",function() {
 	
 $(document).on("click","#editls",function() {
 	var id=$(this).data('id');
-//	$('#content').empty();
-//	$("#content").load('viewlesson.php?id='+id);
-//	$('.modwidth').css('width','54%');
-//	$('.modcap').empty();
-//	$(".modcap").append('Lesson Preview');
+	$('#contentx').empty();
+	$("#contentx").load('updatelesson.php?id='+id);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('Update Lesson Record');
 	$('#ULM').modal('show');
 });	
 	

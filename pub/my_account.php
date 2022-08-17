@@ -289,15 +289,7 @@ if($acct=='STUDENT') {
 							   <div class="col-xs-12 col-md-5">Section Name :</div>
 							   <div class="col-xs-12 col-md-7">
 							   <select class="form-control" name="zsec" id="zsec">
-<!--
-							 <option value="">- Select Section -</option>
-							<php 
-							$ssql = mysqli_query($con,"SELECT * FROM `ft2_section_data` WHERE grd='$zgrd' order by sect ASC");
-							  while($rs = mysqli_fetch_assoc($ssql))
-							   {   ?>        
-								  <option value="<=$rs['id'];?>" <=($zsec == $rs['id'] ? 'selected' : '');?>><=$rs['sect'];?></option> 
-							<php } ?>      
--->
+
 							  </select>
 							  </div>
 							</div>
@@ -383,7 +375,7 @@ $("#files").change(function(){
 <script> 	  
 $(document).ready( function() { 
 	
-$('#zsec').append('<option value="'<?=$zsec?>' selected"><?=$zsec?></option>'); 	
+$('#zsec').append('<option value="<?=$sect?>" selected><?=$sec?></option>'); 	
 	
 $(document).on("change","#zgrd",function() {	
   var id = document.getElementById("zgrd").value;  	

@@ -16,7 +16,7 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	$mnme = $r['mnme'];
 	$fnme = $r['fnme'];
 	$cno= $r['cno'];
-}?>
+} ?>
 <style>
 	.mf { font-size: 12px;}	
 </style>	
