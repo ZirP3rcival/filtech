@@ -92,9 +92,10 @@ $ftxt = mysqli_real_escape_string($con,$_POST['ftxt']);
 $fid = mysqli_real_escape_string($con,$_POST['fid']);
 $fnoi = mysqli_real_escape_string($con,$_POST['fnoi']);
 $fgrd = mysqli_real_escape_string($con,$_POST['fgrd']);
+$fsec = mysqli_real_escape_string($con,$_POST['fsec']);
 $fsbj = mysqli_real_escape_string($con,$_POST['fsbj']);	
 	
-$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, itm, grde, asid) VALUES ('$fscd','$ftxt','$fid','$fnoi','$fgrd','$fsbj')";  
+$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, itm, grde, sec, asid) VALUES ('$fscd','$ftxt','$fid','$fnoi','$fgrd','$fsec','$fsbj')";  
  if (!mysqli_query($con,$sql))
   { 
 	$_SESSION['errmsg']='Error Saving New Assessment Record!!!'; 

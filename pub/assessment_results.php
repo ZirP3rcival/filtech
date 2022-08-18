@@ -7,6 +7,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 $fgrd=$_POST['fgrd'];
 $fsbj=$_POST['fsbj'];
 $fscd=$_POST['fscd'];
+$fcat=$_POST['fcat'];
 
 $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
@@ -14,6 +15,7 @@ $fid=$_SESSION['id'];
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
+if($fcat=='') { $fcat=$_REQUEST['fcat']; }
 ?>
 <style>
 .form-control  {
@@ -30,12 +32,12 @@ if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
-			 <span class="fa fa-cogs" style="margin-right: 15px; font-size: 2em;"></span>Assessment Settings</h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Pagtatakda ng Pagtatasa</h6>
+			 <span class="fa fa-list-alt" style="margin-right: 15px; font-size: 2em;"></span>Assessment Results</h4>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Resulta ng Pagtatasa</h6>
 		  </div>	  
 <div class="card-block box" style="padding: 10px 15px;">
 	<div style="background: #FFF;"> 
- <form method="post" action="?page=assessment_settings" id="frmleks" name="frmleks"> </form> 
+ <form method="post" action="?page=assessment_records" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
     <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
 <div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
@@ -83,7 +85,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
 <?php 
-  $lsql = mysqli_query($con,"SELECT id, ascode,scdsc FROM ft2_assessment_set WHERE ascode NOT IN (SELECT ascode FROM ft2_faculty_assessment WHERE fid = '$fid') ORDER BY id ASC");
+  $lsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid = '$fid' AND grde='$fgrd' AND asid = '$fsbj ' ORDER BY ascode ASC");
 	
   while($rg = mysqli_fetch_assoc($lsql))
    { ?>  
@@ -92,15 +94,6 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 </select>      
         </div>
 	<div class="clearfix"></div>   
-  </div>
-  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
-
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">No. of Items : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
-<input name="fnoi" type="number" class="form-control" id="fnoi" placeholder="00" maxlength="3" value="">
-   </div>
-	<div class="clearfix"></div>   
-
   </div>
     </div>  
 	<div class="clearfix">  </div>   
@@ -114,9 +107,9 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
-			 <span class="fa fa-save" style="margin-right: 15px; font-size: 2em;"></span>Assessment List Record		 
+			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Student Assessment Grade	 
 			 </h4>
-			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Pagtatasa</h6>
+			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grado ng Estudyante sa Pagtatasa</h6>
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 <div style="background: #FFF;"> 
@@ -183,13 +176,10 @@ var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
-var fnoi= document.getElementById("fnoi").value;
-
 if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
 else { $('#nass').prop('disabled',false);  }	
 	
 $(document).on("keyup","#fnoi",function() {
-var fnoi= document.getElementById("fnoi").value;
 var fscd= document.getElementById("fscd").value;	
 	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
 	else { $('#nass').prop('disabled',false);  }
@@ -199,12 +189,11 @@ $(document).on("click","#nass",function() {
 	var fid='<?=$fid?>';
 	var fgrd=$(this).data('fgrd');
 	var fsbj=$(this).data('fsbj');
-	var fnoi= document.getElementById("fnoi").value;
     var bcap=$('#nass').text();
 
 	if(bcap=='Save Assessment Record')	{ 
 		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fgrd:fgrd, fsbj:fsbj },
+		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fgrd:fgrd, fsbj:fsbj },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=T",
 		   cache: false,	
@@ -220,7 +209,7 @@ $(document).on("click","#nass",function() {
 		var ftxt= $("#fscd option:selected").text();
 
 		$.ajax({
-		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi },
+		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid,  },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=M",
 		   cache: false,	
@@ -235,7 +224,6 @@ $(document).on("click","#nass",function() {
 $(document).on("click",".aedit",function() {
 	var aid=$(this).data('id');
 	sessionStorage.setItem('aid',aid); 
-	var fnoi=$(this).data('fnoi');
 	$('#fnoi').val(fnoi);
 	var fscd=$(this).data('fscd');
 	var fdsc=$(this).data('fdsc');

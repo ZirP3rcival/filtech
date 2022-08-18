@@ -60,10 +60,11 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 <select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" onChange="this.form.submit();" form="frmslst" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>      
 <?php 
-  $ssql = mysqli_query($con,"SELECT * FROM ft2_faculty_schedule WHERE fid ='$fid' AND grde = '$fgrd' AND syr = '$syr'");	
+  $ssql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_section_data.id, ft2_section_data.sect, ft2_section_data.grd FROM ft2_faculty_schedule INNER JOIN ft2_section_data ON ft2_section_data.id=ft2_faculty_schedule.sec WHERE ft2_faculty_schedule.fid ='$fid' AND ft2_faculty_schedule.grde = '$fgrd' AND ft2_faculty_schedule.syr = '$syr'");
+	
   while($rs = mysqli_fetch_assoc($ssql))
    { ?>   
-    <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sec'];?></option> 
+    <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sect'];?></option> 
 <?php } ?>                
         </select>        
         </div>

@@ -5,6 +5,7 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 
 $fgrd=$_POST['fgrd'];
+$fsec=$_POST['fsec'];
 $fsbj=$_POST['fsbj'];
 $fscd=$_POST['fscd'];
 
@@ -12,6 +13,7 @@ $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
 
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
+if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 ?>
@@ -53,7 +55,25 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
+ <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+
+<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>
+<?php	
+$dsql = mysqli_query($con,"SELECT id, sect, grd FROM ft2_section_data
+WHERE grd = '$fgrd' ORDER BY sect ASC");
+
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fsec == $rg['id'] ? 'selected' : '');?>><?=$rg['sect'];?></option> 
+<?php  } ?>  
+        </select>      
+        </div>
+	<div class="clearfix"></div>   
+  </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
  <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
@@ -64,7 +84,7 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 <?php	
 $dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_module_subjects.subj FROM ft2_faculty_schedule 
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.sec='$fsec' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
 ORDER BY ft2_faculty_schedule.sjid ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
@@ -77,7 +97,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
+ <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Type : </span></div>
 <div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
@@ -105,7 +125,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
     </div>  
 	<div class="clearfix">  </div>   
 
-     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
+     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
                           
 </div>
 	</div>
@@ -135,7 +155,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 </div.
 ></li>
 <?php 
-$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND asid='$fsbj' ORDER BY id ASC");
+$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND sec='$fsec' AND asid='$fsbj' ORDER BY id ASC");
 $rctr = 0;	
   while($r = mysqli_fetch_assoc($dsql))
    { if($r['used']=='Y') { $astat = 'Activated'; }
@@ -198,13 +218,14 @@ var fscd= document.getElementById("fscd").value;
 $(document).on("click","#nass",function() {
 	var fid='<?=$fid?>';
 	var fgrd=$(this).data('fgrd');
+	var fsec=$(this).data('fsec');
 	var fsbj=$(this).data('fsbj');
 	var fnoi= document.getElementById("fnoi").value;
     var bcap=$('#nass').text();
 
 	if(bcap=='Save Assessment Record')	{ 
 		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fgrd:fgrd, fsbj:fsbj },
+		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fgrd:fgrd, fsec:fsec, fsbj:fsbj },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=T",
 		   cache: false,	

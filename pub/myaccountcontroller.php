@@ -33,14 +33,12 @@ $sql="UPDATE ft2_users_account SET lnme='$T0', fnme='$T1', mnme='$T2', cno='$T3'
  if ($con->query($sql) === FALSE) //oop approach //(!mysqli_query($con,$sql)) =procedural approach
   { $_SESSION['errmsg']='Error Updating User Account!!!<br>Please Check All Entries Properly....'; 
     session_write_close();
-	echo $sql;
     header("location:admin?page=my_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='User Account Record Updated Successfully!'; 
      session_write_close();
-     echo $sql.'-'.$cimg.'-'.$target_path ;
 	 header("location:admin?page=my_account");
      exit;
   } 
