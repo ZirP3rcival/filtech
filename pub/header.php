@@ -145,6 +145,11 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	
 	$grde = $r['grde'];
 	$sec= $r['sec'];
+	
+$sqlms="SELECT * FROM `ft2_section_data` WHERE grd='$grde' and id='$sec'"; 
+$sqles = $con->query($sqlms);	
+while($rs = mysqli_fetch_assoc($sqles)) 
+	{  $sct=$rs['sect']; }	
 }
 ?>
 <script>

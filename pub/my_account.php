@@ -375,7 +375,7 @@ $("#files").change(function(){
 <script> 	  
 $(document).ready( function() { 
 	
-$('#zsec').append('<option value="<?=$sect?>" selected><?=$sec?></option>'); 	
+$('#zsec').append('<option value="<?=$sec?>" selected><?=$sct?></option>'); 	
 	
 $(document).on("change","#zgrd",function() {	
   var id = document.getElementById("zgrd").value;  	
@@ -388,7 +388,7 @@ $(document).on("change","#zgrd",function() {
 	     $('#zsec').empty();	
 	     $('#zsec').append('<option value="" >- Select Section-</option> '); 
 	     $.each(data, function(i,trk){
-         $('#zsec').append('<option value="' + trk.sect + '">' + trk.sect + '</option>');  
+         $('#zsec').append('<option value="' + trk.id + '">' + trk.sect + '</option>');  
 //		 var cors='<=$sec?>';	
 //         if(cors==trk.sect) { $('#Course-Track option[value="'+cors+'"').attr('selected','selected'); }	 	 
 	});		 

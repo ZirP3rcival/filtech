@@ -31,9 +31,9 @@ if($acct=='ADMIN') {
 </li>
 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="Assessment Module"><i class="fa big-icon fa-leanpub"></i> <span class="mini-dn">Assessment Module</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-header"  style="text-align: justify; padding: 10px 0px;">
-        <a href="inbox.html" class="dropdown-item" title="Talaan ng Pagtatasa"><i class="fa big-icon fa-list-ol"></i> Assessment Records</a>
-        <a href="view-mail.html" class="dropdown-item" title="Resulta ng Pagtatasa"><i class="fa big-icon fa-calculator"></i> Assessment Results</a>
-        <a href="compose-mail.html" class="dropdown-item" title="Pagtatakda ng Pagtatasa"><i class="fa big-icon fa-gears"></i> Assessment Settings</a>
+        <a href="?page=assessment_records" class="dropdown-item" title="Talaan ng Pagtatasa"><i class="fa big-icon fa-list-ol"></i> Assessment Records</a>
+        <a href="?page=assessment_resultss" class="dropdown-item" title="Resulta ng Pagtatasa"><i class="fa big-icon fa-calculator"></i> Assessment Results</a>
+        <a href="?page=assessment_settings" class="dropdown-item" title="Pagtatakda ng Pagtatasa"><i class="fa big-icon fa-gears"></i> Assessment Settings</a>
     </div>
 </li>
 <li class="nav-item">
