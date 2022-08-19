@@ -48,9 +48,9 @@ if($acct=='ADMIN') {
 </li>
 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="Assessment Module"><i class="fa big-icon fa-leanpub"></i> <span class="mini-dn">Assessment Module</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-header" style="text-align: justify; padding: 10px 0px;">
-        <a href="inbox.html" class="dropdown-item">Assessment Activity</a>
-        <a href="view-mail.html" class="dropdown-item">Assessment Results</a>        
-        <a href="view-mail.html" class="dropdown-item">Grade Sheet</a>
+        <a href="?page=assessment_activity" class="dropdown-item" title="Talaan ng Pagsusulit">Assessment Activity</a>
+        <a href="?page=assessment_result" class="dropdown-item" title="Resulta ng Pagtatasa">Assessment Results</a>        
+        <a href="?page=grade_sheet" class="dropdown-item" title="Talaan ng Grado">Grade Sheet</a>
     </div>
 </li>
 <?php } ?>

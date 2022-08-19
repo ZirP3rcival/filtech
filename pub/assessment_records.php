@@ -113,7 +113,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
     </div>  
 	<div class="clearfix">  </div>   
 
-     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
+<!--     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<=$fgrd?>" data-fsbj="<=$fsbj?>" data-fscd="<=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>-->
                           
 </div>
 	</div>
@@ -128,52 +128,76 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 <div style="background: #FFF;"> 
-   <div class="card-block card-top">
-   <div class="card-block">
-<div class="message-box contact-box">
-    <div class="message-widget contact-widget box">
-<div class="list-group" style="margin-bottom: 5px;">
-<li class="list-group-item" style="font-weight: 800;"><div class="row">
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">No. of Items</div>
-<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
-<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
-<div class="clearfix"></div>
-</div.
-></li>
+<?php if($fcat=='4') { ?>
+<div class="box-body">
+<ul class="todo-list" style="padding-left: 0px;">
 <?php 
-$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND asid='$fsbj' ORDER BY id ASC");
-$rctr = 0;	
-  while($r = mysqli_fetch_assoc($dsql))
-   { if($r['used']=='Y') { $astat = 'Activated'; }
-	 else { $astat = 'De-Activated'; }
-    ?>                                   
-<li class="list-group-item"><div class="row">
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['ascode'];?></div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['itm'];?></div>
-<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$astat;?></div>
-<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
+$rowsPerPageQM = 20;
+// Get the search variable from URL
+$currentPageQM = ((isset($_GET['pPageQM']) && $_GET['pPageQM'] > 0) ? (int)$_GET['pPageQM'] : 1);
+$offsetQM = ($currentPageQM-1)*$rowsPerPageQM;
+$cp=$currentPageQM;
 
-<?php if($r['used']=='N') { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=Y" class="trash" style="margin-right:10px;" title="Activate Assessment" onclick="return confirm('Activate Assessment?')"><i class="btn btn-info btn-sm glyphicon glyphicon-ok-circle" title="Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
-<?php } else { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
- <?php } ?>   
-    
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fnoi="<?=$r['itm'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
- 
- <a href="lessonscontroller.php?prc=X&id=<?=$r['id'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+$csql = mysqli_query($con,"SELECT * FROM ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
 
+  while($rs = mysqli_fetch_assoc($csql))
+   {
+ ?>
+ <li class="list-group-item clearfix" style="padding:8px 10px; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;"> 
+ <div style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;&nbsp;<?=$rs['qst'];?></div>
+
+<div class="tools">
+ <a href="<?=$pgn;?>?prc=assess&mde=VAC&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>" class="trash" style="margin-right:10px;" title="View Module Topic" onclick="return confirm('View Assessment Record?')"><i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Module Topic" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; font-size: 18px; padding: 0px 6px;"></i></a>
+  
+ <a href="multi-proc?mprc=delass&prc=assess&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>&pgn=<?=$pgn;?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+  
+ <a href="<?=$pgn;?>?prc=assess&mde=UAC&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>" class="trash" style="margin-right:10px;" title="Update this Record" onclick="return confirm('Update this Record?')"><i class="btn btn-warning btn-sm glyphicon glyphicon-edit" title="Update this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 </div>
- <div class="clearfix"></div></div></li>
+</li>
+<?php } ?>
+</ul>
+</div>
 
- <?php } ?></div>                                  
-     </div>   
- </div>                                
-   </div>
-   <div class="card-block card-bottom">&nbsp;</div>
+
+<div style="float: left; width: 100%; margin-bottom: 10px; border-top:solid 1px #666;">
+	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px;" href="<?=$pgn;?>?prc=<?=$prc;?>&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&pPageQM=<?=($currentPageQM-1)?>"> prev </a></div>
+	        <div style="width:50%; float:left; font-size:11px;">
+<?php
+$csql = mysqli_query($con,"SELECT COUNT(id) AS crt ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $rowsPerPageQM"); 
+
+  
+$row = mysqli_fetch_assoc($csql);
+$totalPagesQM = ceil($row['crt'] / $rowsPerPageQM);
+
+//echo $rowsPerPageLM.' '.$totalPagesIM.' '.$currentPageLM;
+if($currentPageQM > 1) 
+{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.($currentPageQM-1).'"></a>'; }
+
+if($totalPagesQM < $rowsPerPageQM) { $d=$totalPagesQM; }
+else { $d=$currentPageQM + $rowsPerPageQM; }
+
+if($d > $totalPagesQM) { $d=$totalPagesQM; }
+else { $d=$totalPagesQM; }
+
+//echo $d.' '.$totalPagesIM;
+for ($x=1;$x<=$d;$x++)
+{  if ($cp==$x) 
+   { 
+     echo '<a class="btn btn-default btn-sm" style="background:#478BFF; margin-left:2px; font-size:11px; color:#FFF;"><strong>'.$x.'</strong></a>'; 
+   }
+  else
+   { 
+     echo '<a class="btn btn-default btn-sm" style="margin-left:2px; color:#478BFF; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.$x.'"><strong>'.$x.'</strong></a>';    }
+}
+ echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesQM .'</strong> pages</span>'; 
+ 
+if($currentPageQM < $totalPagesQM) 
+{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.($currentPageQM+1).'"></a>'; }
+?>
+            </div>
+	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000;" href="<?=$pgn;?>?pPageQM=<?=($currentPageQM+1);?>&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&prc=<?=$prc;?>"> next </a></div>
+</div>
+<?php } ?>
   </div>
 	<div class="clearfix">  </div>                           
 </div>
