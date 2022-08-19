@@ -51,7 +51,7 @@ function updateChat(){
 			   dataType: "json",
 			   success: function(data){
 				   if(data.text){ 
-						for (var i = 0; i < data.text.length; i++) { alert(data.text.length);
+						for (var i = 0; i < data.text.length; i++) { /*alert(data.text.length);*/
                             $('#chat-area').append($("<p>"+ data.text[i] +"</p>"));
                         }								  
 				   }

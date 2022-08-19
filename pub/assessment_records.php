@@ -113,7 +113,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
     </div>  
 	<div class="clearfix">  </div>   
 
-<!--     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<=$fgrd?>" data-fsbj="<=$fsbj?>" data-fscd="<=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>-->
+     <button class="btn btn-block btn-success" id="cass" name="cass" data-fgrd="<=$fgrd?>" data-fsbj="<=$fsbj?>" data-fscd="<=$fscd?>" style="color: #fff;" title="Magdagdag">Create Assessment Content</button>
                           
 </div>
 	</div>
@@ -128,8 +128,11 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 		  </div>
 		<div class="card-block box" style="padding: 10px;">
 <div style="background: #FFF;"> 
-<?php if($fcat=='4') { ?>
+
 <div class="box-body">
+<?php
+if($fcat!='') {		
+?>
 <ul class="todo-list" style="padding-left: 0px;">
 <?php 
 $rowsPerPageQM = 20;
@@ -138,8 +141,18 @@ $currentPageQM = ((isset($_GET['pPageQM']) && $_GET['pPageQM'] > 0) ? (int)$_GET
 $offsetQM = ($currentPageQM-1)*$rowsPerPageQM;
 $cp=$currentPageQM;
 
+if($fcat=='1') {	
+$csql = mysqli_query($con,"SELECT * FROM ft2_asmt_enumeration WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
+}
+else if($fcat=='2') {	
+$csql = mysqli_query($con,"SELECT * FROM ft2_asmt_essay WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
+}
+else if($fcat=='3') {	
+$csql = mysqli_query($con,"SELECT * FROM ft2_asmt_identification WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
+}	
+else if($fcat=='4') {	
 $csql = mysqli_query($con,"SELECT * FROM ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
-
+}	
   while($rs = mysqli_fetch_assoc($csql))
    {
  ?>
@@ -156,14 +169,14 @@ $csql = mysqli_query($con,"SELECT * FROM ft2_asmt_multiplechoice WHERE ascode = 
 </li>
 <?php } ?>
 </ul>
+
 </div>
 
-
 <div style="float: left; width: 100%; margin-bottom: 10px; border-top:solid 1px #666;">
-	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px;" href="<?=$pgn;?>?prc=<?=$prc;?>&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&pPageQM=<?=($currentPageQM-1)?>"> prev </a></div>
+	        <div style="float: left; margin-right: 10px;"><a class="btn btn-default btn-sm" style="margin-left:2px; font-weight:bold; color:#000; font-size:11px;" href="?page=assessment_records&fgrd=<?=$fgrd;?>&fscd=<?=$fscd;?>&fsbj=<?=$fsbj;?>&fcat=<?=$fcat;?>&pPageQM=<?=($currentPageQM-1)?>"> prev </a></div>
 	        <div style="width:50%; float:left; font-size:11px;">
 <?php
-$csql = mysqli_query($con,"SELECT COUNT(id) AS crt ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $rowsPerPageQM"); 
+$csql = mysqli_query($con,"SELECT COUNT(id) AS crt FROM ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $rowsPerPageQM"); 
 
   
 $row = mysqli_fetch_assoc($csql);
@@ -171,7 +184,7 @@ $totalPagesQM = ceil($row['crt'] / $rowsPerPageQM);
 
 //echo $rowsPerPageLM.' '.$totalPagesIM.' '.$currentPageLM;
 if($currentPageQM > 1) 
-{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.($currentPageQM-1).'"></a>'; }
+{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=assessment_records&fgrd='.$fgrd.'&fscd='.$fscd.'&fsbj='.$fsbj.'&fcat='.$fcat.'&pPageQM='.($currentPageQM-1).'"></a>'; }
 
 if($totalPagesQM < $rowsPerPageQM) { $d=$totalPagesQM; }
 else { $d=$currentPageQM + $rowsPerPageQM; }
@@ -187,15 +200,15 @@ for ($x=1;$x<=$d;$x++)
    }
   else
    { 
-     echo '<a class="btn btn-default btn-sm" style="margin-left:2px; color:#478BFF; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.$x.'"><strong>'.$x.'</strong></a>';    }
+     echo '<a class="btn btn-default btn-sm" style="margin-left:2px; color:#478BFF; font-size:11px;" href="?page=assessment_records&fgrd='.$fgrd.'&fscd='.$fscd.'&fsbj='.$fsbj.'&fcat='.$fcat.'&pPageQM='.$x.'"><strong>'.$x.'</strong></a>';    }
 }
  echo '<span style="margin-left:2px; color:#666; font-size:12px;"> .... <strong>'. $totalPagesQM .'</strong> pages</span>'; 
  
 if($currentPageQM < $totalPagesQM) 
-{ echo '<a style="margin-left:2px; font-size:11px;" href="'.$pgn.'?prc='.$prc.'&fgrd='.$fgrd.'&fsec='.$fsec.'&ascd='.$ascd.'&pPageQM='.($currentPageQM+1).'"></a>'; }
+{ echo '<a style="margin-left:2px; font-size:11px;" href="?page=assessment_records&fgrd='.$fgrd.'&fscd='.$fscd.'&fsbj='.$fsbj.'&fcat='.$fcat.'&pPageQM='.($currentPageQM+1).'"></a>'; }
 ?>
             </div>
-	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000;" href="<?=$pgn;?>?pPageQM=<?=($currentPageQM+1);?>&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&prc=<?=$prc;?>"> next </a></div>
+	        <div style="float: right; margin-right: 5px;"><a class="btn btn-default btn-sm" style="font-size:11px; margin-left:2px; font-weight:bold; color:#000;" href="?page=assessment_records&pPageQM=<?=($currentPageQM+1);?>&fgrd=<?=$fgrd;?>&fscd=<?=$fscd;?>&fsbj=<?=$fsbj;?>&fcat=<?=$fcat;?>"> next </a></div>
 </div>
 <?php } ?>
   </div>
@@ -209,69 +222,58 @@ if($currentPageQM < $totalPagesQM)
     <!-- user account info end -->
 </div>
 <!-- ############################################################################################ -->
+<!-- for modal display -->
+<div id="ASMNTMODAL" class="modal fade">
+  <div class="modal-dialog modwidth">
+    <div class="modal-content">
+      <div class="modal-header login-fm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title modcap" style="color: #fff;"></h4>
+      </div>
+      <div class="modal-body" id="content" style="padding-top: 0px;">
+
+      </div>
+	<div class="modal-footer col-xs-12 col-md-12 login-fm" style="margin-top:0px; color:#fff;">
+	  <button type="submit" class="btn btn-success" style="font-size: 12px;" form="frmAS">Save</button>
+	  <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 12px;" form="frmAS">Close</button>
+	</div>      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- ############################################################################################ -->
+<!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
 var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
-if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
-else { $('#nass').prop('disabled',false);  }	
+var fcat= document.getElementById("fcat").value;
+var fcxt= $("#fcat option:selected").text();
+	
+if((fgrd=='')||(fsbj=='')||(fscd=='')||(fcat=='')) { $('#cass').prop('disabled',true); }	
+else { $('#cass').prop('disabled',false);  }	
 	
 $(document).on("keyup","#fnoi",function() {
 var fscd= document.getElementById("fscd").value;	
-	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
-	else { $('#nass').prop('disabled',false);  }
+	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fcat=='')) { $('#cass').prop('disabled',true); }	
+	else { $('#cass').prop('disabled',false);  }
 });		
 	
-$(document).on("click","#nass",function() {
-	var fid='<?=$fid?>';
-	var fgrd=$(this).data('fgrd');
-	var fsbj=$(this).data('fsbj');
-    var bcap=$('#nass').text();
-
-	if(bcap=='Save Assessment Record')	{ 
-		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fgrd:fgrd, fsbj:fsbj },
-		   type: "post",
-		   url: "lessonscontroller.php?prc=T",
-		   cache: false,	
-		   success: function(data){
-			   location.reload();
-			   window.location.href = "?page=assessment_settings";
-				}
-			});	
-	}	
-	else if(bcap=='Update Assessment Record')	{ 
-		var id = sessionStorage.aid; 
-		var fscd= document.getElementById("fscd").value;
-		var ftxt= $("#fscd option:selected").text();
-
-		$.ajax({
-		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid,  },
-		   type: "post",
-		   url: "lessonscontroller.php?prc=M",
-		   cache: false,	
-		   success: function(data){
-			   location.reload();
-			   window.location.href = "?page=assessment_settings";
-				}
-			});	
-	}	
+$(document).on("click","#cass",function() {
+	var cform='';
+	if(fcat=='1') { cform='create_multiplechoice.php?mde=N'; }
+	else if(fcat=='2') { cform='create_multiplechoice.php?mde=N'; }
+	else if(fcat=='3') { cform='create_multiplechoice.php?mde=N'; }
+	else if(fcat=='4') { cform='create_multiplechoice.php?mde=N'; }
+	
+	$('#content').empty();
+	$("#content").load(cform+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('New '+fcxt+' Contents');
+	$('#ASMNTMODAL').modal('show');
 });		
-	
-$(document).on("click",".aedit",function() {
-	var aid=$(this).data('id');
-	sessionStorage.setItem('aid',aid); 
-	$('#fnoi').val(fnoi);
-	var fscd=$(this).data('fscd');
-	var fdsc=$(this).data('fdsc');
-	
-	$('#fscd option:selected').remove();
-	$('#fscd').append('<option value="'+fscd+'" selected>'+fdsc+'</option>'); 
-	$('#nass').text('Update Assessment Record');
-	$('#nass').prop('disabled',false);
-});	
-	
+		
 });
 </script>	
