@@ -22,7 +22,7 @@ if($fcat=='') { $fcat=$_REQUEST['fcat']; }
     color: #0B0237;
 	font-weight: 600;
 }	
-</style>
+</style>	
 <div class="content-inner-all">
     <!-- user account info start -->
     <div class="income-order-visit-user-area m-bottom ">
@@ -135,7 +135,7 @@ if($fcat!='') {
 ?>
 <ul class="todo-list" style="padding-left: 0px;">
 <?php 
-$rowsPerPageQM = 20;
+$rowsPerPageQM = 10;
 // Get the search variable from URL
 $currentPageQM = ((isset($_GET['pPageQM']) && $_GET['pPageQM'] > 0) ? (int)$_GET['pPageQM'] : 1);
 $offsetQM = ($currentPageQM-1)*$rowsPerPageQM;
@@ -160,11 +160,10 @@ $csql = mysqli_query($con,"SELECT * FROM ft2_asmt_multiplechoice WHERE ascode = 
  <div style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;&nbsp;<?=$rs['qst'];?></div>
 
 <div class="tools">
- <a href="<?=$pgn;?>?prc=assess&mde=VAC&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>" class="trash" style="margin-right:10px;" title="View Module Topic" onclick="return confirm('View Assessment Record?')"><i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Module Topic" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; font-size: 18px; padding: 0px 6px;"></i></a>
+ 
+ <button class="btn btn-danger btn-sm glyphicon glyphicon-trash cdel" id="cdel" data-id="<?=$rs['id'];?>" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
   
- <a href="multi-proc?mprc=delass&prc=assess&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>&pgn=<?=$pgn;?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
-  
- <a href="<?=$pgn;?>?prc=assess&mde=UAC&fgrd=<?=$fgrd;?>&fsec=<?=$fsec;?>&ascd=<?=$ascd;?>&qid=<?=$rs['id'];?>" class="trash" style="margin-right:10px;" title="Update this Record" onclick="return confirm('Update this Record?')"><i class="btn btn-warning btn-sm glyphicon glyphicon-edit" title="Update this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+ <button class="btn btn-warning btn-sm glyphicon glyphicon-edit cedit" id="cedit" data-id="<?=$rs['id'];?>" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;" title="Update this Record"></button>
 </div>
 </li>
 <?php } ?>
@@ -262,10 +261,10 @@ var fscd= document.getElementById("fscd").value;
 	
 $(document).on("click","#cass",function() {
 	var cform='';
-	if(fcat=='1') { cform='create_multiplechoice.php?mde=N'; }
-	else if(fcat=='2') { cform='create_multiplechoice.php?mde=N'; }
-	else if(fcat=='3') { cform='create_multiplechoice.php?mde=N'; }
-	else if(fcat=='4') { cform='create_multiplechoice.php?mde=N'; }
+	if(fcat=='1') { cform='create_enumeration.php?mde=N1'; }
+	else if(fcat=='2') { cform='create_essay.php?mde=N2'; }
+	else if(fcat=='3') { cform='create_identification.php?mde=N3'; }
+	else if(fcat=='4') { cform='create_multiplechoice.php?mde=N4'; }
 	
 	$('#content').empty();
 	$("#content").load(cform+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat);
@@ -274,6 +273,38 @@ $(document).on("click","#cass",function() {
 	$(".modcap").append('New '+fcxt+' Contents');
 	$('#ASMNTMODAL').modal('show');
 });		
-		
+	
+$(document).on("click",".cedit",function() {
+var id=$(this).data('id');
+bootbox.confirm("Update Assessment Contents?", function(result) {	
+  if (result) {	 	
+	var cform='';
+	if(fcat=='1') { cform='create_enumeration.php?mde=U1'; }
+	else if(fcat=='2') { cform='create_essay.php?mde=U2'; }
+	else if(fcat=='3') { cform='create_identification.php?mde=U3'; }
+	else if(fcat=='4') { cform='create_multiplechoice.php?mde=U4'; }
+
+	$('#content').empty();
+	$("#content").load(cform+'&id='+id+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat);
+	$('.modwidth').css('width','45%');
+	$('.modcap').empty();
+	$(".modcap").append('Update '+fcxt+' Contents');
+	$('#ASMNTMODAL').modal('show');
+  }
+ });	  
+});		
+	
+$(document).on("click",".cdel",function() {
+var id=$(this).data('id');
+bootbox.confirm("Remove Assessment Contents?", function(result) {	
+  if (result) {	 	
+	if(fcat=='1') { window.location.href = 'assessmentcontroller.php?prc=D1&id='+id+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat; }
+	else if(fcat=='2') { window.location.href = 'assessmentcontroller.php?prc=D2&id='+id+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat; }
+	else if(fcat=='3') { window.location.href = 'assessmentcontroller.php?prc=D3&id='+id+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat; }
+	else if(fcat=='4') { window.location.href = 'assessmentcontroller.php?prc=D4&id='+id+'&fgrd='+fgrd+'&fsbj='+fsbj+'&fscd='+fscd+'&fcat='+fcat; }
+  }
+ });	  
+});	
+	
 });
 </script>	
