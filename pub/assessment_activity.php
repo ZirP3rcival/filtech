@@ -154,7 +154,7 @@ $(document).on("click",".mcbtn",function() {
 	$("#content").load('assessment_multiplechoice.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
-	$(".modcap").append('Assessment Content');
+	$(".modcap").append('Multiple Choice Assessment Content');
 	$('#POPMODAL').modal('show');
 });	
 	
@@ -168,7 +168,7 @@ $(document).on("click",".esbtn",function() {
 	$("#content").load('assessment_essay.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
-	$(".modcap").append('Assessment Content');
+	$(".modcap").append('Essay Assessment Content');
 	$('#POPMODAL').modal('show');
 });		
 	

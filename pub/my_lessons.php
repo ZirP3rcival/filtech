@@ -64,7 +64,7 @@ if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 </div></li>
 <?php 
 if($grd!='')	{
-$dsql = mysqli_query($con,"SELECT ft2_module_records.*, ft2_users_account.id, ft2_users_account.alyas FROM ft2_module_records 
+$dsql = mysqli_query($con,"SELECT ft2_module_records.*, ft2_module_records.id AS lid, ft2_users_account.id, ft2_users_account.alyas FROM ft2_module_records 
 INNER JOIN ft2_users_account ON ft2_users_account.id=ft2_module_records.fid
 WHERE ft2_module_records.grde='$grd' AND ft2_module_records.syr='$syr' AND ft2_module_records.asid='$fsbj' ORDER BY ft2_module_records.title ASC");
 
@@ -75,10 +75,10 @@ WHERE ft2_module_records.grde='$grd' AND ft2_module_records.syr='$syr' AND ft2_m
 <div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['alyas'];?></div>
 <div class="col-xs-10 col-md-6" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['title'];?></div>
   
- <button class="btn btn-primary glyphicon glyphicon-search" id="viewls" data-id="<?=$rx['id'];?>" title="View this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
+ <button class="btn btn-primary glyphicon glyphicon-search" id="viewls" data-id="<?=$rx['lid'];?>" title="View this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
  <div class="clearfix"></div></div></li>
 
- <?php }} ?></div>   
+ <?php } } ?></div>   
 </div> 
 </div> 
 	</div>
