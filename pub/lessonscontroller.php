@@ -93,8 +93,10 @@ $fid = mysqli_real_escape_string($con,$_POST['fid']);
 $fnoi = mysqli_real_escape_string($con,$_POST['fnoi']);
 $fgrd = mysqli_real_escape_string($con,$_POST['fgrd']);
 $fsbj = mysqli_real_escape_string($con,$_POST['fsbj']);	
+$fmin = mysqli_real_escape_string($con,$_POST['fmin']);	
 	
-$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, itm, grde, asid) VALUES ('$fscd','$ftxt','$fid','$fnoi','$fgrd','$fsbj')";  
+$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, itm, grde, asid, timer) VALUES ('$fscd','$ftxt','$fid','$fnoi','$fgrd','$fsbj','$fmin')";  
+
  if (!mysqli_query($con,$sql))
   { 
 	$_SESSION['errmsg']='Error Saving New Assessment Record!!!'; 
@@ -102,8 +104,8 @@ $sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, itm, grde, asid) VA
   }
  else  
    { 
-	 $_SESSION['errmsg']='New Assessment Record Saved Successfully!!!'; 
-     echo 0;
+	$_SESSION['errmsg']='New Assessment Record Saved Successfully!!!'; 
+    echo 0;
   }  
 }
 
@@ -148,8 +150,9 @@ $id = mysqli_real_escape_string($con,$_POST['id']);
 $fscd = mysqli_real_escape_string($con,$_POST['fscd']);
 $ftxt = mysqli_real_escape_string($con,$_POST['ftxt']);
 $fnoi = mysqli_real_escape_string($con,$_POST['fnoi']);
+$fmin = mysqli_real_escape_string($con,$_POST['fmin']);	
 	
-$sql="UPDATE ft2_faculty_assessment SET ascode='$fscd', scdsc='$ftxt', itm='$fnoi' WHERE id='$id'";  
+$sql="UPDATE ft2_faculty_assessment SET ascode='$fscd', scdsc='$ftxt', itm='$fnoi', timer='$fmin' WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { 
 	$_SESSION['errmsg']='Error Updating Assessment Record!!!'; 
