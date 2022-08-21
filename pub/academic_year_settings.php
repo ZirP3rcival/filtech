@@ -3,9 +3,6 @@ ob_start();
 include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
-
- $sitm = $_POST['sitem'];
- if($sitm=='') {  $sitm = $_REQUESTST['sitem']; }	
 ?>
 <style>
 .form-control  {

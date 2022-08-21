@@ -153,11 +153,12 @@ $csql = mysqli_query($con,"SELECT * FROM ft2_asmt_identification WHERE ascode = 
 else if($fcat=='4') {	
 $csql = mysqli_query($con,"SELECT * FROM ft2_asmt_multiplechoice WHERE ascode = '$fscd' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' LIMIT $offsetQM, $rowsPerPageQM"); 
 }	
+$z=1;	
   while($rs = mysqli_fetch_assoc($csql))
-   {
+   { $i=($offsetQM+($z++));
  ?>
  <li class="list-group-item clearfix" style="padding:8px 10px; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;"> 
- <div style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;&nbsp;<?=$rs['qst'];?></div>
+ <div style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;<?=$i?>.&nbsp;&nbsp;<?=$rs['qst'];?></div>
 
 <div class="tools">
  

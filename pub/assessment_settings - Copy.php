@@ -5,7 +5,6 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 
 $fgrd=$_POST['fgrd'];
-$fsec=$_POST['fsec'];
 $fsbj=$_POST['fsbj'];
 $fscd=$_POST['fscd'];
 
@@ -13,7 +12,6 @@ $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
 
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
-if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 ?>
@@ -55,25 +53,7 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
-  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
-
-<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
-          <option value="" >- Select -</option>
-<?php	
-$dsql = mysqli_query($con,"SELECT id, sect, grd FROM ft2_section_data
-WHERE grd = '$fgrd' ORDER BY sect ASC");
-
-  while($rg = mysqli_fetch_assoc($dsql))
-   {  ?>   
-    <option value="<?=$rg['id'];?>" <?=($fsec == $rg['id'] ? 'selected' : '');?>><?=$rg['sect'];?></option> 
-<?php  } ?>  
-        </select>      
-        </div>
-	<div class="clearfix"></div>   
-  </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
  <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
@@ -84,7 +64,7 @@ WHERE grd = '$fgrd' ORDER BY sect ASC");
 <?php	
 $dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_module_subjects.subj FROM ft2_faculty_schedule 
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.sec='$fsec' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
 ORDER BY ft2_faculty_schedule.sjid ASC");
 
   while($rg = mysqli_fetch_assoc($dsql))
@@ -97,7 +77,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Type : </span></div>
+ <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
 <div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
@@ -117,15 +97,23 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 
  <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">No. of Items : </span></div>
 <div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
-<input name="fnoi" type="number" class="form-control" id="fnoi" placeholder="00" maxlength="3" value="">
+<input name="fnoi" type="number" class="form-control" id="fnoi" placeholder="00" maxlength="3" value="" onKeyPress="if(this.value.length==3) return false;">
    </div>
 	<div class="clearfix"></div>   
 
   </div>
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
+
+ <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Duration in Minutes : </span></div>
+<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+<input type="number" name="fmin" required class="form-control" id="fmin" style="display: inline-block; position:inherit; width:100%;" form="frmleks"  onKeyPress="if(this.value.length==4) return false;">      
+        </div>
+	<div class="clearfix"></div>   
+  </div>   
     </div>  
 	<div class="clearfix">  </div>   
 
-     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
+     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
                           
 </div>
 	</div>
@@ -147,15 +135,16 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <div class="list-group" style="margin-bottom: 5px;">
 <li class="list-group-item" style="font-weight: 800;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">No. of Items</div>
+<div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">No. of Items</div>
+<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Duration<br><span style="font-size: 10px">(in minutes)</span></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
 <div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
 <div class="clearfix"></div>
 </div.
 ></li>
 <?php 
-$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND sec='$fsec' AND asid='$fsbj' ORDER BY id ASC");
+$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND asid='$fsbj' ORDER BY id ASC");
 $rctr = 0;	
   while($r = mysqli_fetch_assoc($dsql))
    { if($r['used']=='Y') { $astat = 'Activated'; }
@@ -163,8 +152,9 @@ $rctr = 0;
     ?>                                   
 <li class="list-group-item"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['ascode'];?></div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['itm'];?></div>
+<div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['itm'];?></div>
+<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['timer'];?></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$astat;?></div>
 <div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
 
@@ -174,7 +164,7 @@ $rctr = 0;
  <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
  <?php } ?>   
     
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fnoi="<?=$r['itm'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
+ <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fnoi="<?=$r['itm'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" data-fmin="<?=$r['timer'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
  
  <a href="lessonscontroller.php?prc=X&id=<?=$r['id'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 
@@ -203,35 +193,39 @@ var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
-var fnoi= document.getElementById("fnoi").value;
+var fnoi= document.getElementById("fnoi").value;	
+var fmin= document.getElementById("fmin").value;
 
-if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
+if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')||(fmin=='')) { $('#nass').prop('disabled',true); }	
 else { $('#nass').prop('disabled',false);  }	
 	
-$(document).on("keyup","#fnoi",function() {
+$(document).on("keyup","#fmin",function() {
 var fnoi= document.getElementById("fnoi").value;
 var fscd= document.getElementById("fscd").value;	
-	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
+var fmin= document.getElementById("fmin").value;	
+	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')||(fmin=='')) { $('#nass').prop('disabled',true); }	
 	else { $('#nass').prop('disabled',false);  }
 });		
 	
 $(document).on("click","#nass",function() {
-	var fid='<?=$fid?>';
+	var fid='<?=$fid?>';	
+	var fscd= document.getElementById("fscd").value;
+	var ftxt= $("#fscd option:selected").text();	
 	var fgrd=$(this).data('fgrd');
-	var fsec=$(this).data('fsec');
 	var fsbj=$(this).data('fsbj');
-	var fnoi= document.getElementById("fnoi").value;
+	var fnoi= document.getElementById("fnoi").value;	
+	var fmin= document.getElementById("fmin").value;
     var bcap=$('#nass').text();
 
 	if(bcap=='Save Assessment Record')	{ 
 		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fgrd:fgrd, fsec:fsec, fsbj:fsbj },
+		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fgrd:fgrd, fsbj:fsbj, fmin:fmin },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=T",
 		   cache: false,	
 		   success: function(data){
 			   location.reload();
-			   window.location.href = "?page=assessment_settings";
+			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsbj="+fsbj;
 				}
 			});	
 	}	
@@ -241,13 +235,13 @@ $(document).on("click","#nass",function() {
 		var ftxt= $("#fscd option:selected").text();
 
 		$.ajax({
-		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi },
+		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid, fnoi:fnoi, fmin:fmin  },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=M",
 		   cache: false,	
 		   success: function(data){
 			   location.reload();
-			   window.location.href = "?page=assessment_settings";
+			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsbj="+fsbj;
 				}
 			});	
 	}	
@@ -260,6 +254,8 @@ $(document).on("click",".aedit",function() {
 	$('#fnoi').val(fnoi);
 	var fscd=$(this).data('fscd');
 	var fdsc=$(this).data('fdsc');
+	var fmin=$(this).data('fmin');
+	$('#fmin').val(fmin);
 	
 	$('#fscd option:selected').remove();
 	$('#fscd').append('<option value="'+fscd+'" selected>'+fdsc+'</option>'); 

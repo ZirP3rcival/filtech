@@ -19,29 +19,29 @@ $fcod=$_REQUEST['fcod'];
 	<div style="background: #FFF;"> 
 <div class="col-md-12 col-xs-12" style="padding:0px 15px; border-right : 1px solid #ddd; box-shadow : 5px 0px 5px 1px #eaeaea; margin-bottom: 15px;">
 <?php
-//$lsql = mysqli_query($con,"SELECT COUNT(*) FROM ft2_asmt_essay WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj'"); 
+//$lsql = mysqli_query($con,"SELECT COUNT(*) FROM ft2_asmt_identification WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj'"); 
 //while($rf = mysqli_fetch_assoc($lsql)) { $lmit = $rf['itm']; }
 	
-$ssql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_data_es WHERE sid='$sid' AND ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND asid='$fsbj'"); 	
+$ssql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_data_id WHERE sid='$sid' AND ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND asid='$fsbj'"); 	
   while($rz = mysqli_fetch_assoc($ssql))
    { $mc = $rz['ctr'];  }	
 
 if($mc<=0) {
-	$fsql = mysqli_query($con,"SELECT * FROM ft2_asmt_essay WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' ORDER BY RAND()"); // LIMIT $lmit
+	$fsql = mysqli_query($con,"SELECT * FROM ft2_asmt_identification WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj' ORDER BY RAND()"); // LIMIT $lmit
 	  while($r = mysqli_fetch_assoc($fsql))
 	   { 
 		   $aky=$r['qky'];
 		   $qno=$r['id'];
 		   
-	       $sqlx = mysqli_query($con, "INSERT INTO ft2_asmt_data_es(sid, qno, ans, ascode, syr, fid, grde, asid) VALUES('$sid', '$qno', '', '$fcod', '$fsyr', '$fid', '$fgrd', '$fsbj')");
+	       $sqlx = mysqli_query($con, "INSERT INTO ft2_asmt_data_id(sid, qno, ans, aky, ascode, syr, fid, grde, asid) VALUES('$sid', '$qno', '', '$aky', '$fcod', '$fsyr', '$fid', '$fgrd', '$fsbj')");
 	   }
 }
 	//think of solution to display assessment	
 	$i=0;
-	$fsql = mysqli_query($con,"SELECT ft2_asmt_data_es.*, ft2_asmt_data_es.id AS aid, ft2_asmt_essay.* FROM ft2_asmt_essay 
-INNER JOIN ft2_asmt_data_es ON ft2_asmt_data_es.qno=ft2_asmt_essay.id
-WHERE ft2_asmt_data_es.ascode = '$fcod' AND ft2_asmt_data_es.fid='$fid' AND ft2_asmt_data_es.grde='$fgrd'
-AND ft2_asmt_data_es.syr='$syr' AND ft2_asmt_data_es.asid='$fsbj'"); 
+	$fsql = mysqli_query($con,"SELECT ft2_asmt_data_id.*, ft2_asmt_data_id.id AS aid, ft2_asmt_identification.* FROM ft2_asmt_identification 
+INNER JOIN ft2_asmt_data_id ON ft2_asmt_data_id.qno=ft2_asmt_identification.id
+WHERE ft2_asmt_data_id.ascode = '$fcod' AND ft2_asmt_data_id.fid='$fid' AND ft2_asmt_data_id.grde='$fgrd'
+AND ft2_asmt_data_id.syr='$syr' AND ft2_asmt_data_id.asid='$fsbj'"); 
   while($r = mysqli_fetch_assoc($fsql))
    { $i++; $ans=$r['ans']; $aid=$r['aid']; 
 		if($ans<>'') { $clr='#82BAEB'; } else { $clr='#fff'; }
@@ -106,12 +106,12 @@ $(document).ready(function(){
 $(document).on("click",".btnes",function() {
 var id=$(this).data('id'); 
 var vl=document.getElementById("en"+id).value;	
-bootbox.confirm("Save Essay Answer?", function(result) {	
+bootbox.confirm("Save Identification Answer?", function(result) {	
   if (result) {	 	
 	$.ajax({
 		   data: { id:id, vl:vl },
 		   type: "post",
-		   url: "answercontroller.php?prc=S",
+		   url: "answercontroller.php?prc=I",
 		   cache: false,	
 		   success: function(data){
 			   $('#qst'+id).css('background','#82baeb');
@@ -123,13 +123,13 @@ bootbox.confirm("Save Essay Answer?", function(result) {
 });	
 	
 $(document).on("click","#btnen",function() {
-bootbox.confirm("Submit Essay Answer?", function(result) {	
+bootbox.confirm("Submit Identification Answer?", function(result) {	
   if (result) {	 	
 	  $('#POPMODAL').hide();
 		var dialog = bootbox.dialog({
           	title: 'Notification :',
 				size: 'small',
-          	message: "<span style='color:#1F02FE;'>Essay Answer Submitted Successfully!!!</span>", 
+          	message: "<span style='color:#1F02FE;'>Identification Answer Submitted Successfully!!!</span>", 
             }).on('hidden.bs.modal', function() {
            	$('body').addClass('modal-open'); location.reload(); });
   }

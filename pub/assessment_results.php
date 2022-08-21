@@ -121,7 +121,6 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <li class="list-group-item" style="font-weight: 800;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
 <div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">No. of Items</div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
 <div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
 <div class="clearfix"></div>
@@ -137,7 +136,6 @@ $rctr = 0;
 <li class="list-group-item"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['ascode'];?></div>
 <div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['itm'];?></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$astat;?></div>
 <div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
 
@@ -147,7 +145,7 @@ $rctr = 0;
  <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
  <?php } ?>   
     
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fnoi="<?=$r['itm'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
+ <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
  
  <a href="lessonscontroller.php?prc=X&id=<?=$r['id'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 
@@ -176,14 +174,8 @@ var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
-if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
-else { $('#nass').prop('disabled',false);  }	
-	
-$(document).on("keyup","#fnoi",function() {
-var fscd= document.getElementById("fscd").value;	
-	if((fgrd=='')||(fsbj=='')||(fscd=='')||(fnoi=='')) { $('#nass').prop('disabled',true); }	
-	else { $('#nass').prop('disabled',false);  }
-});		
+if((fgrd=='')||(fsbj=='')||(fscd=='')) { $('#nass').prop('disabled',true); }	
+else { $('#nass').prop('disabled',false);  }			
 	
 $(document).on("click","#nass",function() {
 	var fid='<?=$fid?>';
@@ -224,7 +216,6 @@ $(document).on("click","#nass",function() {
 $(document).on("click",".aedit",function() {
 	var aid=$(this).data('id');
 	sessionStorage.setItem('aid',aid); 
-	$('#fnoi').val(fnoi);
 	var fscd=$(this).data('fscd');
 	var fdsc=$(this).data('fdsc');
 	
