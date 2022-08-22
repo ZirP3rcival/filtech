@@ -396,5 +396,23 @@ $(document).on("change","#zgrd",function() {
   });		
 });
 	
+$(document).on("click","#zgrd",function() {	
+  var id = document.getElementById("zgrd").value;  	
+  $.ajax({
+    type: 'POST',
+    url: 'useraccountcontroller.php?prc=C',
+    dataType: 'JSON',
+    data: { id:id }, 
+    success: function (data) {
+	     $('#zsec').empty();	
+	     $('#zsec').append('<option value="" >- Select Section-</option> '); 
+	     $.each(data, function(i,trk){
+         $('#zsec').append('<option value="' + trk.id + '">' + trk.sect + '</option>');  
+//		 var cors='<=$sec?>';	
+//         if(cors==trk.sect) { $('#Course-Track option[value="'+cors+'"').attr('selected','selected'); }	 	 
+	});		 
+  }   
+  });		
+});	
 });
 </script>	

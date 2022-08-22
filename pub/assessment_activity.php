@@ -45,6 +45,7 @@ $sec=$_SESSION['sec'];
 				INNER JOIN ft2_module_subjects ON ft2_module_subjects.id=ft2_faculty_assessment.asid
 				WHERE ft2_faculty_assessment.grde='$grd' AND ft2_faculty_assessment.sec='$sec' AND used='Y'
 				ORDER BY ft2_faculty_assessment.scdsc ASC"); 
+					
 				  while($r = mysqli_fetch_assoc($dsql))
 				   { $fid=$r['fid'];
 					 $fsbj=$r['asid'];
@@ -118,8 +119,9 @@ $sec=$_SESSION['sec'];
 <!-- ############################################################################################ -->
 <script>
 $(document).ready(function(){
+bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Continuous Countdown Timer Implemented!!!<br><br>Automatic Saving and Locking of Assessment when Timer Ends...</span>");
 	
-$(document).on("click",".mcbtn",function() {
+$(document).on("click",".mcbtn",function() {	
 	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
@@ -131,10 +133,10 @@ $(document).on("click",".mcbtn",function() {
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Multiple Choice Assessment Content');
-	$('#POPMODAL').modal('show');
+	$('#POPMODAL').modal('show');  	
 });	
 	
-$(document).on("click",".enbtn",function() {
+$(document).on("click",".enbtn",function() {	
 	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
@@ -146,10 +148,10 @@ $(document).on("click",".enbtn",function() {
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Enumeration Assessment Content'+'<div id="timer" style="float: right; margin-right:25px;"></div>');
-	$('#POPMODAL').modal('show');
+	$('#POPMODAL').modal('show');	  
 });		
 	
-$(document).on("click",".idbtn",function() {
+$(document).on("click",".idbtn",function() {	
 	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
@@ -176,7 +178,7 @@ $(document).on("click",".esbtn",function() {
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Essay Assessment Content');
-	$('#POPMODAL').modal('show');
+	$('#POPMODAL').modal('show');	  
 });		
 	
 $(document).on("click","#editor",function() {

@@ -64,4 +64,16 @@ if ($prc=='IX') {
 	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET idf='Y' WHERE id = '$id'");
 	echo 0;
 }
+
+if ($prc=='BX') {	
+	$min = mysqli_real_escape_string($con,$_POST['min']);
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET timer='$min' WHERE id = '$id'");
+	echo 0;
+}
+
+if ($prc=='TU') {		 	
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='Y', enu='Y', idf='Y', esy='Y' WHERE id = '$id'");
+	echo 0;
+}
+
 ?>

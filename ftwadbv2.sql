@@ -12,7 +12,7 @@ MySQL - 5.5.5-10.1.31-MariaDB : Database - ftwadb
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ftwadb` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ftwadb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `ftwadb`;
 
@@ -169,11 +169,11 @@ CREATE TABLE `ft2_asmt_data_result` (
   `esy` varchar(5) DEFAULT 'N',
   `stat` varchar(1) DEFAULT 'N',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ft2_asmt_data_result` */
 
-insert  into `ft2_asmt_data_result`(`id`,`sid`,`res`,`rte`,`ascode`,`syr`,`fid`,`grde`,`sec`,`asid`,`timer`,`adte`,`mch`,`idf`,`enu`,`esy`,`stat`) values (3,30,NULL,NULL,'as1','2022-2023',2,1,'1','2','60','2022-08-22 02:08:52','N','N','N','N','N'),(4,30,NULL,NULL,'as2','2022-2023',2,1,'1','2','60','2022-08-22 02:08:52','N','N','N','N','N');
+insert  into `ft2_asmt_data_result`(`id`,`sid`,`res`,`rte`,`ascode`,`syr`,`fid`,`grde`,`sec`,`asid`,`timer`,`adte`,`mch`,`idf`,`enu`,`esy`,`stat`) values (5,30,NULL,NULL,'as1','2022-2023',2,1,'1','2','119','2022-08-22 20:32:24','N','N','N','N','N'),(6,30,NULL,NULL,'as2','2022-2023',2,1,'1','2','90','2022-08-22 20:32:24','N','N','N','N','N');
 
 /*Table structure for table `ft2_asmt_enumeration` */
 
@@ -277,6 +277,21 @@ CREATE TABLE `ft2_assessment_set` (
 
 insert  into `ft2_assessment_set`(`id`,`ascode`,`scdsc`,`stat`) values (1,'as1','Paunang Pagsusulit','none'),(2,'as2','Unang Pagsusulit','none'),(3,'as3','Ikalawang Pagsusulit','none'),(4,'as4','Ikatlong Pagsusulit','none'),(5,'as5','Ikaapat na Pagsusulit','none'),(6,'as6','Panapos na Pagsusulit','none'),(7,'qz1','Maikling Pagsusulit 1','none'),(8,'qz2','Maikling Pagsusulit 2','none'),(9,'qz3','Maikling Pagsusulit 3','none'),(10,'qz4','Maikling Pagsusulit 4','none'),(11,'qz5','Maikling Pagsusulit 5','none'),(12,'qz6','Maikling Pagsusulit 6','none'),(13,'qz7','Maikling Pagsusulit 7','none'),(14,'qz8','Maikling Pagsusulit 8','none'),(15,'lq1','Mahabang Pagsusulit 1','none'),(16,'lq2','Mahabang Pagsusulit 2','none'),(18,'lq3','Mahabang Pagsusulit 3','none'),(19,'lq4','Mahabang Pagsusulit 4','none'),(20,'lq5','Mahabang Pagsusulit 5','none'),(21,'lq6','Mahabang Pagsusulit 6','none'),(22,'lq7','Mahabang Pagsusulit 7','none'),(23,'lq8','Mahabang Pagsusulit 8','none');
 
+/*Table structure for table `ft2_chat_msg` */
+
+DROP TABLE IF EXISTS `ft2_chat_msg`;
+
+CREATE TABLE `ft2_chat_msg` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `chat` text,
+  `log` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `ft2_chat_msg` */
+
+insert  into `ft2_chat_msg`(`id`,`chat`,`log`) values (2,'<span>Batumbakal, Annie Frisco</span>sample \n','2022-08-23 01:30:05'),(3,'<span>Batumbakal, Annie Frisco</span>qwerty \n','2022-08-23 01:32:03');
+
 /*Table structure for table `ft2_faculty_assessment` */
 
 DROP TABLE IF EXISTS `ft2_faculty_assessment`;
@@ -298,7 +313,7 @@ CREATE TABLE `ft2_faculty_assessment` (
 
 /*Data for the table `ft2_faculty_assessment` */
 
-insert  into `ft2_faculty_assessment`(`id`,`ascode`,`scdsc`,`stat`,`fid`,`itm`,`grde`,`sec`,`used`,`asid`,`timer`) values (1,'as1','Paunang Pagsusulit','block','2',5,1,1,'Y','2','60'),(2,'as2','Unang Pagsusulit','none','2',5,1,1,'Y','2','60'),(3,'as3','Ikalawang Pagsusulit','none','2',5,1,1,'N','2','60'),(4,'as4','Ikatlong Pagsusulit','none','2',5,1,1,'N','2','60'),(8,'as5','Ikaapat na Pagsusulit','none','2',5,1,1,'N','2','60'),(11,'qz1','Maikling Pagsusulit 1','none','2',10,1,NULL,'N','2','30'),(12,'qz2','Maikling Pagsusulit 2','none','2',15,1,NULL,'N','2','45');
+insert  into `ft2_faculty_assessment`(`id`,`ascode`,`scdsc`,`stat`,`fid`,`itm`,`grde`,`sec`,`used`,`asid`,`timer`) values (1,'as1','Paunang Pagsusulit','block','2',5,1,1,'Y','2','120'),(2,'as2','Unang Pagsusulit','none','2',5,1,1,'Y','2','90'),(3,'as3','Ikalawang Pagsusulit','none','2',5,1,1,'N','2','60'),(4,'as4','Ikatlong Pagsusulit','none','2',5,1,1,'N','2','60'),(8,'as5','Ikaapat na Pagsusulit','none','2',5,1,1,'N','2','60'),(11,'qz1','Maikling Pagsusulit 1','none','2',10,1,NULL,'N','2','30'),(12,'qz2','Maikling Pagsusulit 2','none','2',15,1,NULL,'N','2','45');
 
 /*Table structure for table `ft2_faculty_schedule` */
 
