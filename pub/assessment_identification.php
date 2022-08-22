@@ -7,20 +7,19 @@ error_reporting (E_ALL ^ E_NOTICE);
 
 $syr=$_SESSION['year'];
 $sid=$_SESSION['id'];
-
+$rid=$_REQUEST['rid'];
 $fid=$_REQUEST['fid'];
 $fsbj=$_REQUEST['fsbj'];
 $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 ?>
+<?php include('countdown_timer.php');?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
 <div class="col-md-12 col-xs-12" style="padding:0px 15px; border-right : 1px solid #ddd; box-shadow : 5px 0px 5px 1px #eaeaea; margin-bottom: 15px;">
 <?php
-//$lsql = mysqli_query($con,"SELECT COUNT(*) FROM ft2_asmt_identification WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj'"); 
-//while($rf = mysqli_fetch_assoc($lsql)) { $lmit = $rf['itm']; }
 	
 $ssql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_data_id WHERE sid='$sid' AND ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND asid='$fsbj'"); 	
   while($rz = mysqli_fetch_assoc($ssql))
@@ -48,14 +47,12 @@ AND ft2_asmt_data_id.syr='$syr' AND ft2_asmt_data_id.asid='$fsbj'");
 ?>
 <div class="col-xs-12 col-md-12" id="qst<?=$aid?>" style="background: <?=$clr?>; float: left; margin: 20px 5px 10px 5px; text-align: justify; font-size: 13px; color: #010C3E; line-height: 25px;"><em><strong><?=$i?>. <?=$r['qst'];?></strong></em></div><br /><br />
  <div class="col-xs-12 col-md-11" style="margin-left: 25px;">
-	  <textarea class="form-control pcat" id="en<?=$aid?>" name="en<?=$aid?>" rows="5" required style="width: 100%" ><?=$ans?></textarea>
-   
- <button class="btn btn-success btnes" type="button" id="btnes<?=$aid?>" name="btnes<?=$aid?>" data-id="<?=$aid?>" style="float:right; margin: 15px 0px;">Save</button>	  
+	  <input class="form-control pcat" id="en<?=$aid?>" name="en<?=$aid?>" data-id="<?=$aid?>" required style="width: 100%" value="<?=$ans?>">
  </div>
 <?php  }?>
 </div>
    
- <button class="btn btn-info btnen" type="button" id="btnen" data-id="<?=$aid?>" style="float:right;margin-bottom: 15px;">Submit Answers</button>
+ <button class="btn btn-info btnen" type="button" id="btnen" data-rid="<?=$rid?>" style="float:right;margin-bottom: 15px;">Submit Answers</button>
     </div>  
 <div class="clearfix">  </div>                           
 </div>
@@ -103,11 +100,9 @@ function startCountdown() {
 	
 $(document).ready(function(){
 	
-$(document).on("click",".btnes",function() {
+$(document).on("change",".pcat",function() {
 var id=$(this).data('id'); 
-var vl=document.getElementById("en"+id).value;	
-bootbox.confirm("Save Identification Answer?", function(result) {	
-  if (result) {	 	
+var vl=document.getElementById("en"+id).value;		
 	$.ajax({
 		   data: { id:id, vl:vl },
 		   type: "post",
@@ -117,21 +112,28 @@ bootbox.confirm("Save Identification Answer?", function(result) {
 			   $('#qst'+id).css('background','#82baeb');
 			   return;
 				}
-			});	
-  }
- });	  
-});	
+			});	  
+});		
 	
 $(document).on("click","#btnen",function() {
+var id=$(this).data('rid');
 bootbox.confirm("Submit Identification Answer?", function(result) {	
   if (result) {	 	
 	  $('#POPMODAL').hide();
-		var dialog = bootbox.dialog({
-          	title: 'Notification :',
-				size: 'small',
-          	message: "<span style='color:#1F02FE;'>Identification Answer Submitted Successfully!!!</span>", 
-            }).on('hidden.bs.modal', function() {
-           	$('body').addClass('modal-open'); location.reload(); });
+	$.ajax({
+		   data: { id:id },
+		   type: "post",
+		   url: "answercontroller.php?prc=IX",
+		   cache: false,	
+		   success: function(data){
+			var dialog = bootbox.dialog({
+				title: 'Notification :',
+					size: 'small',
+					message: "<span style='color:#1F02FE;'>Identification Answer Submitted Successfully!!!</span>", 
+					}).on('hidden.bs.modal', function() {
+					$('body').addClass('modal-open'); location.reload(); });
+					}
+			});		  
   }
  });	  
 });		

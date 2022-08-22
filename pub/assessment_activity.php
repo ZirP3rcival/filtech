@@ -36,6 +36,7 @@ $sec=$_SESSION['sec'];
 					 <div class="col-xs-12 col-md-3"  style="color: #050247; padding: 4px; font-size: 13px; ">Assessment Code</div>
 					 <div class="col-xs-6 col-md-1"  style="color: #050247;?>; padding: 4px; font-size: 13px; ">Duration<br><span style="font-size: 11px">(in minutes)</span></div>
 				</div>
+					 <div class="col-xs-12 col-md-2"  style="color: #E70A0E; padding: 4px; font-size: 11px; ">Blank Icons Means <strong>NOT</strong> Available or <strong>DONE</strong> Already</div>
 				 <div class="clearfix" style="border-bottom: 1px solid #000"></div>
 				<div class="list-group" style="margin-bottom: 5px;">
 				<?php 
@@ -50,9 +51,14 @@ $sec=$_SESSION['sec'];
 					 $fcod=$r['ascode'];
 					 $timer=$r['timer'];	
 					
-				$sql1 = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_data_result WHERE ft2_asmt_data_result.grde='$grd' AND ft2_asmt_data_result.syr='$syr' AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.fid='$fid' AND ft2_asmt_data_result.ascode='$fcod' AND ft2_asmt_data_result.sid='$sid'");  
+				$sql1 = mysqli_query($con,"SELECT COUNT(ft2_asmt_data_result.id) AS ctr, ft2_asmt_data_result.* FROM ft2_asmt_data_result WHERE ft2_asmt_data_result.grde='$grd' AND ft2_asmt_data_result.syr='$syr' AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.fid='$fid' AND ft2_asmt_data_result.ascode='$fcod' AND ft2_asmt_data_result.sid='$sid'");  
 				  while($r1 = mysqli_fetch_assoc($sql1))	{ 
-					  $xst=$r1['ctr']; 
+					  $xst=$r1['ctr']; $rid=$r1['id'];
+					  $mch=$r1['mch']; 
+					  $idf=$r1['idf']; 
+					  $enu=$r1['enu']; 
+					  $esy=$r1['esy']; 					  
+					  
 					  if($xst<=0){
 						  $sqli1 = mysqli_query($con, "INSERT INTO ft2_asmt_data_result(sid, ascode, syr, fid, grde, sec, asid, timer ) VALUES('$sid', '$fcod', '$syr', '$fid', '$grd', '$sec','$fsbj', '$timer')");
 					  }
@@ -68,33 +74,33 @@ $sec=$_SESSION['sec'];
 				 </div>
 				<div class="col-xs-12 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right;">
 				
-				<?php  		
+				<?php if($mch=='N') { 		
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_multiplechoice WHERE ft2_asmt_multiplechoice.grde='$grd' AND ft2_asmt_multiplechoice.syr='$syr' AND ft2_asmt_multiplechoice.asid='$fsbj' AND ft2_asmt_multiplechoice.fid='$fid' AND ft2_asmt_multiplechoice.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-info btn-sm fa fa-file-text-o mcbtn" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>" title="Multiple Choice Assessment" style="font-size: 16px; padding: 6px;"></button>
-				<?php } ?>	
+						<button class="btn btn-info btn-sm fa fa-file-text-o mcbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>" title="Multiple Choice Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>	
 				
-				<?php 
+				<?php if($enu=='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_enumeration WHERE ft2_asmt_enumeration.grde='$grd' AND ft2_asmt_enumeration.syr='$syr' AND ft2_asmt_enumeration.asid='$fsbj' AND ft2_asmt_enumeration.fid='$fid' AND ft2_asmt_enumeration.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-success btn-sm fa fa-file-text-o enbtn" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Enumeration Type Assessment" style="font-size: 16px; padding: 6px;"></button>
-				<?php }  ?>		
+						<button class="btn btn-success btn-sm fa fa-file-text-o enbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Enumeration Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>		
 				
-				<?php 
+				<?php if($idf=='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_identification WHERE ft2_asmt_identification.grde='$grd' AND ft2_asmt_identification.syr='$syr' AND ft2_asmt_identification.asid='$fsbj' AND ft2_asmt_identification.fid='$fid' AND ft2_asmt_identification.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-warning btn-sm fa fa-file-text-o idbtn" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Identification Type Assessment" style="font-size: 16px; padding: 6px;"></button>
-				<?php }  ?>		
+						<button class="btn btn-warning btn-sm fa fa-file-text-o idbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Identification Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>		
 				
-				<?php 
+				<?php if($esy=='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_essay WHERE ft2_asmt_essay.grde='$grd' AND ft2_asmt_essay.syr='$syr' AND ft2_asmt_essay.asid='$fsbj' AND ft2_asmt_essay.fid='$fid' AND ft2_asmt_essay.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
-				<?php }  ?>								
+						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>								
 				</div><div class="clearfix"></div>
 				</div>
 				 <?php }  ?>
@@ -114,13 +120,14 @@ $sec=$_SESSION['sec'];
 $(document).ready(function(){
 	
 $(document).on("click",".mcbtn",function() {
+	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fcod');
 	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Multiple Choice Assessment Content');
@@ -128,13 +135,14 @@ $(document).on("click",".mcbtn",function() {
 });	
 	
 $(document).on("click",".enbtn",function() {
+	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fcod');
 	$('#content').empty();
-	$("#content").load('assessment_enumeration.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$("#content").load('assessment_enumeration.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Enumeration Assessment Content'+'<div id="timer" style="float: right; margin-right:25px;"></div>');
@@ -142,13 +150,14 @@ $(document).on("click",".enbtn",function() {
 });		
 	
 $(document).on("click",".idbtn",function() {
+	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fcod');
 	$('#content').empty();
-	$("#content").load('assessment_identification.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$("#content").load('assessment_identification.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Identification Assessment Content'+'<div id="timer" style="float: right; margin-right:25px;"></div>');
@@ -156,13 +165,14 @@ $(document).on("click",".idbtn",function() {
 });	
 	
 $(document).on("click",".esbtn",function() {
+	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fcod');
 	$('#content').empty();
-	$("#content").load('assessment_essay.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$("#content").load('assessment_essay.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Essay Assessment Content');

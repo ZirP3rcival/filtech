@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="../css/responsive.css">
     <!-- jquery
 		============================================ -->
-        <script src="../js/vendor/jquery-1.11.3.min.js"></script>    
+    <script src="../js/vendor/jquery-1.11.3.min.js"></script>        
     <!-- modernizr JS
 		============================================ -->
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>

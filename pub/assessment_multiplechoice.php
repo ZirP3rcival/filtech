@@ -7,13 +7,14 @@ error_reporting (E_ALL ^ E_NOTICE);
 
 $syr=$_SESSION['year'];
 $sid=$_SESSION['id'];
-
+$rid=$_REQUEST['rid'];
 $fid=$_REQUEST['fid'];
 $fsbj=$_REQUEST['fsbj'];
 $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 ?>
+<?php include('countdown_timer.php');?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
@@ -61,7 +62,7 @@ AND ft2_asmt_data_mc.syr='$syr' AND ft2_asmt_data_mc.asid='$fsbj'");
 <?php  }?>
 </div>
    
- <button class="btn btn-info btnen" type="button" id="btnmc" style="float:right; margin-bottom: 15px;">Submit Answers</button>  
+ <button class="btn btn-info btnen" type="button" id="btnmc" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px;">Submit Answers</button>  
     </div>  
 <div class="clearfix">  </div>                           
 </div>
@@ -85,15 +86,24 @@ $(document).on("click",".pcat",function() {
 });	
 	
 $(document).on("click","#btnmc",function() {
+var id=$(this).data('rid');
 bootbox.confirm("Submit Multiple Choice Answer?", function(result) {	
   if (result) {	 	
 	  $('#POPMODAL').hide();
-		var dialog = bootbox.dialog({
-          	title: 'Notification :',
-				size: 'small',
-          	message: "<span style='color:#1F02FE;'>Multiple Choice Answer Submitted Successfully!!!</span>", 
-            }).on('hidden.bs.modal', function() {
-           	$('body').addClass('modal-open'); location.reload(); });
+	$.ajax({
+		   data: { id:id },
+		   type: "post",
+		   url: "answercontroller.php?prc=MX",
+		   cache: false,	
+		   success: function(data){
+			var dialog = bootbox.dialog({
+				title: 'Notification :',
+					size: 'small',
+					message: "<span style='color:#1F02FE;'>Multiple Choice Answer Submitted Successfully!!!</span>", 
+					}).on('hidden.bs.modal', function() {
+					$('body').addClass('modal-open'); location.reload(); });
+					}
+			});		  
   }
  });	  
 });		

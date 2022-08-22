@@ -28,9 +28,19 @@ if ($prc=='M') {
 							SET rslt = '1' WHERE temp.id = t.id AND t.ans = t.aky");
 	echo 0;
 }
- 
+
+if ($prc=='MX') {		 	
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='Y' WHERE id = '$id'");
+	echo 0;
+}
+
 if ($prc=='E') {		 	
 	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_en SET ans='$vl' WHERE id = '$id'");
+	echo 0;
+}
+
+if ($prc=='EX') {		 	
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET enu='Y' WHERE id = '$id'");
 	echo 0;
 }
 
@@ -39,8 +49,19 @@ if ($prc=='S') {
 	echo 0;
 }
 
+if ($prc=='SX') {		 	
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET esy='Y' WHERE id = '$id'");
+	echo 0;
+}
+
+
 if ($prc=='I') {		 	
 	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_id SET ans='$vl' WHERE id = '$id'");
+	echo 0;
+}
+
+if ($prc=='IX') {		 	
+	$sql1=mysqli_query($con,"UPDATE ft2_asmt_data_result SET idf='Y' WHERE id = '$id'");
 	echo 0;
 }
 ?>
