@@ -12,7 +12,7 @@ MySQL - 5.5.5-10.1.31-MariaDB : Database - ftwadb
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ftwadb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ftwadb` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci */;
 
 USE `ftwadb`;
 
@@ -283,14 +283,17 @@ DROP TABLE IF EXISTS `ft2_chat_msg`;
 
 CREATE TABLE `ft2_chat_msg` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
+  `cid` int(10) DEFAULT NULL,
+  `grde` int(10) DEFAULT NULL,
+  `sec` int(10) DEFAULT NULL,
   `chat` text,
   `log` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `ft2_chat_msg` */
 
-insert  into `ft2_chat_msg`(`id`,`chat`,`log`) values (2,'<span>Batumbakal, Annie Frisco</span>sample \n','2022-08-23 01:30:05'),(3,'<span>Batumbakal, Annie Frisco</span>qwerty \n','2022-08-23 01:32:03');
+insert  into `ft2_chat_msg`(`id`,`cid`,`grde`,`sec`,`chat`,`log`) values (12,30,1,1,'<span>Batumbakal, Annie Frisco</span>sample \n','2022-08-24 00:10:35');
 
 /*Table structure for table `ft2_faculty_assessment` */
 

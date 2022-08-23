@@ -86,7 +86,7 @@ $fname=$_SESSION['fname'];
 
 </head>
 
-<body onload="setInterval('chat.update()', 2000)">
+<body> <!--onload="setInterval('chat.update()', 2000)"-->
 
     <div id="page-wrap">
 		<p id="name-area"></p>

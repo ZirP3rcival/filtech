@@ -56,47 +56,8 @@ AND ft2_asmt_data_id.syr='$syr' AND ft2_asmt_data_id.asid='$fsbj'");
     </div>  
 <div class="clearfix">  </div>                           
 </div>
-<!--script type="text/javascript">
-var count = 600;
-startCountdown();
 
-function doCountdown() {
-    count--;
-
-    if (count > 0) {
-        //document.getElementById("timer").innerHTML = count + " seconds left";
-		var newText = count + " time left";
-		//Change the text using the text method.
-		$('#timer').text(newText);
-        setTimeout("doCountdown()", 1000);
-    } else {
-        //hitPhpScript();
-    }
-}		
-	
-function startCountdown() {
-    count = 600;
-    doCountdown();
-}	
-</script-->	
 <script>
-//var timer2 = "1:30";
-//var interval = setInterval(function() {
-//
-//
-//  var timer = timer2.split(':');
-//  //by parsing integer, I avoid all extra string processing
-//  var minutes = parseInt(timer[0], 10);
-//  var seconds = parseInt(timer[1], 10);
-//  --seconds;
-//  minutes = (seconds < 0) ? --minutes : minutes;
-//  if (minutes < 0) clearInterval(interval);
-//  seconds = (seconds < 0) ? 59 : seconds;
-//  seconds = (seconds < 10) ? '0' + seconds : seconds;
-//  //minutes = (minutes < 10) ?  minutes : minutes;
-//  $('#timer').html(minutes + ':' + seconds);
-//  timer2 = minutes + ':' + seconds;
-//}, 1000);	
 	
 $(document).ready(function(){
 	
