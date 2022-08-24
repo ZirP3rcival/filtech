@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
-
+$cid=$_SESSION['id'];
 $fname=$_SESSION['fname'];
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,6 +9,13 @@ $fname=$_SESSION['fname'];
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Chat</title>
     <link rel="stylesheet" href="chat/style.css" type="text/css" />
+<style>    
+.cmsg {
+    margin-top: 5px;
+    padding-left: 20px;	
+	}
+
+</style>	
 </head>
 
 <body> <!--onload="setInterval('chat.update()', 2000)"-->
@@ -28,8 +35,14 @@ $fname=$_SESSION['fname'];
 
 </html>
 <script>
- $(document).ready(function(){   
-refreshchatroom(); 
+$(document).ready(function(){    
+var cid ='<?=$cid?>';
+refreshchatroom();
+	 
+setInterval(function () {
+    refreshchatroom();
+}, (1000*120)); 	 
+	 
 function refreshchatroom() {
 	var cht = $('#chat-area').height();
        $.ajax({
@@ -38,12 +51,14 @@ function refreshchatroom() {
 			cache: false,	
 			dataType: 'JSON',
 				success: function(data){
+					$("#chat-area").empty();
 				   $.each(data, function(i,ac){
-                            $('#chat-area').append($("<p>"+ ac.chat +"</p>"));
+					   if(ac.cid==cid) { 
+                            $('#chat-area').append($("<div style='text-align: right;'>"+ ac.chat +"</div>"));  }
+					   else {
+						    $('#chat-area').append($("<div>"+ ac.chat +"</div>"));   }
                         });								  
 				   }
-				   //document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
-		   		   //$('#chat-area').scrollTop(cht);
 	    });		
 }	 
 	 
