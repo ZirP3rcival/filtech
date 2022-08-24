@@ -1,5 +1,8 @@
 <style>
-.chat-box-wrap.collapse.in {
+<?php
+if($_SESSION['account']=='FACULTY')
+	{	
+	echo '	.chat-box-wrap.collapse.in {
 			position: fixed;
 			height: 480px!important;
 			width: 530px!important;
@@ -9,7 +12,17 @@
 				height: 460px!important;
 			}	';
    }
-
+else {  	
+	echo '	.chat-box-wrap.collapse.in {
+			position: fixed;
+			height: 440px!important;
+			width: 530px!important;
+			border-radius: 15px;
+			}
+		.chat-content {
+				height: 400px!important;
+			}	';
+}   ?>
 .border-rad {
 	border-top-left-radius: 15px;
     border-top-right-radius: 15px;

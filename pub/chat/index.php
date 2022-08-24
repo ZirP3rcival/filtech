@@ -1,8 +1,13 @@
 <?php 
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
-$cid=$_SESSION['id'];
-$fname=$_SESSION['fname'];
+$cfname=$_SESSION['fname'];
+$cgrd=$_SESSION['grde'];  
+$csyr=$_SESSION['year'];
+$ccid=$_SESSION['id'];
+$gsql = mysqli_query($con,"SELECT * FROM `ft2_grade_data` WHERE id='$cgrd'");
+ while($rg = mysqli_fetch_assoc($gsql))
+	{  $cgrde=$rg['grd'];  }
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,7 +26,23 @@ $fname=$_SESSION['fname'];
 <body> <!--onload="setInterval('chat.update()', 2000)"-->
 
     <div id="page-wrap">
-<!--		<div class="col-xs-12 col-md-12" id="name-area"></div>-->
+		<div class="col-xs-12 col-md-12" id="room" style="padding: 0px;">
+  <div class="col-xs-12 col-md-6" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
+	<div class="col-xs-12 col-md-12" style="margin-top:0px; float: left; padding: 0px;">	
+	<span style="font-weight: 600; color: #1318F5; padding-left: 20px; font-size: 16px;"><?=$cgrde?></span>
+	</div>
+	<div class="clearfix"></div>
+  </div>
+
+  <div class="col-xs-12 col-md-6" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
+	<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">
+	<select name="cfsbj" required class="form-control" id="cfsbj" style="display: inline-block; position:inherit; width:96%; float: right;" form="frmleks" title="Pumili ng isa sa talaan">
+			  <option value="" >- Select Section -</option>
+	</select>      
+			</div>
+	<div class="clearfix"></div>   
+  </div>			
+		</div>
         <div id="chat-wrap"><div id="chat-area"></div></div>
         
         <form id="send-message-area">
@@ -36,16 +57,21 @@ $fname=$_SESSION['fname'];
 </html>
 <script>
 $(document).ready(function(){    
-var cid ='<?=$cid?>';
-refreshchatroom();
-	 
+var gd = sessionStorage.gd; 
+var sc = sessionStorage.sc; 
+get_section();
+	
 setInterval(function () {
-    refreshchatroom();
+	if((gd!='')&&(sc!=''))	{
+		refreshchatroom(gd,sc);
+	}
 }, (1000*120)); 	 
 	 
-function refreshchatroom() {
+function refreshchatroom(grd, sbj) {
+	var cid='<?=$ccid?>';
 	var cht = $('#chat-area').height();
        $.ajax({
+		    data: { cgrd:grd, sbj:sbj },
 			type: "post",
 			url: "chat/process.php?prc=R",
 			cache: false,	
@@ -62,7 +88,9 @@ function refreshchatroom() {
 	    });		
 }	 
 	 
-$('#sendie').keyup(function(e) {			 
+$('#sendie').keyup(function(e) {	
+  var cfsbj= document.getElementById("cfsbj").value; 
+  var cfgrd = '<?=$cgrd?>'; 
   if (e.keyCode == 13) { 
     var text = $(this).val();
     var maxLength = $(this).attr("maxlength");  
@@ -70,19 +98,45 @@ $('#sendie').keyup(function(e) {
                     // send 
     if (length <= maxLength + 1) {          
        $.ajax({
-			data: { msg:text },
+			data: { msg:text, sbj:cfsbj },
 			type: "post",
 			url: "chat/process.php?prc=C",
 			cache: false,	
 				success: function(data){
 					$('#sendie').val("");
-					refreshchatroom();
+					refreshchatroom(cfgrd ,cfsbj);
 					return;
 					}
 	    });	
      } 
     }
 });
+	
+	
+function get_section() {	
+  var cfgrd = '<?=$cgrd?>';  	
+  $.ajax({
+	data: { fgrd:cfgrd },
+    type: 'POST',
+    url: 'chat/process.php?prc=G',
+	dataType: 'json',
+    success: function (data) {
+	     $('#cfsbj').empty();	
+	     $('#cfsbj').append('<option value="" >- Select Subject-</option> '); 
+	     $.each(data, function(i,sbj){
+         $('#cfsbj').append('<option value="' + sbj.sjid + '">' + sbj.subj + '</option>');   	 
+	});		 
+  }   
+  });		
+};		
 	 
+$(document).on("change","#cfsbj",function() {	
+  var cfgrd = '<?=$cgrd?>';  
+  var cfsbj= document.getElementById("cfsbj").value; 	
+	sessionStorage.setItem('gd',cfgrd);
+	sessionStorage.setItem('sc',cfsbj);
+     refreshchatroom(cfgrd, cfsbj);		
+});		
+	
 });	 
 </script>

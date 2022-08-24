@@ -37,7 +37,7 @@ if($fcat=='') { $fcat=$_REQUEST['fcat']; }
 		  </div>	  
 <div class="card-block box" style="padding: 10px 15px;">
 	<div style="background: #FFF;"> 
- <form method="post" action="?page=assessment_records" id="frmleks" name="frmleks"> </form> 
+ <form method="post" action="?page=assessment_results" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
     <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
 <div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
@@ -97,8 +97,6 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
     </div>  
 	<div class="clearfix">  </div>   
-
-     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
                           
 </div>
 	</div>
@@ -111,56 +109,75 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grado ng Estudyante sa Pagtatasa</h6>
 		  </div>
-		<div class="card-block box" style="padding: 10px;">
-<div style="background: #FFF;"> 
-   <div class="card-block card-top">
-   <div class="card-block">
-<div class="message-box contact-box">
-    <div class="message-widget contact-widget box">
+<div class="card-block">
 <div class="list-group" style="margin-bottom: 5px;">
-<li class="list-group-item" style="font-weight: 800;"><div class="row">
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
-<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
-<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
+<li class="list-group-item" style="font-weight: 600; font-size: 12px;"><div class="row">
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Photo</div>
+<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
+<div class="col-xs-2 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
+<div class="col-xs-2 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Contents</div>
 <div class="clearfix"></div>
 </div.
 ></li>
 <?php 
-$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND asid='$fsbj' ORDER BY id ASC");
-$rctr = 0;	
-  while($r = mysqli_fetch_assoc($dsql))
-   { if($r['used']=='Y') { $astat = 'Activated'; }
-	 else { $astat = 'De-Activated'; }
-    ?>                                   
-<li class="list-group-item"><div class="row">
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['ascode'];?></div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
-<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$astat;?></div>
-<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
-
-<?php if($r['used']=='N') { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=Y" class="trash" style="margin-right:10px;" title="Activate Assessment" onclick="return confirm('Activate Assessment?')"><i class="btn btn-info btn-sm glyphicon glyphicon-ok-circle" title="Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
-<?php } else { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
- <?php } ?>   
-    
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
+if(($fgrd!='') && ($fsbj!='') && ($fscd!=''))	{
+$dsql = mysqli_query($con,"SELECT ft2_users_account.*, ft2_asmt_data_result.*, ft2_module_subjects.*, ft2_assessment_set.*
+FROM ft2_users_account 
+INNER JOIN ft2_asmt_data_result ON ft2_asmt_data_result.sid = ft2_users_account.id 
+INNER JOIN ft2_assessment_set ON ft2_assessment_set.ascode = ft2_asmt_data_result.ascode
+INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_asmt_data_result.asid
+WHERE ft2_asmt_data_result.grde = '$fgrd' AND ft2_asmt_data_result.fid='$fid' 
+AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.ascode='$fscd'
+ORDER BY alyas ASC");
  
- <a href="lessonscontroller.php?prc=X&id=<?=$r['id'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+  while($rx = mysqli_fetch_assoc($dsql))
+   { $sphoto='data:image/png;base64,'.''.$rx['ploc']; 
+	  $mch=$rx['mch']; 
+	  $idf=$rx['idf']; 
+	  $enu=$rx['enu']; 
+	  $esy=$rx['esy']; 
+	  $fcod=$rx['ascode']; 
+    ?>                                   
+<li class="list-group-item" style="padding: 2px 15px; font-size: 12px;">
+<div class="row">
+	<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="<?=$sphoto?>" class="img-responsive logo" style="padding: 0px; width: 50%;" onerror="this.src='../img/missing.png'"></div>
+	<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['alyas'];?></div>
+	<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['scdsc'];?></div>
+	<div class="col-xs-8 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">
+				<?php if($mch=='N') { 		
+				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_multiplechoice WHERE ft2_asmt_multiplechoice.grde='$fgrd' AND ft2_asmt_multiplechoice.syr='$syr' AND ft2_asmt_multiplechoice.asid='$fsbj' AND ft2_asmt_multiplechoice.fid='$fid' AND ft2_asmt_multiplechoice.ascode='$fcod'"); 
+				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
+					if($mctr>0)   { ?>
+						<button class="btn btn-info btn-sm fa fa-file-text-o mcbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>" title="Multiple Choice Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>	
+				
+				<?php if($enu=='N') {
+				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_enumeration WHERE ft2_asmt_enumeration.grde='$fgrd' AND ft2_asmt_enumeration.syr='$syr' AND ft2_asmt_enumeration.asid='$fsbj' AND ft2_asmt_enumeration.fid='$fid' AND ft2_asmt_enumeration.ascode='$fcod'"); 
+				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
+					if($mctr>0)   { ?>
+						<button class="btn btn-success btn-sm fa fa-file-text-o enbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Enumeration Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>		
+				
+				<?php if($idf=='N') {
+				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_identification WHERE ft2_asmt_identification.grde='$fgrd' AND ft2_asmt_identification.syr='$syr' AND ft2_asmt_identification.asid='$fsbj' AND ft2_asmt_identification.fid='$fid' AND ft2_asmt_identification.ascode='$fcod'"); 
+				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
+					if($mctr>0)   { ?>
+						<button class="btn btn-warning btn-sm fa fa-file-text-o idbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Identification Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>		
+				
+				<?php if($esy=='N') {
+				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_essay WHERE ft2_asmt_essay.grde='$fgrd' AND ft2_asmt_essay.syr='$syr' AND ft2_asmt_essay.asid='$fsbj' AND ft2_asmt_essay.fid='$fid' AND ft2_asmt_essay.ascode='$fcod'"); 
+				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
+					if($mctr>0)   { ?>
+						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+				<?php } } ?>								
+	 </div>
+	 <div class="clearfix"></div>
+ </div>
+ </li>
 
-</div>
- <div class="clearfix"></div></div></li>
-
- <?php } ?></div>                                  
-     </div>   
- </div>                                
-   </div>
-   <div class="card-block card-bottom">&nbsp;</div>
-  </div>
-	<div class="clearfix">  </div>                           
-</div>
-	</div>
+ <?php }} ?></div>   
+</div> 
 </div>  
             </div>           
         </div>
@@ -174,56 +191,7 @@ var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
-if((fgrd=='')||(fsbj=='')||(fscd=='')) { $('#nass').prop('disabled',true); }	
-else { $('#nass').prop('disabled',false);  }			
-	
-$(document).on("click","#nass",function() {
-	var fid='<?=$fid?>';
-	var fgrd=$(this).data('fgrd');
-	var fsbj=$(this).data('fsbj');
-    var bcap=$('#nass').text();
 
-	if(bcap=='Save Assessment Record')	{ 
-		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fgrd:fgrd, fsbj:fsbj },
-		   type: "post",
-		   url: "lessonscontroller.php?prc=T",
-		   cache: false,	
-		   success: function(data){
-			   location.reload();
-			   window.location.href = "?page=assessment_settings";
-				}
-			});	
-	}	
-	else if(bcap=='Update Assessment Record')	{ 
-		var id = sessionStorage.aid; 
-		var fscd= document.getElementById("fscd").value;
-		var ftxt= $("#fscd option:selected").text();
-
-		$.ajax({
-		   data: { id:id, fscd:fscd, ftxt:ftxt, fid:fid,  },
-		   type: "post",
-		   url: "lessonscontroller.php?prc=M",
-		   cache: false,	
-		   success: function(data){
-			   location.reload();
-			   window.location.href = "?page=assessment_settings";
-				}
-			});	
-	}	
-});		
-	
-$(document).on("click",".aedit",function() {
-	var aid=$(this).data('id');
-	sessionStorage.setItem('aid',aid); 
-	var fscd=$(this).data('fscd');
-	var fdsc=$(this).data('fdsc');
-	
-	$('#fscd option:selected').remove();
-	$('#fscd').append('<option value="'+fscd+'" selected>'+fdsc+'</option>'); 
-	$('#nass').text('Update Assessment Record');
-	$('#nass').prop('disabled',false);
-});	
 	
 });
 </script>	

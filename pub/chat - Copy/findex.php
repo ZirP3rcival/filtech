@@ -1,9 +1,9 @@
 <?php 
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
-$cfid=$_SESSION['id'];
-$cfname=$_SESSION['fname'];
-$csyr=$_SESSION['year'];
+$fid=$_SESSION['id'];
+$fname=$_SESSION['fname'];
+$syr=$_SESSION['year'];
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,16 +25,16 @@ $csyr=$_SESSION['year'];
 		<div class="col-xs-12 col-md-12" id="room" style="padding: 0px;">
   <div class="col-xs-12 col-md-6" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 	<div class="col-xs-12 col-md-12" style="margin-top:0px; float: left; padding: 0px;">	
-	<select name="cfgrd" required class="form-control" id="cfgrd" style="display: inline-block; position:inherit; width:96%;" form="frmleks" title="Pumili ng isa sa talaan">
+	<select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:96%;" form="frmleks" title="Pumili ng isa sa talaan">
 			  <option value="" >- Select Grade -</option>
 	<?php
 	$dsql = mysqli_query($con,"SELECT DISTINCT(ft2_faculty_schedule.grde),ft2_faculty_schedule.fid, ft2_grade_data.* FROM ft2_faculty_schedule 
 	INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
-	WHERE ft2_faculty_schedule.fid = '$cfid' AND ft2_faculty_schedule.syr = '$csyr' ORDER BY ft2_grade_data.grd ASC");
+	WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
 
 	  while($rg = mysqli_fetch_assoc($dsql))
 	   {  ?>   
-		<option value="<?=$rg['id'];?>" <?=($cfgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+		<option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
 	<?php } ?>  
 			</select></div>
 	<div class="clearfix"></div>
@@ -42,7 +42,7 @@ $csyr=$_SESSION['year'];
 
   <div class="col-xs-12 col-md-6" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 	<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">
-	<select name="cfsbj" required class="form-control" id="cfsbj" style="display: inline-block; position:inherit; width:96%; float: right;" form="frmleks" title="Pumili ng isa sa talaan">
+	<select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:96%; float: right;" form="frmleks" title="Pumili ng isa sa talaan">
 			  <option value="" >- Select Section -</option>
 	</select>      
 			</div>
@@ -63,7 +63,7 @@ $csyr=$_SESSION['year'];
 </html>
 <script>
 $(document).ready(function(){    
-var cfid ='<?=$cfid?>';
+var fid ='<?=$fid?>';
 var gd = sessionStorage.gd; 
 var sc = sessionStorage.sc; 
 	
@@ -74,10 +74,9 @@ setInterval(function () {
 }, (1000*120)); 	 
 	 
 function refreshchatroom(grd, sbj) {
-	var cid='<?=$cfid?>';
 	var cht = $('#chat-area').height();
        $.ajax({
-		    data: { cgrd:grd, sbj:sbj },
+		    data: { grd:grd, sbj:sbj },
 			type: "post",
 			url: "chat/process.php?prc=R",
 			cache: false,	
@@ -94,9 +93,7 @@ function refreshchatroom(grd, sbj) {
 	    });		
 }	 
 	 
-$('#sendie').keyup(function(e) {	
-  var cfsbj= document.getElementById("cfsbj").value; 
-  var cfgrd = document.getElementById("cfgrd").value; 	
+$('#sendie').keyup(function(e) {			 
   if (e.keyCode == 13) { 
     var text = $(this).val();
     var maxLength = $(this).attr("maxlength");  
@@ -104,13 +101,13 @@ $('#sendie').keyup(function(e) {
                     // send 
     if (length <= maxLength + 1) {          
        $.ajax({
-			data: { msg:text, sbj:cfsbj, cgrd:cfgrd },
+			data: { msg:text },
 			type: "post",
 			url: "chat/process.php?prc=C",
 			cache: false,	
 				success: function(data){
 					$('#sendie').val("");
-					refreshchatroom(cfgrd ,cfsbj);
+					refreshchatroom();
 					return;
 					}
 	    });	
@@ -119,29 +116,29 @@ $('#sendie').keyup(function(e) {
 });
 	
 	
-$(document).on("change","#cfgrd",function() {	
-  var cfgrd = document.getElementById("cfgrd").value;  	
+$(document).on("change","#fgrd",function() {	
+  var fgrd = document.getElementById("fgrd").value;  	
   $.ajax({
-	data: { fgrd:cfgrd },
+	data: { fgrd:fgrd },
     type: 'POST',
     url: 'chat/process.php?prc=S',
 	dataType: 'json',
     success: function (data) {
-	     $('#cfsbj').empty();	
-	     $('#cfsbj').append('<option value="" >- Select Subject-</option> '); 
+	     $('#fsbj').empty();	
+	     $('#fsbj').append('<option value="" >- Select Subject-</option> '); 
 	     $.each(data, function(i,sbj){
-         $('#cfsbj').append('<option value="' + sbj.sjid + '">' + sbj.subj + '</option>');   	 
+         $('#fsbj').append('<option value="' + sbj.sjid + '">' + sbj.subj + '</option>');   	 
 	});		 
   }   
   });		
 });		
 	 
-$(document).on("change","#cfsbj",function() {	
-  var cfgrd = document.getElementById("cfgrd").value;  
-  var cfsbj= document.getElementById("cfsbj").value; 	
-	sessionStorage.setItem('gd',cfgrd);
-	sessionStorage.setItem('sc',cfsbj);
-     refreshchatroom(cfgrd, cfsbj);		
+$(document).on("change","#fsbj",function() {	
+  var fgrd = document.getElementById("fgrd").value;  
+  var fsbj= document.getElementById("fsbj").value; 	
+	sessionStorage.setItem('gd',fgrd);
+	sessionStorage.setItem('sc',fsbj);
+     refreshchatroom(fgrd, fsbj);		
 });		
 	
 });	 

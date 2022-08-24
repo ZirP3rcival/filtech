@@ -14,13 +14,15 @@ $syr=$_SESSION['year'];
 $cid=$_SESSION['id'];
 
 $grde=$_SESSION['grde'];  	
-if($grde=='') { $grde=$_REQUEST['grd']; }
+if($grde=='') { $grde=$_POST['cgrd']; }
 
 $sec=$_SESSION['sec'];  	
 if($sec=='') { $sec=$_REQUEST['sec']; }
 
 $msg=$_REQUEST['msg'];
 $prc=$_REQUEST['prc'];
+
+$fsbj=$_POST['sbj'];
 
 if($prc=='C') {
 		$reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
@@ -32,18 +34,34 @@ if($prc=='C') {
 				}
 			 
 			$chat="<div>". $nickname . "</div><span>" . $message = str_replace("\n", " ", $message) . "\n</span>";	 
-        	$sql0 = mysqli_query($con, "INSERT INTO ft2_chat_msg(cid, grde, sec, chat) VALUES('$cid', '$grde', '$sec', '$chat')");
+        	$sql0 = mysqli_query($con, "INSERT INTO ft2_chat_msg(cid, grde, asid, chat) VALUES('$cid', '$grde', '$fsbj', '$chat')");
 			 echo 0;
 		 	}    	
 }
 if($prc=='R') {
 		$chat = array();
-			$sql1="SELECT * FROM ft2_chat_msg WHERE grde='$grde' AND sec='$sec' ORDER BY log ASC";  
+			$sql1="SELECT * FROM ft2_chat_msg WHERE grde='$grde' AND asid='$fsbj' ORDER BY log ASC";  
 
 			$sqler = $con->query($sql1);	
 			while($r1 = mysqli_fetch_assoc($sqler)) {
 				$chat[] = $r1;
 			}
+}
+
+if($prc=='G') {
+$fgrd=$_POST['fgrd'];
+	
+$chat = array();
+$sql = "SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_module_subjects.subj FROM ft2_faculty_schedule 
+INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
+WHERE ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
+ORDER BY ft2_faculty_schedule.sjid ASC";
+
+$sqler = $con->query($sql);	
+
+while($r = mysqli_fetch_assoc($sqler)) {
+    $chat[] = $r;
+}
 }
 
 if($prc=='S') {
@@ -54,7 +72,6 @@ $sql = "SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_modul
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
 WHERE ft2_faculty_schedule.fid = '$cid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
 ORDER BY ft2_faculty_schedule.sjid ASC";
-
 $sqler = $con->query($sql);	
 
 while($r = mysqli_fetch_assoc($sqler)) {
