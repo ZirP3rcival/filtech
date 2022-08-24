@@ -31,16 +31,19 @@ $fname=$_SESSION['fname'];
  $(document).ready(function(){   
 refreshchatroom(); 
 function refreshchatroom() {
+	var cht = $('#chat-area').height();
        $.ajax({
 			type: "post",
 			url: "chat/process.php?prc=R",
 			cache: false,	
+			dataType: 'JSON',
 				success: function(data){
-				   for (var i = 0; i < data.text.length; i++) { 
-                            $('#chat-area').append($("<p>"+ data.text[i] +"</p>"));
-                        }								  
+				   $.each(data, function(i,ac){
+                            $('#chat-area').append($("<p>"+ ac.chat +"</p>"));
+                        });								  
 				   }
-				   document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+				   //document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+		   		   //$('#chat-area').scrollTop(cht);
 	    });		
 }	 
 	 

@@ -31,6 +31,16 @@ if($prc=='C') {
 			 echo 0;
 		 	}    	
 }
-    echo json_encode($log);
+if($prc=='R') {
+		$chat = array();
+			$sql1="SELECT * FROM ft2_chat_msg WHERE grde='$grde' AND sec='$sec' ORDER BY log ASC";  
+
+			$sqler = $con->query($sql1);	
+			while($r1 = mysqli_fetch_assoc($sqler)) {
+				$chat[] = $r1;
+			}
+}
+
+echo json_encode($chat,JSON_INVALID_UTF8_IGNORE);
 
 ?>
