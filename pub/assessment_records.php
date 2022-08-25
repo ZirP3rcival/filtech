@@ -158,14 +158,12 @@ $z=1;
    { $i=($offsetQM+($z++));
  ?>
  <li class="list-group-item clearfix" style="padding:8px 10px; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;"> 
- <div style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;<?=$i?>.&nbsp;&nbsp;<?=$rs['qst'];?></div>
+ 	<div class="col-xs-12 col-md-10" style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;<?=$i?>.&nbsp;&nbsp;<?=$rs['qst'];?></div>
 
-<div class="tools">
- 
- <button class="btn btn-danger btn-sm glyphicon glyphicon-trash cdel" id="cdel" data-id="<?=$rs['id'];?>" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
-  
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit cedit" id="cedit" data-id="<?=$rs['id'];?>" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;" title="Update this Record"></button>
-</div>
+	<div class="col-xs-12 col-md-2" class="tools">
+	 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash cdel" id="cdel" data-id="<?=$rs['id'];?>" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
+	 <button class="btn btn-warning btn-sm glyphicon glyphicon-edit cedit" id="cedit" data-id="<?=$rs['id'];?>" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;" title="Update this Record"></button>
+	</div>
 </li>
 <?php } ?>
 </ul>

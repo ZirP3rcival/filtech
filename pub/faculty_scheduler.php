@@ -81,15 +81,12 @@ if($zfac=='') { $zfac=$_REQUEST['zfac']; }
 	<div class="dvhvr" style="padding: 5px 0px; margin: 0px;">
 
 	<div class="col-xs-3 col-md-2" style="padding-bottom: 0px;">
-	 <img src="<?=$usrpic?>" style="width: 60%;">
+	 <img src="<?=$usrpic?>" style="width: 60%;"  onerror="this.src='../img/missing.png'">
 	 </div>
 	<div class="col-xs-9 col-md-6" style="padding-bottom: 0px;">
 	 <span style="color: #000; padding: 4px 10px 4px 0px; font-size: 13px; font-weight: 700;"><?=$r['alyas'];?></span>
 	 </div>
 	<div class="col-xs-12 col-md-4 user-img" style="font-size: 11px; color: #000; float: right; margin-bottom:10px;">
-	<a href="#" id="cfschd" data-id="<?=$r['id']?>" data-nm="<?=$r['alyas'];?>" onclick="return confirm('Create Faculty Schedule?')">
-	<i class="btn btn-success btn-sm glyphicon glyphicon-edit" title="Create Faculty Schedule" style="float: right;font-size: 18px; padding: 0px 6px;"></i></a>
-
 	<a href="#" id="viewfs" data-id="<?=$r['id'];?>" onclick="return confirm('View Faculty Schedule')">
 	<i class="btn btn-default btn-sm glyphicon glyphicon-search" title="View Faculty Schedule" style="border: 1px solid #848484; background: #848484; color: #fff; float: right; margin-right: 5px;  font-size: 18px; padding: 0px 6px;"></i>
 	</a>
@@ -238,14 +235,6 @@ var zfac= document.getElementById("zfac").value;
 if((zgrd=='')||(zsec=='')||(zsbj=='')||(zfac=='')) { $('#sverec').prop('disabled',true); }	
 else { $('#sverec').prop('disabled',false); }	
 $('#sveschd, #sfgrd, #sfsec').prop('disabled', true);
-	
-$(document).on("click","#cfschd",function() {
-	var id=$(this).data('id');
-	var nm=$(this).data('nm');
-	$('#sveschd, #sfgrd, #sfsec').prop('disabled', false);
-	$('#fid').val(id);
-	$('#sfnme').val(nm);
-});	
 
 $("#sfgrd").change(function(){
    var deptid = $(this).val();
@@ -290,7 +279,7 @@ var values = $("#fcsec").serializeArray();
 		   $('#zfac').val('');
 		   $('#zsbj').val('');
 		   location.reload();
-		   window.location.href = "?page=subject_records";
+		   window.location.href = "?page=faculty_scheduler";
          	}
 		});				
 });

@@ -37,8 +37,8 @@ if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 	<div style="background: #FFF;"> 
  <form method="post" action="?page=assessment_settings" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
-    <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
+    <div class="col-xs-12 col-md-5" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
+<div class="col-xs-12 col-md-7" style="margin-top:0px; float: right; padding: 0px;">	
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php
@@ -53,11 +53,27 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
+  
+    <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+    <div class="col-xs-12 col-md-5" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-7" style="margin-top:0px; float: right; padding: 0px;">	
+<?php
+$dsql = mysqli_query($con,"SELECT DISTINCT(ft2_faculty_schedule.grde),ft2_faculty_schedule.fid, ft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
+	
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php } ?>  
+</div>
+	<div class="clearfix"></div>
+  </div>
 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-5" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-7" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
@@ -77,8 +93,8 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-5" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
+<div class="col-xs-12 col-md-7" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
@@ -96,9 +112,9 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Duration in Minutes : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
-<input type="number" name="fmin" required class="form-control" id="fmin" style="display: inline-block; position:inherit; width:100%;" form="frmleks"  onKeyPress="if(this.value.length==4) return false;">      
+ <div class="col-xs-12 col-md-5" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Duration in Minutes : </span></div>
+<div class="col-xs-12 col-md-7" style="margin-top:0px; float: right; padding: 0px;">
+<input type="number" name="fmin" required class="form-control" id="fmin" style="display: inline-block; position:inherit; width:100%; margin-top: 5px;" form="frmleks"  onKeyPress="if(this.value.length==4) return false;">      
         </div>
 	<div class="clearfix"></div>   
   </div>   
@@ -126,12 +142,11 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
     <div class="message-widget contact-widget box">
 <div class="list-group" style="margin-bottom: 5px;">
 <li class="list-group-item" style="font-weight: 800;"><div class="row">
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Section</div>
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
-<div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
+<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
 <div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Duration<br><span style="font-size: 10px">(in minutes)</span></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
-<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
+<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
 <div class="clearfix"></div>
 </div.
 ></li>
