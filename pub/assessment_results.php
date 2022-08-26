@@ -28,7 +28,7 @@ if($fcat=='') { $fcat=$_REQUEST['fcat']; }
     <div class="income-order-visit-user-area m-bottom ">
         <div class="container-fluid">           
             <div class="row rowflx" style="margin-bottom: 50px;">
-<div class="col-lg-4 col-xs-12 my-acct-box mg-tb-31">
+<div class="col-lg-3 col-xs-12 my-acct-box mg-tb-31">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -39,8 +39,8 @@ if($fcat=='') { $fcat=$_REQUEST['fcat']; }
 	<div style="background: #FFF;"> 
  <form method="post" action="?page=assessment_results" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
-    <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">	
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php
@@ -55,11 +55,27 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
-
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">	
+<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>
+<?php
+$dsql = mysqli_query($con,"SELECT DISTINCT(ft2_faculty_schedule.grde),ft2_faculty_schedule.fid, ft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
+	
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php } ?>  
+        </select></div>
+	<div class="clearfix"></div>
+  </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">
 
 <select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
@@ -79,8 +95,8 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
@@ -101,7 +117,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 </div>
 	</div>
 </div>  
-<div class="col-lg-8 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
+<div class="col-lg-9 col-xs-12 my-acct-box mg-tb-31" style="padding-bottom: 15px;">
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
@@ -170,7 +186,9 @@ ORDER BY alyas ASC");
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
 						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
-				<?php } } ?>								
+				<?php } } ?>	
+				
+					<button class="btn btn-danger btn-sm fa fa-refresh rsbtn" data-rid="<?=$rid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsyr="<?=$syr?>" data-fcod="<?=$fcod?>"  title="Reset Assessment" style="font-size: 16px; padding: 6px; margin-left: 15px;"></button>							
 	 </div>
 	 <div class="clearfix"></div>
  </div>
@@ -192,6 +210,43 @@ var fsbj= document.getElementById("fsbj").value;
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();		
 
+$(document).on("click","rsbtn",function() {
+	var rid=$(this).data('rid');
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fsyr=$(this).data('fsyr');
+	var fcod=$(this).data('fcod');
+	$.ajax({
+        data: {  rid:rid, fid:fid, fsbj:fsbj, fgrd:fgrd, fsyr:fsyr, fcod:fcod  },
+        url: 'resultscontroller?prc=R',
+        type: 'post',
+        dataType: 'json',
+        success:function(response){
+              var len = response.length;
+              $("#sfsec").empty();
+                for( var i = 0; i<len; i++){
+                    var name = response[i]['sect'];
+						$("#sfsec").append("<option value='"+name+"'>"+name+"</option>");
+                        }
+                    }
+            });	
+});	
+	
+$(document).on("click",".mcbtn",function() {	
+	var rid=$(this).data('rid');
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fsyr=$(this).data('fsyr');
+	var fcod=$(this).data('fcod');
+	$('#content').empty();
+	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$('.modwidth').css('width','54%');
+	$('.modcap').empty();
+	$(".modcap").append('Multiple Choice Assessment Content');
+	$('#POPMODAL').modal('show');  	
+});		
 	
 });
 </script>	

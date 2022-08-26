@@ -92,14 +92,10 @@ $ftxt = mysqli_real_escape_string($con,$_POST['ftxt']);
 $fid = mysqli_real_escape_string($con,$_POST['fid']);
 $fgrd = mysqli_real_escape_string($con,$_POST['fgrd']);
 $fsbj = mysqli_real_escape_string($con,$_POST['fsbj']);	
+$fsec = mysqli_real_escape_string($con,$_POST['fsec']);	
 $fmin = mysqli_real_escape_string($con,$_POST['fmin']);	
-
-$sql = "SELECT ft2_faculty_schedule.* FROM ft2_faculty_schedule WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' AND ft2_faculty_schedule.sjid = '$fsbj'";
-echo $sql;	
-$sqler = $con->query($sql);	
-
-while($r = mysqli_fetch_assoc($sqler)) {	
-$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, grde, asid, timer) VALUES ('$fscd','$ftxt','$fid','$fgrd','$fsbj','$fmin')";  
+	
+$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, grde, sec, asid, timer) VALUES ('$fscd','$ftxt','$fid','$fgrd','$fsec','$fsbj','$fmin')";  
 
  if (!mysqli_query($con,$sql))
   { 
@@ -111,7 +107,6 @@ $sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, grde, asid, timer) 
 	$_SESSION['errmsg']='New Assessment Record Saved Successfully!!!'; 
     echo 0;
   }  
-}
 }
 
 if ($prc=='C') {		
@@ -133,7 +128,7 @@ $sql="UPDATE ft2_faculty_assessment SET used='$set' WHERE id='$id'";
   }  
 }
 
-if ($prc=='X') {		
+if ($prc=='D') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);
 	
 $sql="DELETE FROM ft2_faculty_assessment WHERE id='$id'";  

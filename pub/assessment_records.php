@@ -39,8 +39,8 @@ if($fcat=='') { $fcat=$_REQUEST['fcat']; }
 	<div style="background: #FFF;"> 
  <form method="post" action="?page=assessment_records" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
-    <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:5px; float: right; padding: 0px;">	
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php
@@ -58,8 +58,8 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:5px; float: right; padding: 0px;">
 
 <select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
@@ -79,14 +79,16 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:5px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
 <?php 
-  $lsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid = '$fid' AND grde='$fgrd' AND asid = '$fsbj ' ORDER BY ascode ASC");
-	
+  $lsql = mysqli_query($con,"SELECT ft2_faculty_assessment.* FROM ft2_faculty_assessment 
+WHERE ft2_faculty_assessment.fid = '$fid' AND ft2_faculty_assessment.grde='$fgrd' AND ft2_faculty_assessment.asid = '$fsbj ' GROUp BY ft2_faculty_assessment.ascode
+ORDER BY ft2_faculty_assessment.ascode ASC");
+
   while($rg = mysqli_fetch_assoc($lsql))
    { ?>  
     <option value="<?=$rg['ascode'];?>" <?=($fscd == $rg['ascode'] ? 'selected' : '');?>><?=$rg['scdsc'];?></option> 
@@ -97,8 +99,8 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Category : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Category : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:5px; float: right; padding: 0px;">
 
 <select name="fcat" required class="form-control" id="fcat" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
     <option value="" >- Select -</option>      
@@ -158,12 +160,14 @@ $z=1;
    { $i=($offsetQM+($z++));
  ?>
  <li class="list-group-item clearfix" style="padding:8px 10px; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;"> 
- 	<div class="col-xs-12 col-md-10" style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;<?=$i?>.&nbsp;&nbsp;<?=$rs['qst'];?></div>
+ <div class="col-xs-12 col-md-10" style="float:left;"><i class="glyphicon glyphicon-link"></i>&nbsp;<?=$i?>.&nbsp;&nbsp;<?=$rs['qst'];?></div>
 
-	<div class="col-xs-12 col-md-2" class="tools">
-	 <button class="btn btn-danger btn-sm glyphicon glyphicon-trash cdel" id="cdel" data-id="<?=$rs['id'];?>" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
-	 <button class="btn btn-warning btn-sm glyphicon glyphicon-edit cedit" id="cedit" data-id="<?=$rs['id'];?>" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;" title="Update this Record"></button>
-	</div>
+<div class="col-xs-12 col-md-2 tools">
+ 
+ <button class="btn btn-danger btn-sm glyphicon glyphicon-trash cdel" id="cdel" data-id="<?=$rs['id'];?>" title="Delete this Record" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></button>
+  
+ <button class="btn btn-warning btn-sm glyphicon glyphicon-edit cedit" id="cedit" data-id="<?=$rs['id'];?>" style="float: right; margin-right: 5px; font-size: 18px; padding: 0px 6px;" title="Update this Record"></button>
+</div>
 </li>
 <?php } ?>
 </ul>

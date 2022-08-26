@@ -24,7 +24,9 @@ $sec=$_SESSION['sec'];
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
-			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Assessment Activity</h4>
+			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Assessment Activity
+			 <button class="btn btn-info btn-sm fa fa-refresh" id="refbtn" title="Refresh List" style="font-size: 20px; padding: 6px; float: right;"></button>
+			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng Pagsusulit</h6>
 		  </div>	  
 		<div class="card-block box" style="padding: 10px 15px;">
@@ -45,7 +47,7 @@ $sec=$_SESSION['sec'];
 				INNER JOIN ft2_module_subjects ON ft2_module_subjects.id=ft2_faculty_assessment.asid
 				WHERE ft2_faculty_assessment.grde='$grd' AND ft2_faculty_assessment.sec='$sec' AND used='Y'
 				ORDER BY ft2_faculty_assessment.scdsc ASC"); 
-					
+
 				  while($r = mysqli_fetch_assoc($dsql))
 				   { $fid=$r['fid'];
 					 $fsbj=$r['asid'];
@@ -184,6 +186,10 @@ $(document).on("click",".esbtn",function() {
 $(document).on("click","#editor",function() {
 	 window.open('https://docs.google.com/presentation/u/0/','_blank');
 });		
+	
+$(document).on("click","#refbtn",function() {
+	 location.reload();
+});	
 	
 });
 </script>	

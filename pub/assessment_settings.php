@@ -7,6 +7,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 $fgrd=$_POST['fgrd'];
 $fsbj=$_POST['fsbj'];
 $fscd=$_POST['fscd'];
+$fsec=$_POST['fsec'];
 
 $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
@@ -14,6 +15,7 @@ $fid=$_SESSION['id'];
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
+if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 ?>
 <style>
 .form-control  {
@@ -37,8 +39,8 @@ if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 	<div style="background: #FFF;"> 
  <form method="post" action="?page=assessment_settings" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
-    <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">	
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">	
 <select name="fgrd" required class="form-control" id="fgrd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php
@@ -53,11 +55,26 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
-
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">	
+<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" onChange="this.form.submit();" form="frmleks" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>      
+<?php 
+  $ssql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_section_data.id, ft2_section_data.sect, ft2_section_data.grd FROM ft2_faculty_schedule INNER JOIN ft2_section_data ON ft2_section_data.id=ft2_faculty_schedule.sec WHERE ft2_faculty_schedule.fid ='$fid' AND ft2_faculty_schedule.grde = '$fgrd' AND ft2_faculty_schedule.syr = '$syr'");
+	
+  while($rs = mysqli_fetch_assoc($ssql))
+   { ?>   
+    <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sect'];?></option> 
+<?php } ?>                
+        </select> </div>
+	<div class="clearfix"></div>
+  </div>
+  
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fsbj" required class="form-control" id="fsbj" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
@@ -77,13 +94,13 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
   </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Assessment Type : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">
 
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
 <?php 
-  $lsql = mysqli_query($con,"SELECT id, ascode,scdsc FROM ft2_assessment_set WHERE ascode NOT IN (SELECT ascode FROM ft2_faculty_assessment WHERE fid = '$fid') ORDER BY id ASC");
+  $lsql = mysqli_query($con,"SELECT id, ascode,scdsc FROM ft2_assessment_set WHERE ascode NOT IN (SELECT ascode FROM ft2_faculty_assessment WHERE fid = '$fid' AND grde='$fgrd' AND sec = '$fsec' AND asid = '$fsbj') ORDER BY id ASC");
 	
   while($rg = mysqli_fetch_assoc($lsql))
    { ?>  
@@ -96,8 +113,8 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
- <div class="col-xs-12 col-md-4" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Duration in Minutes : </span></div>
-<div class="col-xs-12 col-md-8" style="margin-top:0px; float: right; padding: 0px;">
+ <div class="col-xs-12 col-md-7" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Duration in Minutes : </span></div>
+<div class="col-xs-12 col-md-5" style="margin-top:0px; float: right; padding: 0px;">
 <input type="number" name="fmin" required class="form-control" id="fmin" style="display: inline-block; position:inherit; width:100%;" form="frmleks"  onKeyPress="if(this.value.length==4) return false;">      
         </div>
 	<div class="clearfix"></div>   
@@ -105,7 +122,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
     </div>  
 	<div class="clearfix">  </div>   
 
-     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
+     <button class="btn btn-block btn-success" id="nass" name="nass" data-fgrd="<?=$fgrd?>" data-fsbj="<?=$fsbj?>" data-fscd="<?=$fscd?>" data-fsec="<?=$fsec?>" style="color: #fff;" title="Magdagdag">Save Assessment Record</button>
                           
 </div>
 	</div>
@@ -125,18 +142,22 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <div class="message-box contact-box">
     <div class="message-widget contact-widget box">
 <div class="list-group" style="margin-bottom: 5px;">
-<li class="list-group-item" style="font-weight: 800;"><div class="row">
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Section</div>
+<li class="list-group-item" style="font-weight: 600;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Code</div>
 <div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Assessment Type</div>
-<div class="col-xs-2 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Duration<br><span style="font-size: 10px">(in minutes)</span></div>
+<div class="col-xs-10 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Section</div>
+<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Duration<br><span style="font-size: 10px">(in minutes)</span></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Status</div>
-<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
+<div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">Mode</div>
 <div class="clearfix"></div>
 </div.
 ></li>
 <?php 
-$dsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid='$fid' AND grde='$fgrd' AND asid='$fsbj' ORDER BY id ASC");
+$dsql = mysqli_query($con,"SELECT ft2_faculty_assessment.*, ft2_faculty_assessment.id AS aid, ft2_section_data.* FROM ft2_faculty_assessment 
+INNER JOIN ft2_section_data ON ft2_section_data.id = ft2_faculty_assessment.sec
+WHERE ft2_faculty_assessment.fid='$fid' AND ft2_faculty_assessment.grde='$fgrd' AND ft2_faculty_assessment.asid='$fsbj' 
+ORDER BY ft2_faculty_assessment.id ASC");
+	 
 $rctr = 0;	
   while($r = mysqli_fetch_assoc($dsql))
    { if($r['used']=='Y') { $astat = 'Activated'; }
@@ -144,20 +165,21 @@ $rctr = 0;
     ?>                                   
 <li class="list-group-item"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['ascode'];?></div>
-<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
-<div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['timer'];?></div>
+<div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['scdsc'];?></div>
+<div class="col-xs-10 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['sect'];?></div>
+<div class="col-xs-9 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><?=$r['timer'];?></div>
 <div class="col-xs-9 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$astat;?></div>
 <div class="col-xs-12 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
 
 <?php if($r['used']=='N') { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=Y" class="trash" style="margin-right:10px;" title="Activate Assessment" onclick="return confirm('Activate Assessment?')"><i class="btn btn-info btn-sm glyphicon glyphicon-ok-circle" title="Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+ <a href="lessonscontroller.php?prc=C&id=<?=$r['aid'];?>&set=Y" class="trash" style="margin-right:10px;" title="Activate Assessment" onclick="return confirm('Activate Assessment?')"><i class="btn btn-info btn-sm glyphicon glyphicon-ok-circle" title="Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 <?php } else { ?>
- <a href="lessonscontroller.php?prc=C&id=<?=$r['id'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+ <a href="lessonscontroller.php?prc=C&id=<?=$r['aid'];?>&set=N" class="trash" style="margin-right:10px;" title="De-Activate Assessment" onclick="return confirm('De-Activate Assessment?')"><i class="btn btn-success btn-sm glyphicon glyphicon-remove-circle" title="De-Activate Assessment" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
  <?php } ?>   
     
- <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['id'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" data-fmin="<?=$r['timer'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
+ <button class="btn btn-warning btn-sm glyphicon glyphicon-edit aedit" data-id="<?=$r['aid'];?>" data-fscd="<?=$r['ascode'];?>" data-fdsc="<?=$r['scdsc'];?>" data-fmin="<?=$r['timer'];?>" style="margin-right:10px; float: left; font-size: 18px; padding: 0px 6px;" title="Update this Record" onclick="return confirm('Update this Record?')"></button>
  
- <a href="lessonscontroller.php?prc=X&id=<?=$r['id'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
+ <a href="lessonscontroller.php?prc=X&id=<?=$r['aid'];?>" class="trash" style="margin-right:10px;" title="Delete this Record" onclick="return confirm('Delete this Record?')"><i class="btn btn-danger btn-sm glyphicon glyphicon-trash" title="Delete this Record" style="float: left; margin-right: 5px; font-size: 18px; padding: 0px 6px;"></i></a>
 
 </div>
  <div class="clearfix"></div></div></li>
@@ -202,18 +224,19 @@ $(document).on("click","#nass",function() {
 	var ftxt= $("#fscd option:selected").text();	
 	var fgrd=$(this).data('fgrd');
 	var fsbj=$(this).data('fsbj');
+	var fsec=$(this).data('fsec');
 	var fmin= document.getElementById("fmin").value;
     var bcap=$('#nass').text();
 
 	if(bcap=='Save Assessment Record')	{ 
 		$.ajax({
-		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fgrd:fgrd, fsbj:fsbj, fmin:fmin },
+		   data: { fscd:fscd, ftxt:ftxt, fid:fid, fgrd:fgrd, fsbj:fsbj, fsec:fsec, fmin:fmin },
 		   type: "post",
 		   url: "lessonscontroller.php?prc=T",
 		   cache: false,	
 		   success: function(data){
 			   location.reload();
-			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsbj="+fsbj;
+			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsec="+fsec+"&fsbj="+fsbj;
 				}
 			});	
 	}	
@@ -229,7 +252,7 @@ $(document).on("click","#nass",function() {
 		   cache: false,	
 		   success: function(data){
 			   location.reload();
-			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsbj="+fsbj;
+			   window.location.href = "?page=assessment_settings&fscd="+fscd+"&fgrd="+fgrd+"&fsec="+fsec+"&fsbj="+fsbj;
 				}
 			});	
 	}	
