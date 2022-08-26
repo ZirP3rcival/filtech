@@ -47,7 +47,7 @@ if ($prc=='S') {
 $ngrd = mysqli_real_escape_string($con,$_POST['zgrd']);
 $nsec = mysqli_real_escape_string($con,$_POST['zsec']);
 	
-$sql="INSERT INTO ft2_section_data(grd,sect,stat) VALUES ('$ngrd','$nsec','N')";  
+$sql="INSERT INTO ft2_section_data(grd,sect,stat) VALUES ('$ngrd','$nsec','Y')";  
  if (!mysqli_query($con,$sql))
   {  
 	$_SESSION['errmsg']='Error Saving New Section Record!!!'; 
@@ -65,7 +65,7 @@ $sql="INSERT INTO ft2_section_data(grd,sect,stat) VALUES ('$ngrd','$nsec','N')";
 if ($prc=='R') {		
 $id = mysqli_real_escape_string($con,$_REQUEST['id']);	
 
-$resu = mysqli_query($con,"Select * FROM ft2_section_data WHERE id='$id' and stat='N'");
+$resu = mysqli_query($con,"Select * FROM ft2_section_data WHERE id='$id'");
 $count=mysqli_num_rows($resu);
  if ($count==0)
   {
@@ -74,7 +74,7 @@ $count=mysqli_num_rows($resu);
     exit;
   }	
 	
-$sql="DELETE FROM ft2_section_data WHERE id='$id' and stat='N'";  
+$sql="DELETE FROM ft2_section_data WHERE id='$id'";  
  if (!mysqli_query($con,$sql))
   { 
 	$_SESSION['errmsg']='Error Deleting Section Record!!!'; 
