@@ -92,9 +92,10 @@ $ftxt = mysqli_real_escape_string($con,$_POST['ftxt']);
 $fid = mysqli_real_escape_string($con,$_POST['fid']);
 $fgrd = mysqli_real_escape_string($con,$_POST['fgrd']);
 $fsbj = mysqli_real_escape_string($con,$_POST['fsbj']);	
+$fsec = mysqli_real_escape_string($con,$_POST['fsec']);	
 $fmin = mysqli_real_escape_string($con,$_POST['fmin']);	
 	
-$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, grde, asid, timer) VALUES ('$fscd','$ftxt','$fid','$fgrd','$fsbj','$fmin')";  
+$sql="INSERT INTO ft2_faculty_assessment(ascode, scdsc, fid, grde, sec, asid, timer) VALUES ('$fscd','$ftxt','$fid','$fgrd','$fsec','$fsbj','$fmin')";  
 
  if (!mysqli_query($con,$sql))
   { 

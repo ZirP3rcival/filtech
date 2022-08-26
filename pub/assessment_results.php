@@ -55,7 +55,23 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
         </select></div>
 	<div class="clearfix"></div>
   </div>
-
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
+    <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Section : </span></div>
+<div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">	
+<select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
+          <option value="" >- Select -</option>
+<?php
+$dsql = mysqli_query($con,"SELECT DISTINCT(ft2_faculty_schedule.grde),ft2_faculty_schedule.fid, ft2_grade_data.* FROM ft2_faculty_schedule 
+INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
+WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
+	
+  while($rg = mysqli_fetch_assoc($dsql))
+   {  ?>   
+    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+<?php } ?>  
+        </select></div>
+	<div class="clearfix"></div>
+  </div>
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 
  <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
