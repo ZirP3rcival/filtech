@@ -5,6 +5,7 @@ session_start();
 error_reporting (E_ALL ^ E_NOTICE); 
 
 $fgrd=$_POST['fgrd'];
+$fsec=$_POST['fsec'];
 $fsbj=$_POST['fsbj'];
 $fscd=$_POST['fscd'];
 $fcat=$_POST['fcat'];
@@ -13,6 +14,7 @@ $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
 
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
+if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 if($fcat=='') { $fcat=$_REQUEST['fcat']; }
@@ -61,13 +63,11 @@ WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' OR
 <select name="fsec" required class="form-control" id="fsec" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();" title="Pumili ng isa sa talaan">
           <option value="" >- Select -</option>
 <?php
-$dsql = mysqli_query($con,"SELECT DISTINCT(ft2_faculty_schedule.grde),ft2_faculty_schedule.fid, ft2_grade_data.* FROM ft2_faculty_schedule 
-INNER JOIN ft2_grade_data ON ft2_faculty_schedule.grde = ft2_grade_data.id
-WHERE ft2_faculty_schedule.fid = '$fid' AND ft2_faculty_schedule.syr = '$syr' ORDER BY ft2_grade_data.grd ASC");
+$dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_section_data.id, ft2_section_data.sect, ft2_section_data.grd FROM ft2_faculty_schedule INNER JOIN ft2_section_data ON ft2_section_data.id=ft2_faculty_schedule.sec WHERE ft2_faculty_schedule.fid ='$fid' AND ft2_faculty_schedule.grde = '$fgrd' AND ft2_faculty_schedule.syr = '$syr'");
 	
-  while($rg = mysqli_fetch_assoc($dsql))
+  while($rs = mysqli_fetch_assoc($dsql))
    {  ?>   
-    <option value="<?=$rg['id'];?>" <?=($fgrd == $rg['id'] ? 'selected' : '');?>><?=$rg['grd'];?></option> 
+    <option value="<?=$rs['id'];?>"  <?=($fsec== $rs['id'] ? 'selected' : '');?>><?=$rs['sect'];?></option> 
 <?php } ?>  
         </select></div>
 	<div class="clearfix"></div>
@@ -101,7 +101,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <select name="fscd" required class="form-control" id="fscd" style="display: inline-block; position:inherit; width:100%;" form="frmleks" onChange="this.form.submit();">
           <option value="" >- Select -</option>      
 <?php 
-  $lsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid = '$fid' AND grde='$fgrd' AND asid = '$fsbj ' ORDER BY ascode ASC");
+  $lsql = mysqli_query($con,"SELECT * FROM ft2_faculty_assessment WHERE fid = '$fid' AND grde='$fgrd' AND sec='$fsec' AND asid = '$fsbj ' ORDER BY ascode ASC");
 	
   while($rg = mysqli_fetch_assoc($lsql))
    { ?>  
@@ -136,13 +136,13 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 </div.
 ></li>
 <?php 
-if(($fgrd!='') && ($fsbj!='') && ($fscd!=''))	{
+if(($fgrd!='') && ($fsec!='') && ($fsbj!='') && ($fscd!=''))	{
 $dsql = mysqli_query($con,"SELECT ft2_users_account.*, ft2_asmt_data_result.*, ft2_module_subjects.*, ft2_assessment_set.*
 FROM ft2_users_account 
 INNER JOIN ft2_asmt_data_result ON ft2_asmt_data_result.sid = ft2_users_account.id 
 INNER JOIN ft2_assessment_set ON ft2_assessment_set.ascode = ft2_asmt_data_result.ascode
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_asmt_data_result.asid
-WHERE ft2_asmt_data_result.grde = '$fgrd' AND ft2_asmt_data_result.fid='$fid' 
+WHERE ft2_asmt_data_result.grde = '$fgrd' AND ft2_asmt_data_result.sec = '$fsec' AND ft2_asmt_data_result.fid='$fid' 
 AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.ascode='$fscd'
 ORDER BY alyas ASC");
  

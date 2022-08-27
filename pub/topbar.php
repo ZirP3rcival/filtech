@@ -61,7 +61,7 @@ $title=str_replace('_',' ',$page);
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="breadcome-heading">
-                                <h2 class="form-control"><i class="fa fa-slideshare"></i> Welcome Students A.Y. <strong><?=$_SESSION['year']?></strong></h2>
+                                <h2 class="form-control login-fm"><i class="fa fa-slideshare"></i> Welcome Students A.Y. <strong><?=$_SESSION['year']?></strong></h2>
                                 </div>
                             </div>
                             <div class="col-lg-6">

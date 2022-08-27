@@ -59,7 +59,7 @@ $gsql = mysqli_query($con,"SELECT * FROM `ft2_grade_data` WHERE id='$cgrd'");
 $(document).ready(function(){    
 var gd = sessionStorage.gd; 
 var sc = sessionStorage.sc; 
-get_section();
+get_subject();
 	
 setInterval(function () {
 	if((gd!='')&&(sc!=''))	{
@@ -83,7 +83,9 @@ function refreshchatroom(grd, sbj) {
                             $('#chat-area').append($("<div style='text-align: right;'>"+ ac.chat +"</div>"));  }
 					   else {
 						    $('#chat-area').append($("<div>"+ ac.chat +"</div>"));   }
-                        });								  
+                        });					
+					var $textarea = $('#chat-area');
+    				$textarea.scrollTop($textarea[0].scrollHeight);						  
 				   }
 	    });		
 }	 
@@ -113,7 +115,7 @@ $('#sendie').keyup(function(e) {
 });
 	
 	
-function get_section() {	
+function get_subject() {	
   var cfgrd = '<?=$cgrd?>';  	
   $.ajax({
 	data: { fgrd:cfgrd },

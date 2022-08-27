@@ -43,7 +43,7 @@ $csyr=$_SESSION['year'];
   <div class="col-xs-12 col-md-6" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
 	<div class="col-xs-12 col-md-12" style="margin-top:0px; float: right; padding: 0px;">
 	<select name="cfsbj" required class="form-control" id="cfsbj" style="display: inline-block; position:inherit; width:96%; float: right;" form="frmleks" title="Pumili ng isa sa talaan">
-			  <option value="" >- Select Section -</option>
+			  <option value="" >- Select Subject -</option>
 	</select>      
 			</div>
 	<div class="clearfix"></div>   
@@ -53,7 +53,7 @@ $csyr=$_SESSION['year'];
         
         <form id="send-message-area">
             <p style="color: #06023A;">Your message: </p>
-            <textarea id="sendie" maxlength = '200' ></textarea>
+            <textarea class="form-control"  id="sendie" maxlength = '200' ></textarea>
         </form>
     
     </div>
@@ -89,7 +89,9 @@ function refreshchatroom(grd, sbj) {
                             $('#chat-area').append($("<div style='text-align: right;'>"+ ac.chat +"</div>"));  }
 					   else {
 						    $('#chat-area').append($("<div>"+ ac.chat +"</div>"));   }
-                        });								  
+                        });			
+					var $textarea = $('#chat-area');
+    				$textarea.scrollTop($textarea[0].scrollHeight);
 				   }
 	    });		
 }	 

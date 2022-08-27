@@ -54,7 +54,7 @@ $fgrd=$_POST['fgrd'];
 $chat = array();
 $sql = "SELECT ft2_faculty_schedule.*, ft2_module_subjects.id AS sjid, ft2_module_subjects.subj FROM ft2_faculty_schedule 
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_faculty_schedule.sjid
-WHERE ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
+WHERE ft2_faculty_schedule.grde='$fgrd' AND ft2_faculty_schedule.sec = '$sec' AND ft2_faculty_schedule.syr = '$syr' GROUP BY ft2_module_subjects.subj
 ORDER BY ft2_faculty_schedule.sjid ASC";
 
 $sqler = $con->query($sql);	

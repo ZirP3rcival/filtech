@@ -21,6 +21,29 @@
 #send-message-area p {
     padding-top: 0px!important;
 	}
+	
+@media (max-width: 767px){
+.chat-box-wrap.collapse.in {
+    position: absolute;
+    height: 480px!important;
+    width: 95%!important;
+    border-radius: 15px;
+	right: 5px;
+}
+	
+#chat-area {
+	height: 210px!important; 
+}	
+	
+#page-wrap {
+    width: 90%!important; 
+	}
+	
+#cfgrd, #cfsbj, #sendie { 
+	width: 100%!important 
+	}	
+	
+}	
 </style>	
 <?php
 if($_SESSION['account']=='FACULTY')
