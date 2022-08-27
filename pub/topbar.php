@@ -7,13 +7,15 @@ $title=str_replace('_',' ',$page);
 <div class="content-inner-all">
     <!-- Header top area start-->
     <div class="header-top-area">
-        <div class="fixed-header-top">
+        <div class="fixed-header-top login-fm">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-1 col-md-6 col-sm-6 col-xs-8">
+                    <div class="col-lg-1 col-md-6 col-sm-6 col-xs-8 mob-left">
+<!--
                         <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                             <i class="fa fa-bars"></i>
                         </button>
+-->
                         <div class="admin-logo logo-wrap-pro">
                             <a href="#"><img src="../img/logo/banner_ft.png" alt="" />
                             </a>
@@ -24,16 +26,16 @@ $title=str_replace('_',' ',$page);
                         <a href="#"><img src="../img/logo/banner_ft_large.png" style="margin-left: -50px;"></a>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-3 pdrt" style="float: right;">
+                    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-3 pdrt" style="float: right;">
                         <div class="header-right-info">
                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                 <li class="nav-item">
                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                         <span class="fa fa-user header-riht-inf"></span>
                                         <span class="admin-name"><?=$_SESSION['fname']?></span>
-                                        <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
+                                        <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span> <!--adminpro-icon adminpro-down-arrow-->
                                     </a>
-                                    <div class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <div class="dropdown-header-top author-log dropdown-menu animated flipInX login-fm">
                                     <ul role="menu" >
                                         <li><a href="?page=my_account"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
                                         </li>
@@ -78,7 +80,7 @@ $title=str_replace('_',' ',$page);
     </div>
     <!-- Breadcome End-->
     <!-- Mobile Menu start -->
-    <div class="mobile-menu-area">
+    <div class="mobile-menu-area mobile-btn login-fm">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

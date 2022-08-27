@@ -16,7 +16,7 @@ $wp = $page.'.php';
     <!-- Header top area start-->
 	<div class="content-inner-all">
 		<div class="header-top-area">
-			<div class="fixed-header-top">
+			<div class="fixed-header-top login-fm">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 login-fm">
@@ -58,7 +58,7 @@ $wp = $page.'.php';
   <script type="text/javascript">
     var bb = bootbox.alert({ message: "<?=$errmsg ?>",title: "<span style='color:#FF878B;'>Notification :</span>",
         size: 'medium'});
-      bb.find('.modal-dialog').css({'width': '35%'});
+      //bb.find('.modal-dialog').css({'width': '35%'});
 	  bb.find('.modal-title').css({'float': 'left','margin-top':'10px'});
       bb.find('.close').css({'display': 'none'});
       bb.find('.modal-header').css({'background-color': '#fff','padding': '5px 10px','color': '#FFF','font-size': '20px','height':'60px'});

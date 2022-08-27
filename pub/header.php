@@ -128,7 +128,7 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	$_SESSION['auctr']=$r['auctr'];
 }
 
-$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc, grde, sec FROM ft2_users_account WHERE id='$id'"; 
+$sqlay="SELECT id, eadd, sqt, sqa, usr, lnme, mnme, fnme, cno, ploc, grde, sec, thm1, thm2 FROM ft2_users_account WHERE id='$id'"; 
 $sqler = $con->query($sqlay);	
 while($r = mysqli_fetch_assoc($sqler)) {
 	$photo='data:image/png;base64,'.''.$r['ploc'];
@@ -146,12 +146,26 @@ while($r = mysqli_fetch_assoc($sqler)) {
 	$grde = $r['grde'];
 	$sec= $r['sec'];
 	
+	$thm1= $r['thm1'];
+	$thm2= $r['thm2'];
+	
 $sqlms="SELECT * FROM `ft2_section_data` WHERE grd='$grde' and id='$sec'"; 
 $sqles = $con->query($sqlms);	
 while($rs = mysqli_fetch_assoc($sqles)) 
 	{  $sct=$rs['sect']; }	
 }
-?>
+
+$cssString = '.login-fm { background: linear-gradient(to right, '.$thm1.' 0%, '.$thm2.' 100%)!important; }';
+$cssString.= '.materialdesign #sidebar .sidebar-header { background: linear-gradient(to bottom, '.$thm1.' 0%, #fff 100%)!important; }';
+$cssString.= '.materialdesign #sidebar .sidebar-submenu {  background: linear-gradient(to left, '.$thm1.' 0%, #fff 100%)!important; }';
+$cssString.= '.materialdesign #sidebar { background: #fff; background: linear-gradient(to top, '.$thm1.' 0%, #fff 20%)!important; }';
+
+file_put_contents('../css/custom-style.css', $cssString);
+
+if(($thm1!='')&&($thm2!='')) { ?>
+	<link rel="stylesheet" href="../css/custom-style.css">
+<?php } ?>
+
 <script>
 $(document).ready(function(){	
      var autoLogoutTimer;

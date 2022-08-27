@@ -107,6 +107,17 @@
 						<div class="col-xs-12 col-md-12">
 						<input type="password" required maxlength="25" class="form-control" style="width:100%; float:left;" id="D_Password" name="ppwd" placeholder="Password" value="<?=$pwd?>"/>
 							</div><div class="clearfix"></div><div class="col-xs-12 col-md-12" id="Ppass-info" style="padding-left: 20px; font-size:11px; word-wrap:normal;"></div>
+							
+
+						<div class="col-xs-12 col-md-4" style="margin-top:10px;"><span class="mf" style="float:left; margin-right:10px;">Theme Color : </span></div>
+						<div class="col-xs-12 col-md-8" style="float: right; margin-top:10px;">
+						<div class="col-xs-12 col-md-5" id="nme_status" style="font-size:11px; word-wrap:normal; font-weight:bold;">
+							<input type="color" name="thm1" id="thm1" value="<?= htmlspecialchars($thm1) ?>">
+						</div>
+						<div class="col-xs-12 col-md-5" id="nme_status" style="font-size:11px; word-wrap:normal; font-weight:bold;">
+							<input type="color" name="thm2" id="thm2" value="<?= htmlspecialchars($thm2) ?>">
+						</div>
+						</div>							
 						</div>
 					</div>            
 				</div>

@@ -25,6 +25,17 @@ $T4 = mysqli_real_escape_string($con,$_POST['cno']);
 $T5 = mysqli_real_escape_string($con,$_POST['eadd']);
 
 if ($prc=='S') {			
+	
+$sqldata = mysqli_query($con,"SELECT eadd, cno FROM ft2_users_account WHERE (eadd like '%$T5%' OR cno like '%$T4%')");	
+$count=mysqli_num_rows($sqldata );
+
+if($count>0)
+	{ 
+		$_SESSION['errmsg'] ='Record Already Exist!!! Cannot Proceed with Registration...';	
+		header("location:index.php?page=register");
+		exit;
+	}	
+	
 $sql="INSERT INTO ft2_users_account(lnme, fnme, mnme, eadd, cno, alyas, actv, typ, usr, pwd) VALUES ('$T0','$T1','$T2','$T5','$T4','$T3','Y','STUDENT','$T5',MD5('$T4'))";  echo $sql;
  if (!mysqli_query($con,$sql))
   {  
