@@ -7,36 +7,30 @@ error_reporting (E_ALL ^ E_NOTICE);
 $prc=$_REQUEST['prc'];
 
 $syr=$_SESSION['year'];
-$fid=$_SESSION['id'];
 
 $fgrd=$_REQUEST['fgrd']; 
+$fsec=$_REQUEST['fsec']; 
 $fsbj=$_REQUEST['fsbj']; 
 $fscd=$_REQUEST['fscd']; 
-$fcat=$_REQUEST['fcat']; 
 
-$qst = mysqli_real_escape_string($con,$_POST['nqst']);
-$qa1 = mysqli_real_escape_string($con,$_POST['nqa1']);
-$qa2 = mysqli_real_escape_string($con,$_POST['nqa2']);
-$qa3 = mysqli_real_escape_string($con,$_POST['nqa2']);
-$qa4 = mysqli_real_escape_string($con,$_POST['nqa4']);
-$qky = $_POST['nqky'];	
-$id=$_REQUEST['id'];
+$id=$_REQUEST['rid'];
 
 if ($prc=='R') { 
-	$sql="INSERT INTO ft2_asmt_enumeration(ascode, fid, grde, syr, qst, qky, asid) VALUES ('$fscd', '$fid', '$fgrd', '$syr', '$qst', '$qky', '$fsbj')";  
-	$msg='Saving';
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='N', enu='N', idf='N', esy='N' WHERE id = '$id'");
+	$msg='Resetting';
 }
+
 
  if (!mysqli_query($con,$sql))
   {  
-	$_SESSION['errmsg']='Error '.$msg.' Assessment Content!!!'; 
-    header("location:faculty?page=assessment_records&fgrd=$fgrd&fsbj=$fsbj&fscd=$fscd&fcat=$fcat");
+	$_SESSION['errmsg']='Error '.$msg.' Student Assessment Record!!!'; 
+    header("location:faculty?page=assessment_results&fgrd=$fgrd&fsbj=$fsbj&fsec=$fsec&fscd=$fscd");
     exit;
   }
  else  
    { 
-	 $_SESSION['errmsg']=$msg.' Assessment Content Successfull!!!'; 
-     header("location:faculty?page=assessment_records&fgrd=$fgrd&fsbj=$fsbj&fscd=$fscd&fcat=$fcat");
+	 $_SESSION['errmsg']=$msg.' Student Assessment Record Successfull!!!'; 
+     header("location:faculty?page=assessment_results&fgrd=$fgrd&fsbj=$fsbj&fsec=$fsec&fscd=$fscd");
      exit;
   }   
 ?>

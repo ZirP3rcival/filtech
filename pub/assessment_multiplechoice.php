@@ -14,15 +14,13 @@ $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 ?>
+
 <?php include('countdown_timer.php');?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
 <div class="col-md-12 col-xs-12" style="padding:0px 15px; border-right : 1px solid #ddd; box-shadow : 5px 0px 5px 1px #eaeaea; margin-bottom: 15px;">
-<?php
-//$lsql = mysqli_query($con,"SELECT COUNT(*) FROM ft2_asmt_multiplechoice WHERE ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND syr='$syr' AND asid='$fsbj'"); 
-//while($rf = mysqli_fetch_assoc($lsql)) { $lmit = $rf['itm']; }
-	
+<?php	
 $ssql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_data_mc WHERE sid='$sid' AND ascode = '$fcod' AND fid='$fid' AND grde='$fgrd' AND asid='$fsbj'"); 	
   while($rz = mysqli_fetch_assoc($ssql))
    { $mc = $rz['ctr'];  }	
@@ -43,6 +41,7 @@ if($mc<=0) {
 INNER JOIN ft2_asmt_data_mc ON ft2_asmt_data_mc.qno=ft2_asmt_multiplechoice.id
 WHERE ft2_asmt_data_mc.ascode = '$fcod' AND ft2_asmt_data_mc.fid='$fid' AND ft2_asmt_data_mc.grde='$fgrd'
 AND ft2_asmt_data_mc.syr='$syr' AND ft2_asmt_data_mc.asid='$fsbj'"); 
+	
   while($r = mysqli_fetch_assoc($fsql))
    { $i++; $ans=$r['ans']; $aid=$r['aid']; 
 		if($ans<>'') { $clr='#82BAEB'; } else { $clr='#fff'; }
