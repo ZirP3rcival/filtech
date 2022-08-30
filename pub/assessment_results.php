@@ -16,7 +16,6 @@ if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
 if($fscd=='') { $fscd=$_REQUEST['fscd']; }
-
 ?>
 <style>
 .form-control  {
@@ -151,7 +150,7 @@ ORDER BY alyas ASC");
    { $sphoto='data:image/png;base64,'.''.$rx['ploc']; 
 	  $mch=$rx['mch'];   $rid=$rx['rid']; $sid=$rx['sid'];
 	  $idf=$rx['idf'];   $res=$rx['res']; if($res=='') { $res='0'; }
-	  $enu=$rx['enu'];   if($res<75) { $rmk='FAILED'; $rc="#D9534F"; } else { $rmk='PASSED'; $rc="#0084FF"; }
+	  $enu=$rx['enu'];   if(($res>=50)&($res<75)) { $rmk='FAILED'; $rc="#D9534F"; } else if(($res>=75)&($res<=100)) { $rmk='PASSED'; $rc="#0084FF"; }
 	  $esy=$rx['esy']; 
 	  $fcod=$rx['ascode']; 
     ?>                                   
@@ -224,7 +223,7 @@ $(document).on("click",".mcbtn",function() {
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fscd');
 	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod);
+	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Multiple Choice Assessment Content');

@@ -13,9 +13,10 @@ $fsbj=$_REQUEST['fsbj'];
 $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
+$mde=$_REQUEST['mde'];
 ?>
 
-<?php include('countdown_timer.php');?>
+<?php if($mde=='') {	include('countdown_timer.php');  } ?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
@@ -36,17 +37,21 @@ if($mc<=0) {
 	   }
 }
 	//think of solution to display assessment	
-	$i=0;
+	$i=0; $tot=0;
 	$fsql = mysqli_query($con,"SELECT ft2_asmt_data_mc.*, ft2_asmt_data_mc.id AS aid, ft2_asmt_multiplechoice.* FROM ft2_asmt_multiplechoice 
 INNER JOIN ft2_asmt_data_mc ON ft2_asmt_data_mc.qno=ft2_asmt_multiplechoice.id
 WHERE ft2_asmt_data_mc.ascode = '$fcod' AND ft2_asmt_data_mc.fid='$fid' AND ft2_asmt_data_mc.grde='$fgrd'
 AND ft2_asmt_data_mc.syr='$syr' AND ft2_asmt_data_mc.asid='$fsbj'"); 
 	
   while($r = mysqli_fetch_assoc($fsql))
-   { $i++; $ans=$r['ans']; $aid=$r['aid']; 
+   { $i++; $ans=$r['ans']; $aid=$r['aid']; $rslt=$r['rslt'];
 		if($ans<>'') { $clr='#82BAEB'; } else { $clr='#fff'; }
+	    if($mde=='C') {
+	    	if($rslt=='1') { $faw='fa fa-check'; $tot+=1; } else { $faw='fa fa-times'; }
+		}
 ?>
-<div class="col-xs-12 col-md-12" id="qst<?=$aid?>" style="background: <?=$clr?>; float: left; margin: 20px 5px 10px 5px; text-align: justify; font-size: 13px; color: #010C3E; line-height: 25px;"><em><strong><?=$i?>. <?=$r['qst'];?></strong></em></div><br /><br />
+<div class="col-xs-12 col-md-12" id="qst<?=$aid?>" style="background: <?=$clr?>; float: left; margin: 20px 5px 10px 5px; text-align: justify; font-size: 13px; color: #010C3E; line-height: 25px;"><span class="<?=$faw; ?>"></span>
+<em><strong><?=$i?>. <?=$r['qst'];?></strong></em></div><br /><br />
  <div class="col-xs-12 col-md-12" style="margin-left: 25px;">
 	  <input type="radio" class="pcat" name="mc<?=$i?>" data-id="<?=$aid?>" data-val="A" <?=($ans== 'A' ? 'checked' : '');?>>&nbsp;&nbsp;
 		<span style="font-size: 12px; color: #000; margin-top: 6px;"><strong>A. </strong><?=$r['qa1'];?></span><br/>
@@ -60,13 +65,27 @@ AND ft2_asmt_data_mc.syr='$syr' AND ft2_asmt_data_mc.asid='$fsbj'");
  <input type="hidden" id="ans<?=$aid?>" name="ans<?=$aid?>" value="" required> 
 <?php  }?>
 </div>
-   
- <button class="btn btn-info btnen" type="button" id="btnmc" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px;">Submit Answers</button>  
+
+<?php if($mde!='C') {	?>  
+	<button class="btn btn-info btnen" type="button" id="btnmc" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px;">Submit Answers</button>
+<?php } else { ?>
+    <button class="btn btn-success btnen" type="button" id="btnchk" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px; color: #000;">Submit Grade</button>
+    <span style="font-size: 3.5rem; float:left; margin-right: 15px; "><strong><?=$tot?></strong> / <?=$i?></span>
+    <input type="number" id="rate" min="50" max="100" name="rate" value="" onKeyPress="if(this.value.length==3) return false;" style="font-size: 3.0rem; float:right; margin-right: 15px; width: 100px; ">
+<?php } ?>   
     </div>  
 <div class="clearfix">  </div>                           
 </div>
 <script>
 $(document).ready(function(){
+var mde='<?=$mde?>';
+var tot='<?=$tot?>';	
+	
+if(mde=='C') { DisabledItems(); }	
+	
+function DisabledItems() {
+    $(':checkbox, :radio, #adlst, #bcls').prop('disabled', true);
+}
 	
 $(document).on("click",".pcat",function() {
 	var id=$(this).data('id');
@@ -105,7 +124,25 @@ bootbox.confirm("Submit Multiple Choice Answer?", function(result) {
 			});		  
   }
  });	  
-});		
+});	
+	
+$(document).on("keyup","#rate",function() {
+	var rte=$('#rate').val();
+	if((rte<50)||(rte>100)) { 
+		bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
+	}
+//	$.ajax({
+//		   data: { id:id, vl:vl },
+//		   type: "post",
+//		   url: "answercontroller.php?prc=M",
+//		   cache: false,	
+//		   success: function(data){
+//			   $('#qst'+id).css('background','#82baeb');
+//			   return;
+//				}
+//			});	
+});	
+		
 
 });
 </script>
