@@ -14,6 +14,7 @@ $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 $mde=$_REQUEST['mde'];
+$val=$_REQUEST['val'];
 ?>
 
 <?php if($mde=='') {	include('countdown_timer.php');  } ?>
@@ -69,9 +70,9 @@ AND ft2_asmt_data_mc.syr='$syr' AND ft2_asmt_data_mc.asid='$fsbj'");
 <?php if($mde!='C') {	?>  
 	<button class="btn btn-info btnen" type="button" id="btnmc" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px;">Submit Answers</button>
 <?php } else { ?>
-    <button class="btn btn-success btnen" type="button" id="btnchk" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px; color: #000;">Submit Grade</button>
-    <span style="font-size: 3.5rem; float:left; margin-right: 15px; "><strong><?=$tot?></strong> / <?=$i?></span>
-    <input type="number" id="rate" min="50" max="100" name="rate" value="" onKeyPress="if(this.value.length==3) return false;" style="font-size: 3.0rem; float:right; margin-right: 15px; width: 100px; ">
+    <button class="btn btn-success" type="button" id="btnmchk" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px; color: #000;">Submit Grade</button>
+    <span style="font-size: 3.5rem; float:left; margin-right: 15px; "><strong style="color: #100570;"><?=$tot?></strong> / <?=$i?></span>
+    <input type="number" id="rate" min="50" max="100" name="rate" value="<?=$val;?>" onKeyPress="if(this.value.length==3) return false;" style="font-size: 3.0rem; float:right; margin-right: 15px; width: 100px; ">
 <?php } ?>   
     </div>  
 <div class="clearfix">  </div>                           
@@ -84,7 +85,7 @@ var tot='<?=$tot?>';
 if(mde=='C') { DisabledItems(); }	
 	
 function DisabledItems() {
-    $(':checkbox, :radio, #adlst, #bcls').prop('disabled', true);
+    $(':checkbox, :radio, #btnmchk').prop('disabled', true);
 }
 	
 $(document).on("click",".pcat",function() {
@@ -126,21 +127,35 @@ bootbox.confirm("Submit Multiple Choice Answer?", function(result) {
  });	  
 });	
 	
+$(document).on("click","#btnmchk",function() {
+	var rte=$('#rate').val();
+	var id=$(this).data('rid');
+				$.ajax({
+					   type: "post",
+					   url: "resultscontroller.php?prc=GM",
+					   data: { id:id, rte:rte },					
+					   cache: false,	
+					   dataType: 'json',					
+					   success: function(data){
+						var dialog = bootbox.dialog({
+							title: 'Notification :',
+								size: 'small',
+								message: "<span style='color:#1F02FE;'>Multiple Choice Grade Submitted Successfully!!!</span>", 
+								}).on('hidden.bs.modal', function() {
+								$('body').addClass('modal-open'); location.reload(); });
+							}
+						});			
+});	
+	
 $(document).on("keyup","#rate",function() {
 	var rte=$('#rate').val();
-	if((rte<50)||(rte>100)) { 
-		bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
-	}
-//	$.ajax({
-//		   data: { id:id, vl:vl },
-//		   type: "post",
-//		   url: "answercontroller.php?prc=M",
-//		   cache: false,	
-//		   success: function(data){
-//			   $('#qst'+id).css('background','#82baeb');
-//			   return;
-//				}
-//			});	
+	if(rte.length>=2) {
+		if((rte<50)||(rte>100)) { 
+			bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
+		} 
+		else { 	$('#btnchk').prop('disabled', false); }
+	} 
+	else { $('#btnchk').prop('disabled', true); return; }
 });	
 		
 

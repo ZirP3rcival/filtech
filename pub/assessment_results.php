@@ -164,28 +164,28 @@ ORDER BY alyas ASC");
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_multiplechoice WHERE ft2_asmt_multiplechoice.grde='$fgrd' AND ft2_asmt_multiplechoice.syr='$syr' AND ft2_asmt_multiplechoice.asid='$fsbj' AND ft2_asmt_multiplechoice.fid='$fid' AND ft2_asmt_multiplechoice.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-info btn-sm fa fa-file-text-o mcbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" title="Multiple Choice Assessment" style="font-size: 16px; padding: 6px;"></button>
+						<button class="btn btn-info btn-sm fa fa-file-text-o mcbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" data-val="<?=$mch?>" title="Multiple Choice Assessment" style="font-size: 16px; padding: 6px;"></button>
 				<?php } } ?>	
 				
 				<?php if($enu!='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_enumeration WHERE ft2_asmt_enumeration.grde='$fgrd' AND ft2_asmt_enumeration.syr='$syr' AND ft2_asmt_enumeration.asid='$fsbj' AND ft2_asmt_enumeration.fid='$fid' AND ft2_asmt_enumeration.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-success btn-sm fa fa-file-text-o enbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$grd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"  title="Enumeration Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+						<button class="btn btn-success btn-sm fa fa-file-text-o enbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" data-val="<?=$enu?>"  title="Enumeration Type Assessment" style="font-size: 16px; padding: 6px;"></button>
 				<?php } } ?>		
 				
 				<?php if($idf!='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_identification WHERE ft2_asmt_identification.grde='$fgrd' AND ft2_asmt_identification.syr='$syr' AND ft2_asmt_identification.asid='$fsbj' AND ft2_asmt_identification.fid='$fid' AND ft2_asmt_identification.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-warning btn-sm fa fa-file-text-o idbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"  title="Identification Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+						<button class="btn btn-warning btn-sm fa fa-file-text-o idbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" data-val="<?=$idf?>"  title="Identification Type Assessment" style="font-size: 16px; padding: 6px;"></button>
 				<?php } } ?>		
 				
 				<?php if($esy!='N') {
 				$msql = mysqli_query($con,"SELECT COUNT(*) as ctr FROM ft2_asmt_essay WHERE ft2_asmt_essay.grde='$fgrd' AND ft2_asmt_essay.syr='$syr' AND ft2_asmt_essay.asid='$fsbj' AND ft2_asmt_essay.fid='$fid' AND ft2_asmt_essay.ascode='$fcod'"); 
 				  while($rm = mysqli_fetch_assoc($msql))	{ $mctr=$rm['ctr']; }   
 					if($mctr>0)   { ?>
-						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"  title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
+						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" data-val="<?=$esy?>" title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
 				<?php } } ?>								
 		 </div>
 	<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px; font-size: 13px; font-weight: 600;"><?=$res?> | <span style="color: <?=$rc?>"><?=$rmk?></span></div>
@@ -222,13 +222,46 @@ $(document).on("click",".mcbtn",function() {
 	var fgrd=$(this).data('fgrd');
 	var fsyr=$(this).data('fsyr');
 	var fcod=$(this).data('fscd');
+	var val=$(this).data('val');
 	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&mde=C');
+	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Multiple Choice Assessment Content');
 	$('#POPMODAL').modal('show');  	
 });		
 	
+$(document).on("click",".enbtn",function() {	
+	var rid=$(this).data('rid');
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fsyr=$(this).data('fsyr');
+	var fcod=$(this).data('fscd');
+	var val=$(this).data('val');
+	$('#content').empty();
+	$("#content").load('assessment_enumeration.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$('.modwidth').css('width','54%');
+	$('.modcap').empty();
+	$(".modcap").append('Enumeration Assessment Content');
+	$('#POPMODAL').modal('show');  	
+});
+	
+$(document).on("click",".idbtn",function() {	
+	var rid=$(this).data('rid');
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fsyr=$(this).data('fsyr');
+	var fcod=$(this).data('fscd');
+	var val=$(this).data('val');
+	$('#content').empty();
+	$("#content").load('assessment_identification.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$('.modwidth').css('width','54%');
+	$('.modcap').empty();
+	$(".modcap").append('Identification Assessment Content');
+	$('#POPMODAL').modal('show');  	
+});
+		
 });
 </script>	
