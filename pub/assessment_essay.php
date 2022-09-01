@@ -13,8 +13,11 @@ $fsbj=$_REQUEST['fsbj'];
 $fgrd=$_REQUEST['fgrd'];
 $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
+$mde=$_REQUEST['mde'];
+$val=$_REQUEST['val'];
 ?>
-<?php include('countdown_timer.php');?>
+
+<?php if($mde=='') {	include('countdown_timer.php');  } ?>
 
 <div class="card-block box" style="padding: 10px;">
 	<div style="background: #FFF;"> 
@@ -53,14 +56,25 @@ AND ft2_asmt_data_es.syr='$syr' AND ft2_asmt_data_es.asid='$fsbj'");
  </div>
 <?php  }?>
 </div>
-   
+<?php if($mde!='C') {	?>      
  <button class="btn btn-info btnen" type="button" id="btnen" data-rid="<?=$rid?>" style="float:right;margin-bottom: 15px;">Submit Answers</button>
+<?php } else { ?>
+    <button class="btn btn-success" type="button" id="btnschk" data-rid="<?=$rid?>" style="float:right; margin-bottom: 15px; color: #000;">Submit Grade</button>
+    <input type="number" id="rate" min="50" max="100" name="rate" value="<?=$val;?>" onKeyPress="if(this.value.length==3) return false;" style="font-size: 3.0rem; float:right; margin-right: 15px; width: 100px; ">
+<?php } ?>      
     </div>  
 <div class="clearfix">  </div>                           
 </div>
 <script>	
 $(document).ready(function(){
+var mde='<?=$mde?>';
 	
+if(mde=='C') { DisabledItems(); }	
+	
+function DisabledItems() {
+    $(':checkbox, :radio, #btnschk, .pcat').prop('disabled', true);
+}
+		
 $(document).on("change",".pcat",function() {
 var id=$(this).data('id'); 
 var vl=document.getElementById("en"+id).value;		
@@ -98,6 +112,37 @@ bootbox.confirm("Submit Essay Answer?", function(result) {
   }
  });	  
 });		
-
+	
+$(document).on("click","#btnschk",function() {
+	var rte=$('#rate').val();
+	var id=$(this).data('rid');
+				$.ajax({
+					   type: "post",
+					   url: "resultscontroller.php?prc=GS",
+					   data: { id:id, rte:rte },					
+					   cache: false,	
+					   dataType: 'json',					
+					   success: function(data){
+						var dialog = bootbox.dialog({
+							title: 'Notification :',
+								size: 'small',
+								message: "<span style='color:#1F02FE;'>Essay Assessment Grade Submitted Successfully!!!</span>", 
+								}).on('hidden.bs.modal', function() {
+								$('body').addClass('modal-open'); location.reload(); });
+							}
+						});			
+});	
+	
+$(document).on("keyup","#rate",function() {
+	var rte=$('#rate').val();
+	if(rte.length>=2) {
+		if((rte<50)||(rte>100)) { 
+			bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
+		} 
+		else { 	$('#btnschk').prop('disabled', false); }
+	} 
+	else { $('#btnschk').prop('disabled', true); return; }
+});	
+	
 });
 </script>

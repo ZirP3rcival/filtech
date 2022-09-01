@@ -120,6 +120,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Student Assessment Grade	 
+			 <button class="btn btn-info btn-sm fa fa-print" id="brpt" name="brpt" style="font-size: 16px; padding: 6px; margin-left: 15px; float: right;"  data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"></button>	
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grado ng Estudyante sa Pagtatasa</h6>
 		  </div>
@@ -150,8 +151,8 @@ ORDER BY alyas ASC");
    { $sphoto='data:image/png;base64,'.''.$rx['ploc']; 
 	  $mch=$rx['mch'];   $rid=$rx['rid']; $sid=$rx['sid'];
 	  $idf=$rx['idf'];   $res=$rx['res']; if($res=='') { $res='0'; }
-	  $enu=$rx['enu'];   if(($res>=50)&($res<75)) { $rmk='FAILED'; $rc="#D9534F"; } else if(($res>=75)&($res<=100)) { $rmk='PASSED'; $rc="#0084FF"; }
-	  $esy=$rx['esy']; 
+	  $enu=$rx['enu'];   if(($res>=50)&($res<75)) { $rc="#D9534F"; } else if(($res>=75)&($res<=100)) { $rc="#0084FF"; }
+	  $esy=$rx['esy'];   $rte=$rx['rte'];
 	  $fcod=$rx['ascode']; 
     ?>                                   
 <li class="list-group-item" style="padding: 2px 15px; font-size: 12px;">
@@ -188,7 +189,7 @@ ORDER BY alyas ASC");
 						<button class="btn btn-primary btn-sm fa fa-file-text-o esbtn" data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>" data-val="<?=$esy?>" title="Essay Type Assessment" style="font-size: 16px; padding: 6px;"></button>
 				<?php } } ?>								
 		 </div>
-	<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px; font-size: 13px; font-weight: 600;"><?=$res?> | <span style="color: <?=$rc?>"><?=$rmk?></span></div>
+	<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px; font-size: 13px; font-weight: 600;"><?=$res?> | <span style="color: <?=$rc?>"><?=$rte?></span></div>
 	<div class="col-xs-10 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">
 		<a href="resultscontroller.php?prc=R&rid=<?=$rid?>&fsbj=<?=$fsbj?>&fgrd=<?=$fgrd?>&fsec=<?=$fsec?>&fscd=<?=$fscd?>" class="trash" style="margin-right:10px;" title="Reset Assessment" onclick="return confirm('Reset Assessment?')">
 					<button class="btn btn-danger btn-sm fa fa-refresh rsbtn"  style="font-size: 16px; padding: 6px; margin-left: 15px;"></button>	
@@ -262,6 +263,31 @@ $(document).on("click",".idbtn",function() {
 	$(".modcap").append('Identification Assessment Content');
 	$('#POPMODAL').modal('show');  	
 });
-		
+	
+$(document).on("click",".esbtn",function() {	
+	var rid=$(this).data('rid');
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fsyr=$(this).data('fsyr');
+	var fcod=$(this).data('fscd');
+	var val=$(this).data('val');
+	$('#content').empty();
+	$("#content").load('assessment_essay.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$('.modwidth').css('width','54%');
+	$('.modcap').empty();
+	$(".modcap").append('Essay Assessment Content');
+	$('#POPMODAL').modal('show');  	
+});
+				
+$(document).on("click","#brpt",function() {	
+	var fid=$(this).data('fid');
+	var fsbj=$(this).data('fsbj');
+	var fgrd=$(this).data('fgrd');
+	var fscd=$(this).data('fscd');	
+var url = 'assessment_report.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fscd='+fscd+'&fsec='+fsec;
+	window.open(url, 'blank');
+});
+	
 });
 </script>	

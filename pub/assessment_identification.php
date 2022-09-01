@@ -72,8 +72,9 @@ var mde='<?=$mde?>';
 if(mde=='C') { DisabledItems(); }	
 	
 function DisabledItems() {
-    $(':checkbox, :radio, #btnichk').prop('disabled', true);
+    $(':checkbox, :radio, #btnichk, .pcat').prop('disabled', true);
 }
+	
 	
 $(document).on("change",".pcat",function() {
 var id=$(this).data('id'); 

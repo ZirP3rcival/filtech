@@ -153,9 +153,9 @@ $(document).on("keyup","#rate",function() {
 		if((rte<50)||(rte>100)) { 
 			bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
 		} 
-		else { 	$('#btnchk').prop('disabled', false); }
+		else { 	$('#btnmchk').prop('disabled', false); }
 	} 
-	else { $('#btnchk').prop('disabled', true); return; }
+	else { $('#btnmchk').prop('disabled', true); return; }
 });	
 		
 
