@@ -1,0 +1,7 @@
+SELECT COUNT(ft2_grade_record.sjid) AS ctr, ft2_grade_record.*, ft2_users_account.*, ft2_module_subjects.*, ft2_faculty_schedule.*
+FROM ft2_grade_record
+INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_grade_record.sjid
+INNER JOIN ft2_faculty_schedule ON ft2_faculty_schedule.sjid = ft2_grade_record.sjid
+INNER JOIN ft2_users_account ON ft2_users_account.grde = ft2_grade_record.grde
+WHERE ft2_grade_record.grde = '1' AND ft2_grade_record.sec = '1' AND ft2_grade_record.sjid='2' AND ft2_grade_record.fid='2'
+ORDER BY ft2_users_account.alyas ASC

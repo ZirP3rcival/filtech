@@ -37,7 +37,7 @@ if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 		  </div>	  
 <div class="card-block box" style="padding: 10px 15px;">
 	<div style="background: #FFF;"> 
- <form method="post" action="?page=assessment_results" id="frmleks" name="frmleks"> </form> 
+ <form method="post" action="?page=grading_sheet" id="frmleks" name="frmleks"> </form> 
   <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
     <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Grade : </span></div>
 <div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">	
@@ -70,7 +70,7 @@ $dsql = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_section_data.id, f
         </select></div>
 	<div class="clearfix"></div>
   </div>
-  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; margin-top: 10px; padding: 0px;">
+  <div class="col-xs-12 col-md-12" style="margin-bottom: 10px; padding: 0px;">
 
  <div class="col-xs-12 col-md-12" style="margin-top:0px; padding: 0px;"><span class="mf" style="float:left; margin-right:10px;">Subject : </span></div>
 <div class="col-xs-12 col-md-12" style="margin-top:10px; float: right; padding: 0px;">
@@ -102,7 +102,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Subject Class Record	 
-			 <button class="btn btn-info btn-sm fa fa-print" id="brpt" name="brpt" style="font-size: 16px; padding: 6px; margin-left: 15px; float: right;"  data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"></button>	
+			 <button class="btn btn-info btn-sm fa fa-print" id="brpt" name="brpt" style="font-size: 16px; padding: 6px; margin-left: 15px; float: right;" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>"></button>	
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan Grado ng Estudyante</h6>
 		  </div>
@@ -111,55 +111,53 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <li class="list-group-item" style="font-weight: 600; font-size: 12px;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Photo</div>
 <div class="col-xs-10 col-md-5" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px; text-align: center;">1st Grading</div>
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px; text-align: center;">2nd Grading</div>
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px; text-align: center;">3rd Grading</div>
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px; text-align: center;">4th Grading</div>
-<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px; text-align: center;"></div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">1st Grading</div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">2nd Grading</div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">3rd Grading</div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">4th Grading</div>
+<div class="col-xs-2 col-md-1"></div>
 <div class="clearfix"></div>
 </div.
 ></li>
 <?php 
-if(($fgrd!='') && ($fsec!='') && ($fsbj!='') && ($fscd!=''))	{
-$dsql = mysqli_query($con,"SELECT COUNT(ft2_grade_record.sjid) AS ctr, ft2_users_account.*, ft2_module_subjects.*, ft2_grade_record.*
-FROM ft2_users_account 
-INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_users_account.sec
-INNER JOIN ft2_grade_record ON ft2_grade_record.sjid = ft2_module_subjects.id
-WHERE ft2_users_account.grde = '$fgrd' AND ft2_users_account.sec = '$fsec' AND ft2_module_subjects.id='$fsbj' 
-ORDER BY ft2_users_account.alyas ASC");
- 
-  while($rx = mysqli_fetch_assoc($dsql))
-   { 
-	 $xst=$r1['ctr']; $rid=$r1['id'];
-	 $mch=$r1['mch']; 
-	 $idf=$r1['idf']; 
-	 $enu=$r1['enu']; 
-	 $esy=$r1['esy']; 	 
-	 
-	 if($xst<=0){
-		 $sqli1 = mysqli_query($con, "INSERT INTO ft2_grade_record(sid, ascode, syr, fid, grde, sec, asid, timer ) VALUES('$sid', '$fcod', '$syr', '$fid', '$grd', '$sec','$fsbj', '$timer')");
-	 }	   
-	   $sphoto='data:image/png;base64,'.''.$rx['ploc']; 
+if(($fgrd!='') && ($fsec!='') && ($fsbj!=''))	{
+$sql0 = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_grade_record.*
+FROM ft2_faculty_schedule
+INNER JOIN ft2_grade_record ON ft2_grade_record.sjid = ft2_faculty_schedule.sjid
+WHERE ft2_faculty_schedule.grde = '$fgrd' AND ft2_faculty_schedule.sec = '$fsec' AND ft2_faculty_schedule.sjid='$fsbj' 
+AND ft2_faculty_schedule.fid='$fid' AND ft2_faculty_schedule.syr='$syr'");
+$ctr=mysqli_num_rows($sql0); 
+	 if($ctr<=0){
+		$sql1 = mysqli_query($con,"SELECT ft2_users_account.* FROM ft2_users_account WHERE ft2_users_account.grde='$fgrd' AND ft2_users_account.sec='$fsec'");  
+		while($r1 = mysqli_fetch_assoc($sql1))	{  
+			$sid=$r1['id'];
+			 $sqli1 = mysqli_query($con, "INSERT INTO ft2_grade_record(fid, syr, sid, grde, sec, sjid) VALUES('$fid', '$syr', '$sid', '$fgrd', '$fsec', '$fsbj')");
+		 }
+	 }	
+	else {
+		$sql2 = mysqli_query($con,"SELECT ft2_grade_record.*, ft2_users_account.* FROM ft2_grade_record
+		INNER JOIN ft2_users_account ON ft2_users_account.id = ft2_grade_record.sid
+		WHERE ft2_grade_record.grde = '$fgrd' AND ft2_grade_record.sec = '$fsec' AND ft2_grade_record.sjid='$fsbj' 
+		AND ft2_grade_record.fid='$fid' AND ft2_grade_record.syr='$syr'");  
+		while($r2 = mysqli_fetch_assoc($sql2))	{  
+			$sphoto='data:image/png;base64,'.''.$r2['ploc']; 
     ?>                                   
 <li class="list-group-item" style="padding: 2px 15px; font-size: 12px;">
 <div class="row">
 	<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="<?=$sphoto?>" class="img-responsive logo" style="padding: 0px; width: 50%;" onerror="this.src='../img/missing.png'"></div>
-	<div class="col-xs-10 col-md-3" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['alyas'];?></div>
-	<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px;"><?=$rx['scdsc'];?></div>
-	<div class="col-xs-8 col-md-3" style="padding-bottom: 0px; padding-right: 0px;">
-								
-		 </div>
-	<div class="col-xs-12 col-md-2" style="padding-bottom: 0px; padding-right: 0px; font-size: 13px; font-weight: 600;"><?=$res?> | <span style="color: <?=$rc?>"><?=$rte?></span></div>
-	<div class="col-xs-10 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">
-		<a href="resultscontroller.php?prc=R&rid=<?=$rid?>&fsbj=<?=$fsbj?>&fgrd=<?=$fgrd?>&fsec=<?=$fsec?>&fscd=<?=$fscd?>" class="trash" style="margin-right:10px;" title="Reset Assessment" onclick="return confirm('Reset Assessment?')">
-					<button class="btn btn-danger btn-sm fa fa-refresh rsbtn"  style="font-size: 16px; padding: 6px; margin-left: 15px;"></button>	
-		</a>	
+	<div class="col-xs-10 col-md-5" style="padding: 5px;"><?=$r2['alyas'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd1'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd2'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd3'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd4'];?></div>
+	<div class="col-xs-2 col-md-1">
+		<button class="btn btn-success btn-sm fa fa-edit egbtn"  style="font-size: 16px; padding: 6px; margin-left: 5px;"></button>		
 	</div>
 	 <div class="clearfix"></div>
  </div>
  </li>
 
- <?php }} ?></div>   
+ <?php } } } ?></div>   
 </div> 
 </div>  
             </div>           
@@ -176,7 +174,7 @@ var fsec= document.getElementById("fsec").value;
 var fscd= document.getElementById("fscd").value;
 var ftxt= $("#fscd option:selected").text();			
 	
-$(document).on("click",".mcbtn",function() {	
+$(document).on("click",".egbtn",function() {	
 	var rid=$(this).data('rid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
@@ -191,54 +189,6 @@ $(document).on("click",".mcbtn",function() {
 	$(".modcap").append('Multiple Choice Assessment Content');
 	$('#POPMODAL').modal('show');  	
 });		
-	
-$(document).on("click",".enbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var fcod=$(this).data('fscd');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_enumeration.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Enumeration Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
-	
-$(document).on("click",".idbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var fcod=$(this).data('fscd');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_identification.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Identification Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
-	
-$(document).on("click",".esbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var fcod=$(this).data('fscd');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_essay.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Essay Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
 				
 $(document).on("click","#brpt",function() {	
 	var fid=$(this).data('fid');
