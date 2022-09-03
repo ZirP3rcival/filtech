@@ -23,7 +23,7 @@ CASE WHEN mch='Y' OR mch='N' THEN '50.00' ELSE mch END AS smch,
 CASE WHEN enu='Y' OR enu='N' THEN '50.00' ELSE enu END AS senu, 
 CASE WHEN idf='Y' OR idf='N' THEN '50.00' ELSE idf END AS sidf, 
 CASE WHEN esy='Y' OR esy='N' THEN '50.00' ELSE esy END AS sesy 
-FROM ft2_asmt_data_result WHERE id = '$id'";
+FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";
 	
 $sqlx=mysqli_query($con,$sql);
 	while($rg = mysqli_fetch_assoc($sqlx))
@@ -42,31 +42,44 @@ $sqlx=mysqli_query($con,$sql);
 }
 
 if ($prc=='R') { 
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='N', enu='N', idf='N', esy='N' WHERE id = '$id'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='N', enu='N', idf='N', esy='N' WHERE id = '$id' AND syr='$syr'");
 	$msg='Resetting';
 }
 
 if ($prc=='GM') { 
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='$rte' WHERE id = '$id'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='$rte' WHERE id = '$id' AND syr='$syr'");
 	compute_grade($con, $id);
 	echo 0; exit;
 }
 
 if ($prc=='GE') {  
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET enu='$rte' WHERE id = '$id'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET enu='$rte' WHERE id = '$id' AND syr='$syr'");
 	compute_grade($con, $id);
 	echo 0; exit;
 }
 
 if ($prc=='GI') { 
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET idf='$rte' WHERE id = '$id'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET idf='$rte' WHERE id = '$id' AND syr='$syr'");
 	compute_grade($con, $id);
 	echo 0; exit;
 }
 
 if ($prc=='GS') { 
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET esy='$rte' WHERE id = '$id'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET esy='$rte' WHERE id = '$id' AND syr='$syr'");
 	compute_grade($con, $id);
+	echo 0; exit;
+}
+
+if ($prc=='GR') { 
+	$sid=$_POST['sid'];
+	$rte1=$_POST['rte1'];
+	$rte2=$_POST['rte2'];
+	$rte3=$_POST['rte3'];
+	$rte4=$_POST['rte4'];
+	$ave=number_format((($rte1+$rte2+$rte3+$rte4)/4),2);
+		if($ave>=75) { $rem='PASSED'; } else { $rem='PASSED'; }
+	
+	$sql=mysqli_query($con,"UPDATE ft2_grade_record SET grd1='$rte1', grd2='$rte2', grd3='$rte3', grd4='$rte4', ave='$ave', rem='$rem' WHERE sid = '$sid' AND syr='$syr'");
 	echo 0; exit;
 }
 

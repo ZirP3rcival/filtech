@@ -7,7 +7,6 @@ error_reporting (E_ALL ^ E_NOTICE);
 $fgrd=$_POST['fgrd'];
 $fsec=$_POST['fsec'];
 $fsbj=$_POST['fsbj'];
-$fscd=$_POST['fscd'];
 
 $syr=$_SESSION['year'];
 $fid=$_SESSION['id'];
@@ -15,7 +14,6 @@ $fid=$_SESSION['id'];
 if($fgrd=='') { $fgrd=$_REQUEST['fgrd']; }
 if($fsec=='') { $fsec=$_REQUEST['fsec']; }
 if($fsbj=='') { $fsbj=$_REQUEST['fsbj']; }
-if($fscd=='') { $fscd=$_REQUEST['fscd']; }
 ?>
 <style>
 .form-control  {
@@ -110,11 +108,13 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <div class="list-group" style="margin-bottom: 5px;">
 <li class="list-group-item" style="font-weight: 600; font-size: 12px;"><div class="row">
 <div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;">Photo</div>
-<div class="col-xs-10 col-md-5" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
+<div class="col-xs-10 col-md-4" style="padding-bottom: 0px; padding-right: 0px;">Name of Students</div>
 <div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">1st Grading</div>
 <div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">2nd Grading</div>
 <div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">3rd Grading</div>
 <div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">4th Grading</div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">Average Grade</div>
+<div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">Remarks</div>
 <div class="col-xs-2 col-md-1"></div>
 <div class="clearfix"></div>
 </div.
@@ -140,18 +140,20 @@ $ctr=mysqli_num_rows($sql0);
 		WHERE ft2_grade_record.grde = '$fgrd' AND ft2_grade_record.sec = '$fsec' AND ft2_grade_record.sjid='$fsbj' 
 		AND ft2_grade_record.fid='$fid' AND ft2_grade_record.syr='$syr'");  
 		while($r2 = mysqli_fetch_assoc($sql2))	{  
-			$sphoto='data:image/png;base64,'.''.$r2['ploc']; 
+			$sphoto='data:image/png;base64,'.''.$r2['ploc']; $sid=$r2['id'];
     ?>                                   
 <li class="list-group-item" style="padding: 2px 15px; font-size: 12px;">
 <div class="row">
 	<div class="col-xs-2 col-md-1" style="padding-bottom: 0px; padding-right: 0px;"><img src="<?=$sphoto?>" class="img-responsive logo" style="padding: 0px; width: 50%;" onerror="this.src='../img/missing.png'"></div>
-	<div class="col-xs-10 col-md-5" style="padding: 5px;"><?=$r2['alyas'];?></div>
+	<div class="col-xs-10 col-md-4" style="padding: 5px;"><?=$r2['alyas'];?></div>
 	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd1'];?></div>
 	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd2'];?></div>
 	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd3'];?></div>
 	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['grd4'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['ave'];?></div>
+	<div class="col-xs-2 col-md-1" style="padding: 5px; text-align: center;"><?=$r2['rem'];?></div>
 	<div class="col-xs-2 col-md-1">
-		<button class="btn btn-success btn-sm fa fa-edit egbtn"  style="font-size: 16px; padding: 6px; margin-left: 5px;"></button>		
+		<button class="btn btn-success btn-sm fa fa-edit egbtn" data-sid="<?=$sid?>" style="font-size: 16px; padding: 6px; margin-left: 5px;"></button>		
 	</div>
 	 <div class="clearfix"></div>
  </div>
@@ -171,22 +173,17 @@ $(document).ready(function(){
 var fgrd= document.getElementById("fgrd").value;
 var fsbj= document.getElementById("fsbj").value;	
 var fsec= document.getElementById("fsec").value;	
-var fscd= document.getElementById("fscd").value;
-var ftxt= $("#fscd option:selected").text();			
+var txgrd= $("#fgrd option:selected").text();	
+var txsec= $("#fsec option:selected").text();	
+var txsbj= $("#fsbj option:selected").text();
 	
 $(document).on("click",".egbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var fcod=$(this).data('fscd');
-	var val=$(this).data('val');
+	var sid=$(this).data('sid');
 	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$("#content").load('grade_form.php?sid='+sid);
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
-	$(".modcap").append('Multiple Choice Assessment Content');
+	$(".modcap").append('Student Grade Form');
 	$('#POPMODAL').modal('show');  	
 });		
 				
@@ -194,8 +191,7 @@ $(document).on("click","#brpt",function() {
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
-	var fscd=$(this).data('fscd');	
-var url = 'assessment_report.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fscd='+fscd+'&fsec='+fsec;
+var url = 'grade_report.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsec='+fsec+'&txgrd='+txgrd+'&txsec='+txsec+'&txsbj='+txsbj;
 	window.open(url, 'blank');
 });
 	

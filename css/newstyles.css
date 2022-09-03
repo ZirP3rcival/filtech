@@ -121,6 +121,10 @@
     width: 0px!important;
 }
 
+.modwidth {
+    width: 100%!important;
+}	
+	
 .content-inner-all {
     margin-left: 0px!important;
 }	
