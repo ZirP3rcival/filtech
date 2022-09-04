@@ -64,7 +64,7 @@ GROUP BY ft2_module_subjects.subj ORDER BY ft2_module_subjects.subj ASC");
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
 			 <span class="fa fa-pencil-square-o" style="margin-right: 15px; font-size: 2em;"></span>Student Assessment Grade	 
-			 <button class="btn btn-info btn-sm fa fa-print" id="brpt" name="brpt" style="font-size: 16px; padding: 6px; margin-left: 15px; float: right;"  data-rid="<?=$rid?>" data-sid="<?=$sid?>" data-fid="<?=$fid?>" data-fsbj="<?=$fsbj?>" data-fgrd="<?=$fgrd?>" data-fsec="<?=$fsec?>" data-fscd="<?=$fscd?>"></button>	
+			 <button class="btn btn-info btn-sm fa fa-print" id="brpt" name="brpt" style="font-size: 16px; padding: 6px; margin-left: 15px; float: right;" data-fsbj="<?=$fsbj?>"></button>	
 			 </h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Grado ng Estudyante sa Pagtatasa</h6>
 		  </div>
@@ -81,10 +81,10 @@ GROUP BY ft2_module_subjects.subj ORDER BY ft2_module_subjects.subj ASC");
 </li>
 <?php 
 $dsql = mysqli_query($con,"SELECT ft2_asmt_data_result.*,
-CASE WHEN mch='Y' OR mch='N' THEN '50.00' ELSE mch END AS mch, 
-CASE WHEN enu='Y' OR enu='N' THEN '50.00' ELSE enu END AS enu, 
-CASE WHEN idf='Y' OR idf='N' THEN '50.00' ELSE idf END AS idf, 
-CASE WHEN esy='Y' OR esy='N' THEN '50.00' ELSE esy END AS esy,
+CASE WHEN mch='Y' OR mch='N' THEN 'N/A' ELSE mch END AS mch, 
+CASE WHEN enu='Y' OR enu='N' THEN 'N/A' ELSE enu END AS enu, 
+CASE WHEN idf='Y' OR idf='N' THEN 'N/A' ELSE idf END AS idf, 
+CASE WHEN esy='Y' OR esy='N' THEN 'N/A' ELSE esy END AS esy,
 ft2_module_subjects.id AS sjid, ft2_module_subjects.subj, ft2_assessment_set.*
 FROM ft2_asmt_data_result
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_asmt_data_result.asid
@@ -119,72 +119,11 @@ WHERE ft2_asmt_data_result.sid='$sid' AND ft2_asmt_data_result.grde='$grd' AND f
 <script>
 $(document).ready(function(){
 var fsbj= document.getElementById("fsbj").value;			
+var fsxt= $("#fsbj option:selected").text();	
 	
-$(document).on("click",".mcbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Multiple Choice Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});		
-	
-$(document).on("click",".enbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_enumeration.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Enumeration Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
-	
-$(document).on("click",".idbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_identification.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Identification Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
-	
-$(document).on("click",".esbtn",function() {	
-	var rid=$(this).data('rid');
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');
-	var fsyr=$(this).data('fsyr');
-	var val=$(this).data('val');
-	$('#content').empty();
-	$("#content").load('assessment_essay.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&val='+val+'&mde=C');
-	$('.modwidth').css('width','54%');
-	$('.modcap').empty();
-	$(".modcap").append('Essay Assessment Content');
-	$('#POPMODAL').modal('show');  	
-});
-				
 $(document).on("click","#brpt",function() {	
-	var fid=$(this).data('fid');
-	var fsbj=$(this).data('fsbj');
-	var fgrd=$(this).data('fgrd');	
-var url = 'assessment_report.php?fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsec='+fsec;
+var fsbj=$(this).data('fsbj');
+var url = 'student_assessment_report.php?fsbj='+fsbj+'&fsxt='+fsxt;
 	window.open(url, 'blank');
 });
 	

@@ -117,8 +117,7 @@ ORDER BY ft2_faculty_schedule.sjid ASC");
 <div class="col-xs-2 col-md-1" style="padding: 0px; text-align: center;">Remarks</div>
 <div class="col-xs-2 col-md-1"></div>
 <div class="clearfix"></div>
-</div.
-></li>
+</div></li>
 <?php 
 if(($fgrd!='') && ($fsec!='') && ($fsbj!=''))	{
 $sql0 = mysqli_query($con,"SELECT ft2_faculty_schedule.*, ft2_grade_record.*
