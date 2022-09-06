@@ -45,7 +45,7 @@ if($mc<=0) {
 	$fsql = mysqli_query($con,"SELECT ft2_asmt_data_es.*, ft2_asmt_data_es.id AS aid, ft2_asmt_essay.* FROM ft2_asmt_essay 
 INNER JOIN ft2_asmt_data_es ON ft2_asmt_data_es.qno=ft2_asmt_essay.id
 WHERE ft2_asmt_data_es.ascode = '$fcod' AND ft2_asmt_data_es.fid='$fid' AND ft2_asmt_data_es.grde='$fgrd'
-AND ft2_asmt_data_es.syr='$syr' AND ft2_asmt_data_es.asid='$fsbj'"); 
+AND ft2_asmt_data_es.syr='$syr' AND ft2_asmt_data_es.asid='$fsbj' AND ft2_asmt_data_mc.sid='$sid'"); 
   while($r = mysqli_fetch_assoc($fsql))
    { $i++; $ans=$r['ans']; $aid=$r['aid']; 
 		if($ans<>'') { $clr='#82BAEB'; } else { $clr='#fff'; }
