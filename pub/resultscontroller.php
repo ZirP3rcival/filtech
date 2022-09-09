@@ -14,7 +14,7 @@ $fsbj=$_REQUEST['fsbj'];
 $fscd=$_REQUEST['fscd']; 
 
 $id=$_REQUEST['rid'];
-if($$id=='') { 	$id=$_POST['id'];  }
+if($id=='') { 	$id=$_POST['id'];  }
 $rte=number_format($_POST['rte'],2);
 
 function compute_grade($con, $id, $syr){
@@ -52,7 +52,7 @@ $sqlx=mysqli_query($con,$sql4);
 }
 
 if ($prc=='R') { 
-	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='N', enu='N', idf='N', esy='N' WHERE id = '$id' AND syr='$syr'");
+	$sql=mysqli_query($con,"UPDATE ft2_asmt_data_result SET mch='N', enu='N', idf='N', esy='N', res=NULL, rte=NULL WHERE id = '$id' AND syr='$syr'");
 	$msg='Resetting';
 }
 
