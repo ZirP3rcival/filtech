@@ -15,6 +15,7 @@ $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 $mde=$_REQUEST['mde'];
 $val=$_REQUEST['val'];
+if($sid==$fid) { $sid=$_REQUEST['sid']; }
 ?>
 
 <?php if($mde=='') {	include('countdown_timer.php');  } ?>

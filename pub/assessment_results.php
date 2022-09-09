@@ -218,6 +218,7 @@ var ftxt= $("#fscd option:selected").text();
 	
 $(document).on("click",".mcbtn",function() {	
 	var rid=$(this).data('rid');
+	var sid=$(this).data('sid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
@@ -225,7 +226,7 @@ $(document).on("click",".mcbtn",function() {
 	var fcod=$(this).data('fscd');
 	var val=$(this).data('val');
 	$('#content').empty();
-	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$("#content").load('assessment_multiplechoice.php?rid='+rid+'&sid='+sid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Multiple Choice Assessment Content');
@@ -234,6 +235,7 @@ $(document).on("click",".mcbtn",function() {
 	
 $(document).on("click",".enbtn",function() {	
 	var rid=$(this).data('rid');
+	var sid=$(this).data('sid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
@@ -241,7 +243,7 @@ $(document).on("click",".enbtn",function() {
 	var fcod=$(this).data('fscd');
 	var val=$(this).data('val');
 	$('#content').empty();
-	$("#content").load('assessment_enumeration.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$("#content").load('assessment_enumeration.php?rid='+rid+'&sid='+sid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Enumeration Assessment Content');
@@ -250,6 +252,7 @@ $(document).on("click",".enbtn",function() {
 	
 $(document).on("click",".idbtn",function() {	
 	var rid=$(this).data('rid');
+	var sid=$(this).data('sid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
@@ -257,7 +260,7 @@ $(document).on("click",".idbtn",function() {
 	var fcod=$(this).data('fscd');
 	var val=$(this).data('val');
 	$('#content').empty();
-	$("#content").load('assessment_identification.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$("#content").load('assessment_identification.php?rid='+rid+'&sid='+sid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Identification Assessment Content');
@@ -266,6 +269,7 @@ $(document).on("click",".idbtn",function() {
 	
 $(document).on("click",".esbtn",function() {	
 	var rid=$(this).data('rid');
+	var sid=$(this).data('sid');
 	var fid=$(this).data('fid');
 	var fsbj=$(this).data('fsbj');
 	var fgrd=$(this).data('fgrd');
@@ -273,7 +277,7 @@ $(document).on("click",".esbtn",function() {
 	var fcod=$(this).data('fscd');
 	var val=$(this).data('val');
 	$('#content').empty();
-	$("#content").load('assessment_essay.php?rid='+rid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
+	$("#content").load('assessment_essay.php?rid='+rid+'&sid='+sid+'&fid='+fid+'&fsbj='+fsbj+'&fgrd='+fgrd+'&fsyr='+fsyr+'&fcod='+fcod+'&val='+val+'&mde=C');
 	$('.modwidth').css('width','54%');
 	$('.modcap').empty();
 	$(".modcap").append('Essay Assessment Content');

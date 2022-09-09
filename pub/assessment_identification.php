@@ -15,6 +15,7 @@ $fsyr=$_REQUEST['fsyr'];
 $fcod=$_REQUEST['fcod'];
 $mde=$_REQUEST['mde'];
 $val=$_REQUEST['val'];
+if($sid==$fid) { $sid=$_REQUEST['sid']; }
 ?>
 
 <?php if($mde=='') {	include('countdown_timer.php');  } ?>
@@ -43,7 +44,7 @@ if($mc<=0) {
 	$fsql = mysqli_query($con,"SELECT ft2_asmt_data_id.*, ft2_asmt_data_id.id AS aid, ft2_asmt_identification.* FROM ft2_asmt_identification 
 INNER JOIN ft2_asmt_data_id ON ft2_asmt_data_id.qno=ft2_asmt_identification.id
 WHERE ft2_asmt_data_id.ascode = '$fcod' AND ft2_asmt_data_id.fid='$fid' AND ft2_asmt_data_id.grde='$fgrd'
-AND ft2_asmt_data_id.syr='$syr' AND ft2_asmt_data_id.asid='$fsbj' AND ft2_asmt_data_mc.sid='$sid'"); 
+AND ft2_asmt_data_id.syr='$syr' AND ft2_asmt_data_id.asid='$fsbj' AND ft2_asmt_data_id.sid='$sid'"); 
   while($r = mysqli_fetch_assoc($fsql))
    { $i++; $ans=$r['ans']; $aid=$r['aid']; 
 		if($ans<>'') { $clr='#82BAEB'; } else { $clr='#fff'; }
