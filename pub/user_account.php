@@ -32,7 +32,7 @@ $uid=$_SESSION['id'];
 	<div class="card">
 		  <div class="card-block card-top login-fm my-acct-title">
 			 <h4 class="text-white card-title" style="margin-bottom: 0px;">
-			 <span class="fa fa-users" style="margin-right: 15px; font-size: 2em;"></span>User Account Record</h4>
+			 <span class="fa fa-users" style="margin-right: 15px; font-size: 2em;"></span>Faculty User Account Record</h4>
 			 <h6 class="card-subtitle text-white m-b-0 op-5" style="padding-left: 40px; margin-bottom: 0px;">Talaan ng mga Gumagamit</h6>
 		  </div>	  
 			<div class="card-block box" style="padding: 10px;">                           

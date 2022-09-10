@@ -23,6 +23,23 @@ $sql="UPDATE ft2_users_account SET actv='$T1' WHERE id='$T0'";
   }  
 }
 
+if ($prc=='W') {		
+$T0 = $_REQUEST['id'];	
+$T1 = $_REQUEST['set'];	
+	
+$sql="UPDATE ft2_users_account SET actv='$T1' WHERE id='$T0'";  
+ if (!mysqli_query($con,$sql))
+  { $_SESSION['errmsg']='Error Setting User Account Status!!!'; 
+    header("location:admin?page=user_student_account");
+    exit;
+  }
+ else  
+   { $_SESSION['errmsg']='User Account Status Set Successfully!!!'; 
+     header("location:admin?page=user_student_account");
+     exit;
+  }  
+}
+
 if ($prc=='D') {		
 $T0 = $_REQUEST['id'];	
 	
@@ -35,6 +52,22 @@ $sql="DELETE FROM ft2_users_account WHERE id='$T0'";
  else  
    { $_SESSION['errmsg']='User Account Deleted Successfully!!!'; 
      header("location:admin?page=user_account");
+     exit;
+  }  
+}
+
+if ($prc=='X') {		
+$T0 = $_REQUEST['id'];	
+	
+$sql="DELETE FROM ft2_users_account WHERE id='$T0'";  
+ if (!mysqli_query($con,$sql))
+  { $_SESSION['errmsg']='Error Deleting User Account !!!'; 
+    header("location:admin?page=user_student_account");
+    exit;
+  }
+ else  
+   { $_SESSION['errmsg']='User Account Deleted Successfully!!!'; 
+     header("location:admin?page=user_student_account");
      exit;
   }  
 }

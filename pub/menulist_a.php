@@ -5,8 +5,11 @@ if($acct=='ADMIN') {
 <li class="nav-item">
     <a href="?page=dashboard" role="button" aria-expanded="false" class="nav-link" title="Panimulang Pahina"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Dashboard</span></a>
 </li>
-<li class="nav-item">
-    <a href="?page=user_account" role="button" aria-expanded="false" class="nav-link" title="Akawnt ng mga Gumagamit ng Web Apps"><i class="fa big-icon fa-users"></i> <span class="mini-dn">User Accounts Module</span></a>
+<li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="Akawnt ng mga Gumagamit ng Web Apps"><i class="fa big-icon fa-users"></i> <span class="mini-dn">User Accounts Module</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-submenu" style="text-align: justify; padding: 10px 0px;">
+        <a href="?page=user_account" class="dropdown-item" title="Akawnt ng mga Guro"><i class="fa big-icon fa-users"></i> Faculty User Account</a>
+        <a href="?page=user_student_account" class="dropdown-item" title="Akawnt ng mga Estudyante"><i class="fa big-icon fa-users"></i> Student User Account</a>
+    </div>
 </li>
 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle" title="Modyul ng Kontrol ng Web Apps"><i class="fa big-icon fa-leanpub"></i> <span class="mini-dn">System Settings</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX sidebar-submenu" style="text-align: justify; padding: 10px 0px;">
