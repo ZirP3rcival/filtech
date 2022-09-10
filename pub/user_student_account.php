@@ -79,6 +79,7 @@ $uid=$_SESSION['id'];
 				<div class="col-xs-9 col-md-8" style="padding-bottom: 0px;">
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 12px; font-weight: 700;"><?=strtoupper($r['alyas'])?></span><br>
 				 <span style="color: #021926; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$r['typ'];?></span> | 
+				 <span style="color: #320EAC; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$r['eadd'];?></span> | 
 				 <span style="color: <?=$clr;?>; padding: 4px 10px 4px 0px; font-size: 11px; "><?=$actv;?></span>
 				 </div>
 				<div class="col-xs-12 col-md-2 user-img" style="font-size: 11px; color: #042601; float: right; margin-bottom:10px; padding: 5px;">
