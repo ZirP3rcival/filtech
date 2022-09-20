@@ -4,7 +4,7 @@ include ('connection.php');
 session_start(); 
 error_reporting (E_ALL ^ E_NOTICE); 
 @$a = $xyz / 0; // no error 
-
+$page=strtolower($_SESSION['account']);
 
 $syr=$_SESSION['syr'];
 $qtr=$_SESSION['qtr'];
@@ -36,12 +36,12 @@ $sql="UPDATE ft2_users_account SET lnme='$T0', fnme='$T1', mnme='$T2', cno='$T3'
  if ($con->query($sql) === FALSE) //oop approach //(!mysqli_query($con,$sql)) =procedural approach
   { $_SESSION['errmsg']='Error Updating User Account!!!<br>Please Check All Entries Properly....'; 
     session_write_close();
-    header("location:admin?page=my_account");
+    header("location:$page?page=my_account");
     exit;
   }
  else  
    { $_SESSION['errmsg']='User Account Record Updated Successfully!'; 
      session_write_close();
-	 header("location:admin?page=my_account");
+	 header("location:$page?page=my_account");
      exit;
   } 
