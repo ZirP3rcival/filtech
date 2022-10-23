@@ -18,32 +18,41 @@ if($id=='') { 	$id=$_POST['id'];  }
 $rte=number_format($_POST['rte'],2);
 
 function compute_grade($con, $id, $syr){
-//$sql="SELECT id,  
-//CASE WHEN mch='Y' OR mch='N' THEN '50.00' ELSE mch END AS mch, 
-//CASE WHEN enu='Y' OR enu='N' THEN '50.00' ELSE enu END AS enu, 
-//CASE WHEN idf='Y' OR idf='N' THEN '50.00' ELSE idf END AS idf, 
-//CASE WHEN esy='Y' OR esy='N' THEN '50.00' ELSE esy END AS esy 
-//FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";
 $tot=0;	
-$sql1="SELECT mch REGEXP '^[0-9]+\\.?[0-9]*$' AS xmch, mch FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
+$x=0;
+$mtot=0;	
+$sql1="SELECT mch FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
 $sqlx=mysqli_query($con,$sql1);
 	while($rg = mysqli_fetch_assoc($sqlx))
-	{  $mch=$rg['mch']; if($mch>0) { $tot=$mch; } } 
+	{   $mtot=$rg['mch']; }
+	 	if($mtot=='N'){ $mtot=0; } 
+	 	if(number_format($mtot)>0){ $x++; } 
 	
-$sql2="SELECT idf REGEXP '^[0-9]+\\.?[0-9]*$' AS xidf, idf FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
+$itot=0;	
+$sql2="SELECT idf FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
 $sqlx=mysqli_query($con,$sql2);
 	while($rg = mysqli_fetch_assoc($sqlx))
-	{  $idf=$rg['idf']; if($idf>0) { $tot=($mch+$idf)/2; } } 	
+	{   $itot=$rg['idf']; } 
+	 	if($itot=='N'){ $itot=0; } 
+	 	if(number_format($itot)>0){ $x++; } 	
 	
-$sql3="SELECT enu REGEXP '^[0-9]+\\.?[0-9]*$' AS xenu, enu FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
+$etot=0;	
+$sql3="SELECT enu FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
 $sqlx=mysqli_query($con,$sql3);
 	while($rg = mysqli_fetch_assoc($sqlx))
-	{  $enu=$rg['enu']; if($enu>0) { $tot=($mch+$idf+$enu)/3; } } 	 
+	{   $etot=$rg['enu']; } 
+	 	if($etot=='N'){ $etot=0; } 
+	 	if(number_format($etot)>0){ $x++; } 	
 	
-$sql4="SELECT esy REGEXP '^[0-9]+\\.?[0-9]*$' AS xesy, esy FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
+$stot=0;	
+$sql4="SELECT esy FROM ft2_asmt_data_result WHERE id = '$id' AND syr='$syr'";	
 $sqlx=mysqli_query($con,$sql4);
 	while($rg = mysqli_fetch_assoc($sqlx))
-	{  $esy=$rg['esy']; if($esy>0) { $tot=($mch+$idf+$enu+$esy)/4; } } 	
+	{   $stot=$rg['esy']; } 
+	 	if($stot=='N'){ $stot=0; } 
+	 	if(number_format($stot)>0){ $x++; } 
+	
+$tot=(($mtot+$itot+$etot+$stot)/$x);
 	
 		if(($tot>=50)&($tot<75)) { $rmk='FAILED'; } else if(($tot>=75)&($tot<=100)) { $rmk='PASSED'; }
 		//echo "UPDATE ft2_asmt_data_result SET res='$tot', rte='$rmk' WHERE id = '$id'"; exit;

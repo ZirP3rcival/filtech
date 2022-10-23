@@ -151,7 +151,7 @@ $(document).on("click","#btnmchk",function() {
 $(document).on("keyup","#rate",function() {
 	var rte=$('#rate').val();
 	if(rte.length>=2) {
-		if((rte<50)||(rte>100)) { 
+		if((rte<50)&&(rte>100)) { 
 			bootbox.alert("<span style='font-size: 18px; color: #E70A0E; font-weight: 600;'>WARNING:</span><br><br><span style='font-size: 14px; color: #337AB7;'>Invalid Rating Value...<br>Must be from [ 50 - 100 ] Rating Value...</span>");
 		} 
 		else { 	$('#btnmchk').prop('disabled', false); }

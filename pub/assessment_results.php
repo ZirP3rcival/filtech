@@ -144,9 +144,9 @@ INNER JOIN ft2_asmt_data_result ON ft2_asmt_data_result.sid = ft2_users_account.
 INNER JOIN ft2_assessment_set ON ft2_assessment_set.ascode = ft2_asmt_data_result.ascode
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_asmt_data_result.asid
 WHERE ft2_asmt_data_result.grde = '$fgrd' AND ft2_asmt_data_result.sec = '$fsec' AND ft2_asmt_data_result.fid='$fid' 
-AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.ascode='$fscd'
+AND ft2_asmt_data_result.asid='$fsbj' AND ft2_asmt_data_result.ascode='$fscd' GROUP BY ft2_asmt_data_result.sid 
 ORDER BY alyas ASC");
- 
+	
   while($rx = mysqli_fetch_assoc($dsql))
    { $sphoto='data:image/png;base64,'.''.$rx['ploc']; 
 	  $mch=$rx['mch'];   $rid=$rx['rid']; $sid=$rx['sid'];
