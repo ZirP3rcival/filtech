@@ -89,7 +89,8 @@ ft2_module_subjects.id AS sjid, ft2_module_subjects.subj, ft2_assessment_set.*
 FROM ft2_asmt_data_result
 INNER JOIN ft2_module_subjects ON ft2_module_subjects.id = ft2_asmt_data_result.asid
 INNER JOIN ft2_assessment_set ON ft2_assessment_set.ascode = ft2_asmt_data_result.ascode
-WHERE ft2_asmt_data_result.sid='$sid' AND ft2_asmt_data_result.grde='$grd' AND ft2_asmt_data_result.sec='$sec' AND ft2_asmt_data_result.syr = '$syr' AND ft2_asmt_data_result.asid='$fsbj' GROUP BY ft2_module_subjects.subj ORDER BY ft2_module_subjects.subj ASC");
+WHERE ft2_asmt_data_result.sid='$sid' AND ft2_asmt_data_result.grde='$grd' AND ft2_asmt_data_result.sec='$sec' AND ft2_asmt_data_result.syr = '$syr' AND ft2_asmt_data_result.asid='$fsbj' ORDER BY ft2_module_subjects.subj ASC");
+					 
   while($rx = mysqli_fetch_assoc($dsql))
    { 
 	  $mch=$rx['mch'];   $rid=$rx['rid']; $sid=$rx['sid'];
